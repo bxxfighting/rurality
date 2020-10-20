@@ -48,5 +48,8 @@
 <h5>
   <a href="https://github.com/bxxfighting/rurality/blob/master/how/to/do/13.md">第十三节 跨域配置</a>
 </h5>
+<h5>
+  <a href="https://github.com/bxxfighting/rurality/blob/master/how/to/do/14.md">第十四节 创建超级管理员账号</a>
+</h5>
 </code></pre>
 </details>
