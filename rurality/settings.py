@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'account',
 ]
 
 MIDDLEWARE = [
@@ -59,12 +60,27 @@ WSGI_APPLICATION = 'rurality.wsgi.application'
 
 
 # Database
-# https://docs.djangoproject.com/en/3.1/ref/settings/#databases
+MYSQL_HOST = '127.0.0.1'
+MYSQL_PORT = 3306
+MYSQL_NAME = 'rurality'
+MYSQL_USER = 'root'
+MYSQL_PASSWORD = 'root'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'HOST': MYSQL_HOST,
+        'PORT': MYSQL_PORT,
+        'NAME': MYSQL_NAME,
+        'USER': MYSQL_USER,
+        'PASSWORD': MYSQL_PASSWORD,
+        'OPTIONS': {
+            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+        },
+        'TEST': {
+            'CHARSET': 'utf8mb4',
+            'COLLATION': 'utf8mb4_general_ci',
+        },
     }
 }
 
