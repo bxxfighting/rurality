@@ -13,3 +13,4 @@
 ##### [第五节](https://github.com/bxxfighting/rurality/blob/master/how/to/do/5.md)  
 ##### [第六节](https://github.com/bxxfighting/rurality/blob/master/how/to/do/6.md)  
 ##### [第七节](https://github.com/bxxfighting/rurality/blob/master/how/to/do/7.md)  
+##### [第八节](https://github.com/bxxfighting/rurality/blob/master/how/to/do/8.md)  
