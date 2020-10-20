@@ -121,3 +121,58 @@ class DepartmentUserModel(BaseModel):
 
     class Meta:
         db_table = 'department_user'
+
+
+class ModModel(BaseModel):
+    '''
+    模块表
+    '''
+    name = models.CharField('模块名', max_length=128)
+    sign = models.CharField('唯一标识', max_length=128)
+    rank = models.IntegerField('排序')
+
+    class Meta:
+        db_table = 'mod'
+
+
+class PermissionModel(BaseModel):
+    '''
+    权限
+    '''
+    TYP_OP = 10
+    TYP_DATA = 20
+    TYP_CHOICES = (
+        (TYP_OP, '操作权限'),
+        (TYP_DATA, '数据权限'),
+    )
+
+    mod = models.ForeignKey(ModModel, on_delete=models.CASCADE)
+    name = models.CharField('权限名', max_length=128)
+    typ = models.SmallIntegerField('类型', choices=TYP_CHOICES)
+    sign = models.CharField('唯一标识', max_length=128)
+    rank = models.IntegerField('排序')
+
+    class Meta:
+        db_table = 'permission'
+
+
+class RoleModModel(BaseModel):
+    '''
+    角色模块
+    '''
+    role = models.ForeignKey(RoleModel, on_delete=models.CASCADE)
+    mod = models.ForeignKey(ModModel, on_delete=models.CASCADE)
+
+    class Meta:
+        db_table = 'role_mod'
+
+
+class RolePermissionModel(BaseModel):
+    '''
+    角色权限
+    '''
+    role = models.ForeignKey(RoleModel, on_delete=models.CASCADE)
+    permission = models.ForeignKey(PermissionModel, on_delete=models.CASCADE)
+
+    class Meta:
+        db_table = 'role_permission'
