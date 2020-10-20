@@ -6,8 +6,9 @@
 > 阅读时，请根据指定的tag号，切换到对应代码版本查看  
 > 使用python版本: 3.8.5  
 > 这绝不是零基础教程  
-
-#### 第一章 美好生活的开启
+<details>
+<summary>第一章 美好生活的开启</summary>
+<pre><code>
 ##### [第一节 开启美好生活](https://github.com/bxxfighting/rurality/blob/master/how/to/do/1.md)  
 ##### [第二节 增加常用的工具方法](https://github.com/bxxfighting/rurality/blob/master/how/to/do/2.md)  
 ##### [第三节 增加基础错误及基础类型校验](https://github.com/bxxfighting/rurality/blob/master/how/to/do/3.md)  
@@ -21,3 +22,5 @@
 ##### [第十一节 基础操作model对象方法](https://github.com/bxxfighting/rurality/blob/master/how/to/do/11.md)  
 ##### [第十二节 配置数据库](https://github.com/bxxfighting/rurality/blob/master/how/to/do/12.md)  
 ##### [第十三节 跨域配置](https://github.com/bxxfighting/rurality/blob/master/how/to/do/13.md)  
+</code></pre>
+</details>
