@@ -26,8 +26,8 @@ class UserModel(BaseModel):
     username = models.CharField('账户', max_length=128)
     password = models.CharField('密码', max_length=256)
     name = models.CharField('姓名', max_length=128, default='')
-    email = models.CharField('邮箱', max_length=128, default='')
-    phone = models.CharField('联系方式', max_length=64, default='')
+    email = models.CharField('邮箱', max_length=128, null=True, default='')
+    phone = models.CharField('联系方式', max_length=64, null=True, default='')
     status = models.IntegerField('状态', choices=ST_CHOICES, default=ST_NORMAL)
     typ = models.SmallIntegerField('类型', choices=TYP_CHOICES, default=TYP_NORMAL)
 
