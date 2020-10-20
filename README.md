@@ -18,3 +18,4 @@
 ##### [第九节 角色与部门](https://github.com/bxxfighting/rurality/blob/master/how/to/do/9.md)  
 ##### [第十节 模块与权限](https://github.com/bxxfighting/rurality/blob/master/how/to/do/10.md)  
 ##### [第十一节 基础操作model对象方法](https://github.com/bxxfighting/rurality/blob/master/how/to/do/11.md)  
+##### [第十二节 配置数据库](https://github.com/bxxfighting/rurality/blob/master/how/to/do/12.md)  
