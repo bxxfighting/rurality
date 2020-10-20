@@ -77,6 +77,7 @@ class RoleModel(BaseModel):
 
     name = models.CharField('角色名', max_length=128)
     typ = models.IntegerField('类型', choices=TYP_CHOICES, default=TYP_NORMAL)
+    sign = models.CharField('标识', max_length=128)
 
     class Meta:
         db_table = 'role'
