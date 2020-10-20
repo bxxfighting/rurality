@@ -23,5 +23,6 @@
 <a target="_blank" href="https://github.com/bxxfighting/rurality/blob/master/how/to/do/12.md">第十二节 配置数据库</a>
 <a target="_blank" href="https://github.com/bxxfighting/rurality/blob/master/how/to/do/13.md">第十三节 跨域配置</a>
 <a target="_blank" href="https://github.com/bxxfighting/rurality/blob/master/how/to/do/14.md">第十四节 创建超级管理员账号</a>
+<a target="_blank" href="https://github.com/bxxfighting/rurality/blob/master/how/to/do/15.md">第十五节 运行服务(gunicorn)</a>
 </code></pre>
 </details>
