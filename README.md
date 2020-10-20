@@ -4,6 +4,7 @@
 #### 说在前面
 
 > 阅读时，请根据指定的tag号，切换到对应代码版本查看  
+> 使用python版本: 3.8.5  
 
 #### 第一章 美好生活的开启
 ##### [第一节 开启美好生活](https://github.com/bxxfighting/rurality/blob/master/how/to/do/1.md)  
