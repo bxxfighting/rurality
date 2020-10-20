@@ -11,7 +11,7 @@ class UserModel(BaseModel):
     '''
     TYP_NORMAL = 10
     TYP_LDAP = 20
-    ST_CHOICES = (
+    TYP_CHOICES = (
         (TYP_NORMAL, '标准用户'),
         (TYP_LDAP, 'LDAP用户'),
     )
