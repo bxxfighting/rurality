@@ -29,3 +29,10 @@
 <a target="_blank" href="https://github.com/bxxfighting/rurality/blob/master/how/to/do/16.md">第十六节 第一个接口：登录</a>
 </code></pre>
 </details>
+
+<details>
+<summary>第二章 努力的积淀</summary>
+<pre><code>
+<a target="_blank" href="https://github.com/bxxfighting/enjoy/blob/master/how/to/do/1.md">第一节 开辟新战场</a>
+</code></pre>
+</details>
