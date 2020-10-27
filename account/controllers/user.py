@@ -46,3 +46,46 @@ def create_user(username, password, name=None, phone=None, email=None, operator=
         user_obj.set_password(password)
     data = user_obj.to_dict()
     return data
+
+
+def update_user(obj_id, name=None, password=None, phone=None, email=None, operator=None):
+    '''
+    编辑用户
+    '''
+    obj = base_ctl.get_obj(UserModel, obj_id)
+    if not obj:
+        raise errors.CommonError('用户不存在')
+    if is_admin(obj):
+        raise errors.CommonError('超级管理员用户不允许编辑')
+    data = {
+        'name': name,
+        'phone': phone,
+        'email': email,
+    }
+    with transaction.atomic():
+        user_obj = base_ctl.update_obj(UserModel, obj_id, data, operator)
+        if password:
+            user_obj.set_password(password)
+    data = user_obj.to_dict()
+    return data
+
+
+def delete_user(obj_id, operator=None):
+    '''
+    删除用户
+    '''
+    obj = base_ctl.get_obj(UserModel, obj_id)
+    if is_admin(obj):
+        raise errors.CommonError('超级管理员用户不允许删除')
+
+    with transaction.atomic():
+        base_ctl.delete_obj(UserModel, obj_id, operator)
+
+
+def is_admin(user_obj):
+    '''
+    判断用户是否是超级用户
+    '''
+    if user_obj.typ == UserModel.TYP_NORMAL and user_obj.username == 'admin':
+        return True
+    return False
