@@ -36,5 +36,6 @@
 <a target="_blank" href="https://github.com/bxxfighting/enjoy/blob/master/how/to/do/1.md">第一节 开辟新战场</a>
 <a target="_blank" href="https://github.com/bxxfighting/rurality/blob/master/how/to/do/2/1.md">第二节 模块基础接口</a>
 <a target="_blank" href="https://github.com/bxxfighting/rurality/blob/master/how/to/do/2/2.md">第三节 权限基础接口</a>
+<a target="_blank" href="https://github.com/bxxfighting/rurality/blob/master/how/to/do/2/3.md">第四节 部门基础接口</a>
 </code></pre>
 </details>
