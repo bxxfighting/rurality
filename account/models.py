@@ -128,8 +128,8 @@ class ModModel(BaseModel):
     '''
     模块表
     '''
-    name = models.CharField('模块名', max_length=128)
-    sign = models.CharField('唯一标识', max_length=128)
+    name = models.CharField('模块名', max_length=32)
+    sign = models.CharField('唯一标识', max_length=32)
     rank = models.IntegerField('排序')
 
     class Meta:
