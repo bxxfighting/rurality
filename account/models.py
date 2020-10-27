@@ -98,8 +98,8 @@ class DepartmentModel(BaseModel):
     '''
     部门
     '''
-    name = models.CharField('名称', max_length=128)
-    sign = models.CharField('标识', max_length=128)
+    name = models.CharField('名称', max_length=32)
+    sign = models.CharField('标识', max_length=32)
 
     class Meta:
         db_table = 'department'
