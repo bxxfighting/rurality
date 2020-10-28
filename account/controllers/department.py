@@ -4,6 +4,7 @@ from django.db.models import Q
 from base import errors
 from base import controllers as base_ctl
 from account.models import DepartmentModel
+from account.models import DepartmentUserModel
 from utils.onlyone import onlyone
 
 
@@ -83,4 +84,64 @@ def get_department(obj_id, operator=None):
     '''
     obj = base_ctl.get_obj(DepartmentModel, obj_id)
     data = obj.to_dict()
+    return data
+
+
+@onlyone.lock(DepartmentUserModel.model_sign, 'department_id:user_id', 'department_id:user_id', 30)
+def create_department_user(department_id, user_id, typ, operator=None):
+    '''
+    创建部门关联用户
+    '''
+    query = {
+        'user_id': user_id,
+        'department_id': department_id,
+    }
+    if DepartmentUserModel.objects.filter(**query).exists():
+        raise errors.CommonError('用户已在此部门中')
+    if not DepartmentUserModel.check_choices('typ', typ):
+        raise errors.CommonError('类型值不正确')
+    data = {
+        'user_id': user_id,
+        'department_id': department_id,
+        'typ': typ,
+    }
+    obj = base_ctl.create_obj(DepartmentUserModel, data, operator)
+    data = obj.to_dict()
+    return data
+
+
+@onlyone.lock(DepartmentUserModel.model_sign, 'department_id:user_id', 'department_id:user_id', 30)
+def delete_department_user(department_id, user_id, operator=None):
+    '''
+    删除部门关联用户
+    '''
+    query = {
+        'user_id': user_id,
+        'department_id': department_id,
+    }
+    obj = DepartmentUserModel.objects.filter(**query).first()
+    if not obj:
+        raise errors.CommonError('用户未在此部门中')
+    base_ctl.delete_obj(DepartmentUserModel, obj.id, operator)
+
+
+def get_department_users(obj_id, typ=None, page_num=None, page_size=None, operator=None):
+    '''
+    获取部门用户列表
+    '''
+    base_query = DepartmentUserModel.objects.filter(department_id=obj_id)\
+            .filter(user__is_deleted=False)
+    if typ:
+        base_query = base_query.filter(typ=typ)
+    total = base_query.count()
+    objs = base_ctl.query_objs_by_page(base_query, page_num, page_size)
+    data_list = []
+    for obj in objs:
+        data = obj.to_dict()
+        data['user'] = obj.user.to_dict()
+        data_list.append(data)
+    data = {
+        'total': total,
+        'data_list': data_list,
+    }
     return data

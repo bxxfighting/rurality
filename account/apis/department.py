@@ -58,3 +58,40 @@ class DepartmentApi(BaseApi):
     def post(self, request, params):
         data = department_ctl.get_department(**params)
         return data
+
+
+class CreateDepartmentUserApi(BaseApi):
+
+    need_params = {
+        'user_id': ('用户ID', 'required int'),
+        'department_id': ('部门ID', 'required int'),
+        'typ': ('类型', 'required int'),
+    }
+    def post(self, request, params):
+        data = department_ctl.create_department_user(**params)
+        return data
+
+
+class DeleteDepartmentUserApi(BaseApi):
+
+    need_params = {
+        'user_id': ('用户ID', 'required int'),
+        'department_id': ('部门ID', 'required int'),
+    }
+    def post(self, request, params):
+        data = department_ctl.delete_department_user(**params)
+        return data
+
+
+class ListDepartmentUserApi(BaseApi):
+    NEED_PERMISSION = False
+
+    need_params = {
+        'obj_id': ('部门ID', 'required int'),
+        'typ': ('类型', 'optional str'),
+        'page_num': ('页码', 'optional int'),
+        'page_size': ('页容量', 'optional int'),
+    }
+    def post(self, request, params):
+        data = department_ctl.get_department_users(**params)
+        return data
