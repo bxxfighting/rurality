@@ -4,8 +4,11 @@ from django.db.models import Q
 from base import errors
 from base import controllers as base_ctl
 from account.models import RoleModel
+from utils.onlyone import onlyone
 
 
+@onlyone.lock(RoleModel.model_sign, 'name:sign', 'sign', 30)
+@onlyone.lock(RoleModel.model_sign, 'name', 'name', 30)
 def create_role(name, sign, operator=None):
     '''
     创建角色
@@ -25,6 +28,9 @@ def create_role(name, sign, operator=None):
     return data
 
 
+@onlyone.lock(RoleModel.model_sign, 'obj_id:name:sign', 'sign', 30)
+@onlyone.lock(RoleModel.model_sign, 'obj_id:name', 'name', 30)
+@onlyone.lock(RoleModel.model_sign, 'obj_id', 'obj_id', 30)
 def update_role(obj_id, name, sign, operator=None):
     '''
     编辑角色
@@ -50,6 +56,7 @@ def update_role(obj_id, name, sign, operator=None):
     return data
 
 
+@onlyone.lock(RoleModel.model_sign, 'obj_id', 'obj_id', 30)
 def delete_role(obj_id, operator=None):
     '''
     删除角色

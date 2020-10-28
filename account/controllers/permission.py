@@ -4,8 +4,11 @@ from django.db.models import Q
 from base import errors
 from base import controllers as base_ctl
 from account.models import PermissionModel
+from utils.onlyone import onlyone
 
 
+@onlyone.lock(PermissionModel.model_sign, 'name:sign', 'sign', 30)
+@onlyone.lock(PermissionModel.model_sign, 'name', 'name', 30)
 def create_permission(mod_id, name, sign, typ, rank, operator=None):
     '''
     创建权限
@@ -30,6 +33,9 @@ def create_permission(mod_id, name, sign, typ, rank, operator=None):
     return data
 
 
+@onlyone.lock(PermissionModel.model_sign, 'obj_id:name:sign', 'sign', 30)
+@onlyone.lock(PermissionModel.model_sign, 'obj_id:name', 'name', 30)
+@onlyone.lock(PermissionModel.model_sign, 'obj_id', 'obj_id', 30)
 def update_permission(obj_id, name, sign, typ, rank, operator=None):
     '''
     编辑权限
@@ -55,6 +61,7 @@ def update_permission(obj_id, name, sign, typ, rank, operator=None):
     return data
 
 
+@onlyone.lock(PermissionModel.model_sign, 'obj_id', 'obj_id', 30)
 def delete_permission(obj_id, operator=None):
     '''
     删除权限

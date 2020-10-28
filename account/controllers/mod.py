@@ -4,8 +4,11 @@ from django.db.models import Q
 from base import errors
 from base import controllers as base_ctl
 from account.models import ModModel
+from utils.onlyone import onlyone
 
 
+@onlyone.lock(ModModel.model_sign, 'name:sign', 'sign', 30)
+@onlyone.lock(ModModel.model_sign, 'name', 'name', 30)
 def create_mod(name, sign, rank, operator=None):
     '''
     创建模块
@@ -24,6 +27,9 @@ def create_mod(name, sign, rank, operator=None):
     return data
 
 
+@onlyone.lock(ModModel.model_sign, 'obj_id:name:sign', 'sign', 30)
+@onlyone.lock(ModModel.model_sign, 'obj_id:name', 'name', 30)
+@onlyone.lock(ModModel.model_sign, 'obj_id', 'obj_id', 30)
 def update_mod(obj_id, name, sign, rank, operator=None):
     '''
     更新模块
@@ -43,6 +49,7 @@ def update_mod(obj_id, name, sign, rank, operator=None):
     return data
 
 
+@onlyone.lock(ModModel.model_sign, 'obj_id', 'obj_id', 30)
 def delete_mod(obj_id, operator=None):
     '''
     删除模块
