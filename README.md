@@ -40,5 +40,6 @@
 <a target="_blank" href="https://github.com/bxxfighting/rurality/blob/master/how/to/do/2/4.md">第五节 角色基础接口</a>
 <a target="_blank" href="https://github.com/bxxfighting/rurality/blob/master/how/to/do/2/5.md">第六节 用户基础接口</a>
 <a target="_blank" href="https://github.com/bxxfighting/rurality/blob/master/how/to/do/2/6.md">第七节 接口并发请求锁</a>
+<a target="_blank" href="https://github.com/bxxfighting/rurality/blob/master/how/to/do/2/7.md">第八节 完善所有接口的并发处理</a>
 </code></pre>
 </details>
