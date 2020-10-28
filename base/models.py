@@ -17,6 +17,9 @@ class BaseModel(models.Model):
     '''
     基础model类
     '''
+    model_name = ''
+    model_sign = ''
+
     dt_create = models.DateTimeField('创建时间', auto_now_add=True)
     dt_update = models.DateTimeField('更新时间', auto_now=True)
     is_deleted = models.BooleanField('是否删除', default=False)

@@ -4,6 +4,7 @@ from django.db.models import Q
 from base import errors
 from base import controllers as base_ctl
 from account.models import UserModel
+from utils.onlyone import onlyone
 
 
 def login(username, password, is_ldap=False):
@@ -26,6 +27,7 @@ def login(username, password, is_ldap=False):
     return data
 
 
+@onlyone.lock(UserModel.model_sign, 'username', 'username', 30)
 def create_user(username, password, name=None, phone=None, email=None, operator=None):
     '''
     创建用户
@@ -48,6 +50,7 @@ def create_user(username, password, name=None, phone=None, email=None, operator=
     return data
 
 
+@onlyone.lock(UserModel.model_sign, 'obj_id', 'obj_id', 30)
 def update_user(obj_id, name=None, password=None, phone=None, email=None, operator=None):
     '''
     编辑用户
@@ -70,6 +73,7 @@ def update_user(obj_id, name=None, password=None, phone=None, email=None, operat
     return data
 
 
+@onlyone.lock(UserModel.model_sign, 'obj_id', 'obj_id', 30)
 def delete_user(obj_id, operator=None):
     '''
     删除用户
