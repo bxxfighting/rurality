@@ -15,7 +15,7 @@ class LoginApi(BaseApi):
         return data
 
 
-class UserApi(JsonApi):
+class UserApi(BaseApi):
     NEED_PERMISSION = False
 
     need_params = {
@@ -27,7 +27,7 @@ class UserApi(JsonApi):
         return data
 
 
-class CreateUserApi(JsonApi):
+class CreateUserApi(BaseApi):
 
     need_params = {
         'username': ('用户名', 'required str 32'),
@@ -41,7 +41,7 @@ class CreateUserApi(JsonApi):
         return data
 
 
-class UpdateUserApi(JsonApi):
+class UpdateUserApi(BaseApi):
 
     need_params = {
         'obj_id': ('用户ID', 'required int'),
@@ -55,11 +55,24 @@ class UpdateUserApi(JsonApi):
         return data
 
 
-class DeleteUserApi(JsonApi):
+class DeleteUserApi(BaseApi):
 
     need_params = {
         'obj_id': ('用户ID', 'required int'),
     }
     def post(self, request, params):
         data = user_ctl.delete_user(**params)
+        return data
+
+
+class ListUserApi(BaseApi):
+    NEED_PERMISSION = False
+
+    need_params = {
+        'keyword': ('关键词', 'optional str 16'),
+        'page_num': ('页码', 'optional int'),
+        'page_size': ('页容量', 'optional int'),
+    }
+    def post(self, request, params):
+        data = user_ctl.get_users(**params)
         return data

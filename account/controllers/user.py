@@ -89,3 +89,21 @@ def is_admin(user_obj):
     if user_obj.typ == UserModel.TYP_NORMAL and user_obj.username == 'admin':
         return True
     return False
+
+
+def get_users(keyword=None, page_num=None, page_size=None, operator=None):
+    '''
+    获取用户列表
+    '''
+    base_query = UserModel.objects
+    if keyword:
+        base_query = base_query.filter(Q(username__icontains=keyword)|
+                                       Q(name__icontains=keyword))
+    total = base_query.count()
+    objs = base_ctl.query_objs_by_page(base_query, page_num, page_size)
+    data_list = [obj.to_dict() for obj in objs]
+    data = {
+        'total': total,
+        'data_list': data_list,
+    }
+    return data
