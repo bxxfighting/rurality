@@ -8,6 +8,8 @@
 > 使用python版本: 3.8.5  
 > 这绝不是零基础教程  
 
+> 友情提示: 最好使用右击新标签页打开以下链接  
+
 <details>
 <summary>第一章 美好生活的开启</summary>
 <pre><code>
