@@ -4,6 +4,7 @@ from django.db.models import Q
 from base import errors
 from base import controllers as base_ctl
 from account.models import UserModel
+from account.controllers import role as role_ctl
 from utils.onlyone import onlyone
 
 
@@ -109,5 +110,31 @@ def get_users(keyword=None, page_num=None, page_size=None, operator=None):
     data = {
         'total': total,
         'data_list': data_list,
+    }
+    return data
+
+
+def get_user(obj_id, operator=None):
+    '''
+    获取用户信息
+    '''
+    obj = base_ctl.get_obj(UserModel, obj_id)
+    data = obj.to_dict()
+    return data
+
+
+def get_user_info(obj_id, operator=None):
+    '''
+    获取用户详情信息
+    '''
+    user_data = get_user(obj_id)
+    mod_objs = role_ctl.get_mods_by_user_id(obj_id)
+    mod_data = [obj.to_dict() for obj in mod_objs]
+    permission_objs = role_ctl.get_permissions_by_user_id(obj_id)
+    permission_data = [obj.to_dict() for obj in permission_objs]
+    data = {
+        'user': user_data,
+        'mods': mod_data,
+        'permissions': permission_data,
     }
     return data

@@ -15,6 +15,15 @@ class LoginApi(BaseApi):
         return data
 
 
+class LogoutApi(BaseApi):
+
+    need_params = {
+    }
+    def post(self, request, params):
+        # TODO: 如果token写入了redis，可以在这里清除
+        pass
+
+
 class UserApi(BaseApi):
     NEED_PERMISSION = False
 
@@ -75,4 +84,15 @@ class ListUserApi(BaseApi):
     }
     def post(self, request, params):
         data = user_ctl.get_users(**params)
+        return data
+
+
+class CurrentUserApi(BaseApi):
+    NEED_PERMISSION = False
+
+    need_params = {
+    }
+    def post(self, request, params):
+        params['obj_id'] = request.user_id
+        data = user_ctl.get_user_info(**params)
         return data

@@ -4,6 +4,8 @@ from django.db.models import Q
 from base import errors
 from base import controllers as base_ctl
 from account.models import RoleModel
+from account.models import ModModel
+from account.models import PermissionModel
 from account.models import RoleUserModel
 from account.models import RoleModModel
 from account.models import RolePermissionModel
@@ -262,3 +264,32 @@ def get_role_permissions(obj_id, page_num=None, page_size=None, operator=None):
         'data_list': data_list,
     }
     return data
+
+
+def get_roles_by_user_id(user_id, operator=None):
+    '''
+    根据user_id获取角色列表
+    '''
+    role_ids = RoleUserModel.objects.filter(user_id=user_id)\
+            .values_list('role_id', flat=True).all()
+    return list(set(role_ids))
+
+
+def get_mods_by_user_id(user_id, operator=None):
+    '''
+    根据user_id获取模块列表
+    '''
+    role_ids = get_roles_by_user_id(user_id)
+    mod_ids = RoleModModel.objects.filter(role_id__in=role_ids).all()
+    mods = ModModel.objects.filter(id__in=mod_ids).all()
+    return mods
+
+
+def get_permissions_by_user_id(user_id, operator=None):
+    '''
+    根据user_id获取权限列表
+    '''
+    role_ids = get_roles_by_user_id(user_id)
+    permission_ids = RolePermissionModel.objects.filter(role_id__in=role_ids).all()
+    permissions = PermissionModel.objects.filter(id__in=permission_ids).all()
+    return permissions
