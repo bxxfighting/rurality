@@ -38,13 +38,13 @@ def update_mod(obj_id, name, sign, rank, operator=None):
         raise errors.CommonError('名称已存在')
     if ModModel.objects.filter(sign=sign).exclude(id=obj_id).exists():
         raise errors.CommonError('标识已存在')
-    obj = base_ctl.get_obj(ModModel, mod_id)
+    obj = base_ctl.get_obj(ModModel, obj_id)
     data = {
         'name': name,
         'sign': sign,
         'rank': rank,
     }
-    obj = base_ctl.update_obj(ModModel, mod_id, data, operator)
+    obj = base_ctl.update_obj(ModModel, obj_id, data, operator)
     data = obj.to_dict()
     return data
 
