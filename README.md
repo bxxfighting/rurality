@@ -51,5 +51,6 @@
 <summary>第三章 画画的北北</summary>
 <pre><code>
 <a target="_blank" href="https://github.com/bxxfighting/rurality/blob/master/how/to/do/3/1.md">第一节 前后开工</a>
+<a target="_blank" href="https://github.com/bxxfighting/rurality/blob/master/how/to/do/3/2.md">第二节 写一个mod模块玩玩</a>
 </code></pre>
 </details>
