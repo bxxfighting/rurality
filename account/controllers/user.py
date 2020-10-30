@@ -128,13 +128,31 @@ def get_user_info(obj_id, operator=None):
     获取用户详情信息
     '''
     user_data = get_user(obj_id)
-    mod_objs = role_ctl.get_mods_by_user_id(obj_id)
-    mod_data = [obj.to_dict() for obj in mod_objs]
-    permission_objs = role_ctl.get_permissions_by_user_id(obj_id)
-    permission_data = [obj.to_dict() for obj in permission_objs]
+    if user_data.get('username') == 'admin':
+        mods = ['mod']
+        permissions = ['admin']
+    else:
+        mod_objs = role_ctl.get_mods_by_user_id(obj_id)
+        mods = [obj.sign for obj in mod_objs]
+        permission_objs = role_ctl.get_permissions_by_user_id(obj_id)
+        permissions = [obj.sign for obj in permission_objs]
     data = {
         'user': user_data,
-        'mods': mod_data,
-        'permissions': permission_data,
+        'mods': mods,
+        'permissions': permissions,
     }
     return data
+
+
+def has_permission(user_id, permission):
+    '''
+    判断用户是否有权限
+    '''
+    obj = base_ctl.get_obj(UserModel, user_id)
+    if obj.username == 'admin':
+        return True
+    permission_objs = role_ctl.get_permissions_by_user_id(user_id)
+    permissions = [obj.sign for obj in permission_objs]
+    if permission in permissions:
+        return True
+    return False
