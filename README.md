@@ -50,6 +50,6 @@
 <details>
 <summary>第三章 画画的北北</summary>
 <pre><code>
-美好日子从等待开始
+<a target="_blank" href="https://github.com/bxxfighting/rurality/blob/master/how/to/do/3/1.md">第一节 前后开工</a>
 </code></pre>
 </details>
