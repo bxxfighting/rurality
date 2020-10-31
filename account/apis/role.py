@@ -6,7 +6,7 @@ class CreateRoleApi(BaseApi):
 
     need_params = {
         'name': ('名称', 'required str 16'),
-        'sign': ('标识', 'required str 16'),
+        'sign': ('标识', 'required str 32'),
     }
     def post(self, request, params):
         data = role_ctl.create_role(**params)
@@ -18,7 +18,7 @@ class UpdateRoleApi(BaseApi):
     need_params = {
         'obj_id': ('角色ID', 'required int'),
         'name': ('名称', 'required str 16'),
-        'sign': ('标识', 'required str 16'),
+        'sign': ('标识', 'required str 32'),
     }
     def post(self, request, params):
         data = role_ctl.update_role(**params)
@@ -39,7 +39,7 @@ class ListRoleApi(BaseApi):
     NEED_PERMISSION = False
 
     need_params = {
-        'keyword': ('关键词', 'optional str 16'),
+        'keyword': ('关键词', 'optional str 32'),
         'page_num': ('页码', 'optional int'),
         'page_size': ('页容量', 'optional int'),
     }

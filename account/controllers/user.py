@@ -104,6 +104,8 @@ def get_users(keyword=None, page_num=None, page_size=None, operator=None):
     if keyword:
         base_query = base_query.filter(Q(username__icontains=keyword)|
                                        Q(name__icontains=keyword))
+    # 排除超级管理员用户
+    base_query = base_query.exclude(username='admin')
     total = base_query.count()
     objs = base_ctl.query_objs_by_page(base_query, page_num, page_size)
     data_list = [obj.to_dict() for obj in objs]
@@ -129,7 +131,7 @@ def get_user_info(obj_id, operator=None):
     '''
     user_data = get_user(obj_id)
     if user_data.get('username') == 'admin':
-        mods = ['mod']
+        mods = ['mod', 'department', 'role', 'user']
         permissions = ['admin']
     else:
         mod_objs = role_ctl.get_mods_by_user_id(obj_id)

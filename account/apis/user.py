@@ -43,7 +43,7 @@ class CreateUserApi(BaseApi):
         'password': ('密码', 'optional str 32'),
         'name': ('姓名', 'required str 32'),
         'phone': ('手机号', 'optional str 32'),
-        'email': ('邮箱', 'required str 128'),
+        'email': ('邮箱', 'optional str 128'),
     }
     def post(self, request, params):
         data = user_ctl.create_user(**params)
@@ -57,7 +57,7 @@ class UpdateUserApi(BaseApi):
         'password': ('密码', 'optional str 32'),
         'name': ('姓名', 'required str 32'),
         'phone': ('手机号', 'optional str 32'),
-        'email': ('邮箱', 'required str 128'),
+        'email': ('邮箱', 'optional str 128'),
     }
     def post(self, request, params):
         data = user_ctl.update_user(**params)

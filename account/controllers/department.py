@@ -68,9 +68,6 @@ def get_departments(keyword=None, page_num=None, page_size=None, operator=None):
     total = base_query.count()
     objs = base_ctl.query_objs_by_page(base_query, page_num, page_size)
     data_list = [obj.to_dict() for obj in objs]
-    for obj in objs:
-        data = obj.to_dict()
-        data_list.append(data)
     data = {
         'total': total,
         'data_list': data_list,
