@@ -52,5 +52,6 @@
 <pre><code>
 <a target="_blank" href="https://github.com/bxxfighting/rurality/blob/master/how/to/do/3/1.md">第一节 前后开工</a>
 <a target="_blank" href="https://github.com/bxxfighting/rurality/blob/master/how/to/do/3/2.md">第二节 写一个mod模块玩玩</a>
+<a target="_blank" href="https://github.com/bxxfighting/rurality/blob/master/how/to/do/3/3.md">第三节 是时候展示复制粘贴的魅力了</a>
 </code></pre>
 </details>
