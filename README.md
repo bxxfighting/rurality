@@ -9,6 +9,9 @@
 > 使用python版本: 3.8.5  
 > 这绝不是零基础教程  
 
+[后端代码库](https://github.com/bxxfighting/rurality)  
+[前端代码库](https://github.com/bxxfighting/enjoy)  
+
 > 友情提示: 最好使用右击新标签页打开以下链接  
 
 <details>
