@@ -138,7 +138,7 @@ def get_role_users(obj_id, page_num=None, page_size=None, operator=None):
     获取角色用户列表
     '''
     base_query = RoleUserModel.objects.filter(role_id=obj_id)\
-            .filter(user__is_deleted=False)
+            .filter(user__is_deleted=False).select_related('user')
     total = base_query.count()
     objs = base_ctl.query_objs_by_page(base_query, page_num, page_size)
     data_list = []
@@ -191,7 +191,7 @@ def get_role_mods(obj_id, page_num=None, page_size=None, operator=None):
     获取角色模块列表
     '''
     base_query = RoleModModel.objects.filter(role_id=obj_id)\
-            .filter(user__is_deleted=False)
+            .filter(user__is_deleted=False).select_related('mod')
     total = base_query.count()
     objs = base_ctl.query_objs_by_page(base_query, page_num, page_size)
     data_list = []
@@ -251,7 +251,7 @@ def get_role_permissions(obj_id, page_num=None, page_size=None, operator=None):
     获取角色权限列表
     '''
     base_query = RolePermissionModel.objects.filter(role_id=obj_id)\
-            .filter(user__is_deleted=False)
+            .filter(user__is_deleted=False).select_related('permission')
     total = base_query.count()
     objs = base_ctl.query_objs_by_page(base_query, page_num, page_size)
     data_list = []
@@ -266,7 +266,16 @@ def get_role_permissions(obj_id, page_num=None, page_size=None, operator=None):
     return data
 
 
-def get_roles_by_user_id(user_id, operator=None):
+def get_roles_by_ids(obj_ids, operator=None):
+    '''
+    根据角色ID列表获取角色列表
+    '''
+    objs = RoleModel.objects.filter(id__in=obj_ids).all()
+    data_list = [obj.to_dict() for obj in objs]
+    return data_list
+
+
+def get_role_ids_by_user_id(user_id, operator=None):
     '''
     根据user_id获取角色列表
     '''
@@ -279,7 +288,7 @@ def get_mods_by_user_id(user_id, operator=None):
     '''
     根据user_id获取模块列表
     '''
-    role_ids = get_roles_by_user_id(user_id)
+    role_ids = get_role_ids_by_user_id(user_id)
     mod_ids = RoleModModel.objects.filter(role_id__in=role_ids).all()
     mods = ModModel.objects.filter(id__in=mod_ids).all()
     return mods
@@ -289,7 +298,7 @@ def get_permissions_by_user_id(user_id, operator=None):
     '''
     根据user_id获取权限列表
     '''
-    role_ids = get_roles_by_user_id(user_id)
+    role_ids = get_role_ids_by_user_id(user_id)
     permission_ids = RolePermissionModel.objects.filter(role_id__in=role_ids).all()
     permissions = PermissionModel.objects.filter(id__in=permission_ids).all()
     return permissions

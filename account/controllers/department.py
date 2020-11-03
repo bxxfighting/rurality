@@ -108,6 +108,28 @@ def create_department_user(department_id, user_id, typ, operator=None):
 
 
 @onlyone.lock(DepartmentUserModel.model_sign, 'department_id:user_id', 'department_id:user_id', 30)
+def update_department_user(department_id, user_id, typ, operator=None):
+    '''
+    编辑部门关联用户
+    '''
+    query = {
+        'user_id': user_id,
+        'department_id': department_id,
+    }
+    obj = DepartmentUserModel.objects.filter(**query).first()
+    if not obj:
+        raise errors.CommonError('用户未在此部门')
+    if not DepartmentUserModel.check_choices('typ', typ):
+        raise errors.CommonError('类型值不正确')
+    data = {
+        'typ': typ,
+    }
+    obj = base_ctl.update_obj(DepartmentUserModel, obj.id, data, operator)
+    data = obj.to_dict()
+    return data
+
+
+@onlyone.lock(DepartmentUserModel.model_sign, 'department_id:user_id', 'department_id:user_id', 30)
 def delete_department_user(department_id, user_id, operator=None):
     '''
     删除部门关联用户
@@ -127,7 +149,7 @@ def get_department_users(obj_id, typ=None, page_num=None, page_size=None, operat
     获取部门用户列表
     '''
     base_query = DepartmentUserModel.objects.filter(department_id=obj_id)\
-            .filter(user__is_deleted=False)
+            .filter(user__is_deleted=False).select_related('user')
     if typ:
         base_query = base_query.filter(typ=typ)
     total = base_query.count()
@@ -142,3 +164,21 @@ def get_department_users(obj_id, typ=None, page_num=None, page_size=None, operat
         'data_list': data_list,
     }
     return data
+
+
+def get_department_ids_by_user_id(user_id, operator=None):
+    '''
+    获取用户关联的部门ID列表
+    '''
+    ids = DepartmentUserModel.objects.filter(user_id=user_id)\
+            .values_list('department_id', flat=True).all()
+    return list(set(ids))
+
+
+def get_departments_by_ids(obj_ids, operator=None):
+    '''
+    根据部门ID列表获取部门列表
+    '''
+    objs = DepartmentModel.objects.filter(id__in=obj_ids).all()
+    data_list = [obj.to_dict() for obj in objs]
+    return data_list

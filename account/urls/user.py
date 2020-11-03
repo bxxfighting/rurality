@@ -12,4 +12,6 @@ urlpatterns = [
     path('user/create/', user_api.CreateUserApi.as_view()),
     path('user/update/', user_api.UpdateUserApi.as_view()),
     path('user/delete/', user_api.DeleteUserApi.as_view()),
+    path('user/role/list/', user_api.ListUserRoleApi.as_view()),
+    path('user/department/list/', user_api.ListUserDepartmentApi.as_view()),
 ]

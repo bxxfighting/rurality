@@ -4,6 +4,8 @@ from django.db.models import Q
 from base import errors
 from base import controllers as base_ctl
 from account.models import UserModel
+from account.models import RoleUserModel
+from account.models import DepartmentUserModel
 from account.controllers import role as role_ctl
 from utils.onlyone import onlyone
 
@@ -158,3 +160,37 @@ def has_permission(user_id, permission):
     if permission in permissions:
         return True
     return False
+
+
+def get_roles_by_user_id(obj_id, operator=None):
+    '''
+    获取用户关联角色列表
+    '''
+    objs = RoleUserModel.objects.filter(user_id=obj_id).select_related('role').all()
+    data_list = []
+    for obj in objs:
+        data = obj.to_dict()
+        data['role'] = obj.role.to_dict()
+        data_list.append(data)
+    data = {
+        'total': len(data_list),
+        'data_list': data_list,
+    }
+    return data
+
+
+def get_departments_by_user_id(obj_id, operator=None):
+    '''
+    获取用户关联部门列表
+    '''
+    objs = DepartmentUserModel.objects.filter(user_id=obj_id).select_related('department').all()
+    data_list = []
+    for obj in objs:
+        data = obj.to_dict()
+        data['department'] = obj.department.to_dict()
+        data_list.append(data)
+    data = {
+        'total': len(data_list),
+        'data_list': data_list,
+    }
+    return data

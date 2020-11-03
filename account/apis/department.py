@@ -72,6 +72,18 @@ class CreateDepartmentUserApi(BaseApi):
         return data
 
 
+class UpdateDepartmentUserApi(BaseApi):
+
+    need_params = {
+        'user_id': ('用户ID', 'required int'),
+        'department_id': ('部门ID', 'required int'),
+        'typ': ('类型', 'required int'),
+    }
+    def post(self, request, params):
+        data = department_ctl.update_department_user(**params)
+        return data
+
+
 class DeleteDepartmentUserApi(BaseApi):
 
     need_params = {
