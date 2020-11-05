@@ -6,8 +6,8 @@ class CreatePermissionApi(BaseApi):
 
     need_params = {
         'mod_id': ('模块ID', 'required int'),
-        'name': ('名称', 'required str 6'),
-        'sign': ('标识', 'required str 32'),
+        'name': ('名称', 'required str 32'),
+        'sign': ('标识', 'required str 128'),
         'typ': ('类型', 'required int'),
         'rank': ('排序值', 'required int'),
     }
@@ -20,8 +20,8 @@ class UpdatePermissionApi(BaseApi):
 
     need_params = {
         'obj_id': ('权限ID', 'required int'),
-        'name': ('名称', 'required str 6'),
-        'sign': ('标识', 'required str 32'),
+        'name': ('名称', 'required str 32'),
+        'sign': ('标识', 'required str 128'),
         'typ': ('类型', 'required int'),
         'rank': ('排序值', 'required int'),
     }
