@@ -195,6 +195,13 @@ def delete_role_mod(role_id, mod_id, operator=None):
         raise errors.CommonError('角色未关联此模块')
     with transaction.atomic():
         base_ctl.delete_obj(RoleModModel, obj.id, operator)
+        query = {
+            'role_id': role_id,
+            'permission__mod_id': mod_id,
+        }
+        batch_ids = RolePermissionModel.objects.filter(**query).values_list('id', flat=True).all()
+        if batch_ids:
+            base_ctl.delete_objs(RolePermissionModel, list(set(batch_ids)))
 
 
 def get_role_mods(obj_id, page_num=None, page_size=None, operator=None):

@@ -4,6 +4,8 @@ from django.db.models import Q
 from base import errors
 from base import controllers as base_ctl
 from account.models import ModModel
+from account.models import PermissionModel
+from account.controllers import permission as permission_ctl
 from utils.onlyone import onlyone
 
 
@@ -57,7 +59,7 @@ def delete_mod(obj_id, operator=None):
     base_ctl.delete_obj(ModModel, obj_id, operator)
 
 
-def get_mods(keyword=None, page_num=None, page_size=None, operator=None):
+def get_mods(keyword=None, need_permission=False, page_num=None, page_size=None, operator=None):
     '''
     获取模块列表
     '''
@@ -71,6 +73,8 @@ def get_mods(keyword=None, page_num=None, page_size=None, operator=None):
     data_list = []
     for obj in objs:
         data = obj.to_dict()
+        data['op_permissions'] = permission_ctl.get_permissions(obj.id, PermissionModel.TYP_OP).get('data_list')
+        data['data_permissions'] = permission_ctl.get_permissions(obj.id, PermissionModel.TYP_DATA).get('data_list')
         data_list.append(data)
     data = {
         'total': total,

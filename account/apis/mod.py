@@ -42,6 +42,7 @@ class ListModApi(BaseApi):
 
     need_params = {
         'keyword': ('关键词', 'optional str 16'),
+        'need_permission': ('是否返回权限', 'optional bool'),
         'page_num': ('页码', 'optional int'),
         'page_size': ('页容量', 'optional int'),
     }

@@ -96,10 +96,14 @@ class ListRoleUserApi(BaseApi):
 
 
 class SetRoleModApi(BaseApi):
+    '''
+    status: create/delete，代表创建或删除
+    '''
 
     need_params = {
         'obj_id': ('角色ID', 'required int'),
         'mod_id': ('模块ID', 'required int'),
+        'status': ('状态', 'required str'),
     }
     def post(self, request, params):
         data = role_ctl.set_role_mod(**params)
@@ -120,10 +124,14 @@ class ListRoleModApi(BaseApi):
 
 
 class SetRolePermissionApi(BaseApi):
+    '''
+    status: create/delete，代表创建或删除
+    '''
 
     need_params = {
         'obj_id': ('角色ID', 'required int'),
         'permission_id': ('权限ID', 'required int'),
+        'status': ('状态', 'required str'),
     }
     def post(self, request, params):
         data = role_ctl.set_role_permission(**params)

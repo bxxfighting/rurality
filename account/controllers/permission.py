@@ -81,6 +81,7 @@ def get_permissions(mod_id=None, typ=None, keyword=None, page_num=None, page_siz
     if keyword:
         base_query = base_query.filter(Q(name__icontains=keyword)|
                                        Q(sign__icontains=keyword))
+    base_query = base_query.order_by('-rank', 'id')
     total = base_query.count()
     objs = base_ctl.query_objs_by_page(base_query, page_num, page_size)
     data_list = [obj.to_dict() for obj in objs]
