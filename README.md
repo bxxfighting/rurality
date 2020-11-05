@@ -13,6 +13,9 @@
 [后端代码库](https://github.com/bxxfighting/rurality)  
 [前端代码库](https://github.com/bxxfighting/enjoy)  
 
+> [体验地址](http://39.105.71.60)  
+> 暂时因为域名未备案，所以先使用IP.  
+
 > 友情提示: 最好使用右击新标签页打开以下链接  
 
 <details>
