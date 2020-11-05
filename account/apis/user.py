@@ -16,6 +16,7 @@ class LoginApi(BaseApi):
 
 
 class LogoutApi(BaseApi):
+    NEED_PERMISSION = False
 
     need_params = {
     }
