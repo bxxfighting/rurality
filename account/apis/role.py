@@ -95,25 +95,14 @@ class ListRoleUserApi(BaseApi):
         return data
 
 
-class CreateRoleModApi(BaseApi):
+class SetRoleModApi(BaseApi):
 
     need_params = {
+        'obj_id': ('角色ID', 'required int'),
         'mod_id': ('模块ID', 'required int'),
-        'role_id': ('角色ID', 'required int'),
     }
     def post(self, request, params):
-        data = role_ctl.create_role_mod(**params)
-        return data
-
-
-class DeleteRoleModApi(BaseApi):
-
-    need_params = {
-        'mod_id': ('模块ID', 'required int'),
-        'role_id': ('角色ID', 'required int'),
-    }
-    def post(self, request, params):
-        data = role_ctl.delete_role_mod(**params)
+        data = role_ctl.set_role_mod(**params)
         return data
 
 
@@ -130,25 +119,14 @@ class ListRoleModApi(BaseApi):
         return data
 
 
-class CreateRolePermissionApi(BaseApi):
+class SetRolePermissionApi(BaseApi):
 
     need_params = {
+        'obj_id': ('角色ID', 'required int'),
         'permission_id': ('权限ID', 'required int'),
-        'role_id': ('角色ID', 'required int'),
     }
     def post(self, request, params):
-        data = role_ctl.create_role_permission(**params)
-        return data
-
-
-class DeleteRolePermissionApi(BaseApi):
-
-    need_params = {
-        'permission_id': ('权限ID', 'required int'),
-        'role_id': ('角色ID', 'required int'),
-    }
-    def post(self, request, params):
-        data = role_ctl.delete_role_permission(**params)
+        data = role_ctl.set_role_permission(**params)
         return data
 
 
@@ -162,4 +140,16 @@ class ListRolePermissionApi(BaseApi):
     }
     def post(self, request, params):
         data = role_ctl.get_role_permissions(**params)
+        return data
+
+
+class RoleModPermissionApi(BaseApi):
+    NEED_PERMISSION = False
+
+    need_params = {
+        'obj_id': ('角色ID', 'required int'),
+    }
+
+    def post(self, request, params):
+        data = role_ctl.get_role_mod_permission(**params)
         return data
