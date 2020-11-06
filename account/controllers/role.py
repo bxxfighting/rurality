@@ -333,7 +333,7 @@ def get_mods_by_user_id(user_id, operator=None):
     根据user_id获取模块列表
     '''
     role_ids = get_role_ids_by_user_id(user_id)
-    mod_ids = RoleModModel.objects.filter(role_id__in=role_ids).all()
+    mod_ids = RoleModModel.objects.filter(role_id__in=role_ids).values_list('mod_id', flat=True).all()
     mods = ModModel.objects.filter(id__in=mod_ids).all()
     return mods
 
