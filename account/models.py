@@ -168,7 +168,7 @@ class PermissionModel(BaseModel):
         (TYP_DATA, '数据权限'),
     )
 
-    mod = models.ForeignKey(ModModel, on_delete=models.CASCADE)
+    mod = models.ForeignKey(ModModel, on_delete=models.CASCADE, null=True)
     name = models.CharField('权限名', max_length=128)
     typ = models.SmallIntegerField('类型', choices=TYP_CHOICES)
     sign = models.CharField('唯一标识', max_length=128)
