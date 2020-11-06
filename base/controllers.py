@@ -58,7 +58,7 @@ def update_obj(obj_model, obj_id, data, operator=None):
     '''
     更新对象
     '''
-    obj = obj_model.objects.filter(id=obj_id).first()
+    obj = get_obj(obj_model, obj_id)
     change_list = []
     for key, value in data.items():
         new_value = value
