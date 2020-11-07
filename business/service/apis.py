@@ -20,6 +20,7 @@ class UpdateServiceApi(BaseApi):
     need_params = {
         'obj_id': ('服务ID', 'required int'),
         'name': ('名称', 'required str 128'),
+        'sign': ('标识', 'required str 128'),
         'project_id': ('项目ID', 'required int'),
         'remark': ('备注', 'optional str 1024'),
     }
