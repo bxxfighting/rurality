@@ -118,6 +118,27 @@ def delete_project_department(obj_id, department_id, operator=None):
     base_ctl.delete_obj(DepartmentProjectModel, obj.id, operator)
 
 
+def get_project_departments(obj_id, page_num=None, page_size=None, operator=None):
+    '''
+    获取项目关联部门列表
+    '''
+    base_query = DepartmentProjectModel.objects.filter(project_id=obj_id)\
+            .filter(department__is_deleted=False).select_related('department')
+    total = base_query.count()
+    objs = base_ctl.query_objs_by_page(base_query, page_num, page_size)
+    data_list = []
+    for obj in objs:
+        data = obj.to_dict()
+        data['department'] = obj.department.to_dict()
+        data_list.append(data)
+    data = {
+        'total': total,
+        'data_list': data_list,
+    }
+    return data
+
+
+
 @onlyone.lock(ProjectUserModel.model_sign, 'obj_id:user_id', 'obj_id:user_id', 30)
 def create_project_user(obj_id, user_id, typ, operator=None):
     '''

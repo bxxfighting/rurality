@@ -69,9 +69,14 @@ def get_services(keyword=None, project_id=None, page_num=None, page_size=None, o
                                        Q(sign__icontains=keyword))
     if project_id:
         base_query = base_query.filter(project_id=project_id)
+    base_query = base_query.select_related('project')
     total = base_query.count()
     objs = base_ctl.query_objs_by_page(base_query, page_num, page_size)
-    data_list = [obj.to_dict() for obj in objs]
+    data_list = []
+    for obj in objs:
+        data = obj.to_dict()
+        data['project'] = obj.project.to_dict()
+        data_list.append(data)
     data = {
         'total': total,
         'data_list': data_list,
@@ -85,6 +90,7 @@ def get_service(obj_id, operator=None):
     '''
     obj = base_ctl.get_obj(ServiceModel, obj_id)
     data = obj.to_dict()
+    data['project'] = obj.project.to_dict()
     return data
 
 
