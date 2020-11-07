@@ -6,6 +6,7 @@ from base import controllers as base_ctl
 from business.project.models import ProjectModel
 from business.project.models import DepartmentProjectModel
 from business.project.models import ProjectUserModel
+from business.service import controllers as service_ctl
 from utils.onlyone import onlyone
 
 
@@ -196,4 +197,18 @@ def get_project_users(obj_id, typ=None, page_num=None, page_size=None, operator=
         'total': total,
         'data_list': data_list,
     }
+    return data
+
+
+def get_project_services(obj_id, keyword=None, page_num=None, page_size=None, operator=None):
+    '''
+    获取项目服务列表
+    '''
+    query = {
+        'keyword': keyword,
+        'project_id': obj_id,
+        'page_num': page_num,
+        'page_size': page_size,
+    }
+    data = service_ctl.get_services(**query)
     return data

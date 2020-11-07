@@ -59,7 +59,7 @@ def delete_service(obj_id, operator=None):
     base_ctl.delete_obj(ServiceModel, obj_id, operator)
 
 
-def get_services(keyword=None, page_num=None, page_size=None, operator=None):
+def get_services(keyword=None, project_id=None, page_num=None, page_size=None, operator=None):
     '''
     获取服务列表
     '''
@@ -67,6 +67,8 @@ def get_services(keyword=None, page_num=None, page_size=None, operator=None):
     if keyword:
         base_query = base_query.filter(Q(name__icontains=keyword)|
                                        Q(sign__icontains=keyword))
+    if project_id:
+        base_query = base_query.filter(project_id=project_id)
     total = base_query.count()
     objs = base_ctl.query_objs_by_page(base_query, page_num, page_size)
     data_list = [obj.to_dict() for obj in objs]

@@ -131,3 +131,17 @@ class ListProjectUserApi(BaseApi):
     def post(self, request, params):
         data = project_ctl.get_project_users(**params)
         return data
+
+
+class ListProjectServiceApi(BaseApi):
+    NEED_PERMISSION = False
+
+    need_params = {
+        'obj_id': ('项目ID', 'required int'),
+        'keyword': ('关键词', 'optional str'),
+        'page_num': ('页码', 'optional int'),
+        'page_size': ('页容量', 'optional int'),
+    }
+    def post(self, request, params):
+        data = project_ctl.get_project_services(**params)
+        return data
