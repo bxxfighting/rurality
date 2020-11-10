@@ -1,6 +1,5 @@
 from django.db import models
 from base.models import BaseModel
-from account.models import DepartmentModel
 from account.models import UserModel
 
 
@@ -12,25 +11,10 @@ class ProjectModel(BaseModel):
     model_sign = 'project'
 
     name = models.CharField('名称', max_length=128)
-    sign = models.CharField('标识', max_length=128)
     remark = models.TextField('备注', null=True)
 
     class Meta:
         db_table = 'project'
-
-
-class DepartmentProjectModel(BaseModel):
-    '''
-    部门关联项目
-    '''
-    model_name = '部门项目'
-    model_sign = 'department_project'
-
-    department = models.ForeignKey(DepartmentModel, on_delete=models.CASCADE)
-    project = models.ForeignKey(ProjectModel, on_delete=models.CASCADE)
-
-    class Meta:
-        db_table = 'department_project'
 
 
 class ProjectUserModel(BaseModel):

@@ -4,25 +4,20 @@ from django.db.models import Q
 from base import errors
 from base import controllers as base_ctl
 from business.project.models import ProjectModel
-from business.project.models import DepartmentProjectModel
 from business.project.models import ProjectUserModel
 from business.service import controllers as service_ctl
 from utils.onlyone import onlyone
 
 
-@onlyone.lock(ProjectModel.model_sign, 'name:sign', 'sign', 30)
 @onlyone.lock(ProjectModel.model_sign, 'name', 'name', 30)
-def create_project(name, sign, remark=None, operator=None):
+def create_project(name, remark=None, operator=None):
     '''
     创建项目
     '''
     if ProjectModel.objects.filter(name=name).exists():
         raise errors.CommonError('项目名称已存在')
-    if ProjectModel.objects.filter(sign=sign).exists():
-        raise errors.CommonError('项目标识已存在')
     data = {
         'name': name,
-        'sign': sign,
         'remark': remark,
     }
     obj = base_ctl.create_obj(ProjectModel, data, operator)
@@ -30,20 +25,16 @@ def create_project(name, sign, remark=None, operator=None):
     return data
 
 
-@onlyone.lock(ProjectModel.model_sign, 'obj_id:name:sign', 'sign', 30)
 @onlyone.lock(ProjectModel.model_sign, 'obj_id:name', 'name', 30)
 @onlyone.lock(ProjectModel.model_sign, 'obj_id', 'obj_id', 30)
-def update_project(obj_id, name, sign, remark=None, operator=None):
+def update_project(obj_id, name, remark=None, operator=None):
     '''
     编辑项目
     '''
     if ProjectModel.objects.filter(name=name).exclude(id=obj_id).exists():
         raise errors.CommonError('项目名称已存在')
-    if ProjectModel.objects.filter(sign=sign).exclude(id=obj_id).exists():
-        raise errors.CommonError('项目标识已存在')
     data = {
         'name': name,
-        'sign': sign,
         'remark': remark,
     }
     obj = base_ctl.update_obj(ProjectModel, obj_id, data, operator)
@@ -84,59 +75,6 @@ def get_project(obj_id, operator=None):
     obj = base_ctl.get_obj(ProjectModel, obj_id)
     data = obj.to_dict()
     return data
-
-
-@onlyone.lock(DepartmentProjectModel.model_sign, 'obj_id:department_id', 'obj_id:department_id', 30)
-def create_project_department(obj_id, department_id, operator=None):
-    '''
-    创建项目关联部门
-    '''
-    query = {
-        'project_id': obj_id,
-        'department_id': department_id,
-    }
-    if DepartmentProjectModel.objects.filter(**query).exists():
-        raise errors.CommonError('项目已关联此部门')
-    data = query
-    obj = base_ctl.create_obj(DepartmentProjectModel, data, operator)
-    data = obj.to_dict()
-    return data
-
-
-@onlyone.lock(DepartmentProjectModel.model_sign, 'obj_id:department_id', 'obj_id:department_id', 30)
-def delete_project_department(obj_id, department_id, operator=None):
-    '''
-    删除项目关联部门
-    '''
-    query = {
-        'project_id': obj_id,
-        'department_id': department_id,
-    }
-    obj = DepartmentProjectModel.objects.filter(**query).first()
-    if not obj:
-        raise errors.CommonError('项目未关联此部门')
-    base_ctl.delete_obj(DepartmentProjectModel, obj.id, operator)
-
-
-def get_project_departments(obj_id, page_num=None, page_size=None, operator=None):
-    '''
-    获取项目关联部门列表
-    '''
-    base_query = DepartmentProjectModel.objects.filter(project_id=obj_id)\
-            .filter(department__is_deleted=False).select_related('department')
-    total = base_query.count()
-    objs = base_ctl.query_objs_by_page(base_query, page_num, page_size)
-    data_list = []
-    for obj in objs:
-        data = obj.to_dict()
-        data['department'] = obj.department.to_dict()
-        data_list.append(data)
-    data = {
-        'total': total,
-        'data_list': data_list,
-    }
-    return data
-
 
 
 @onlyone.lock(ProjectUserModel.model_sign, 'obj_id:user_id', 'obj_id:user_id', 30)

@@ -62,41 +62,6 @@ class ProjectApi(BaseApi):
         return data
 
 
-class CreateProjectDepartmentApi(BaseApi):
-
-    need_params = {
-        'obj_id': ('项目ID', 'required int'),
-        'department_id': ('部门ID', 'required int'),
-    }
-    def post(self, request, params):
-        data = project_ctl.create_project_department(**params)
-        return data
-
-
-class DeleteProjectDepartmentApi(BaseApi):
-
-    need_params = {
-        'obj_id': ('项目ID', 'required int'),
-        'department_id': ('部门ID', 'required int'),
-    }
-    def post(self, request, params):
-        data = project_ctl.delete_project_department(**params)
-        return data
-
-
-class ListProjectDepartmentApi(BaseApi):
-    NEED_PERMISSION = False
-
-    need_params = {
-        'obj_id': ('项目ID', 'required int'),
-        'page_num': ('页码', 'optional int'),
-        'page_size': ('页容量', 'optional int'),
-    }
-    def post(self, request, params):
-        data = project_ctl.get_project_departments(**params)
-        return data
-
-
 class CreateProjectUserApi(BaseApi):
 
     need_params = {
