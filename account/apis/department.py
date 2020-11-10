@@ -107,3 +107,17 @@ class ListDepartmentUserApi(BaseApi):
     def post(self, request, params):
         data = department_ctl.get_department_users(**params)
         return data
+
+
+class ListDepartmentServiceApi(BaseApi):
+    NEED_PERMISSION = False
+
+    need_params = {
+        'obj_id': ('部门ID', 'required int'),
+        'keyword': ('关键字', 'optional str'),
+        'page_num': ('页码', 'optional int'),
+        'page_size': ('页容量', 'optional int'),
+    }
+    def post(self, request, params):
+        data = department_ctl.get_department_services(**params)
+        return data

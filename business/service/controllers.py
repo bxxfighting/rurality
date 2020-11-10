@@ -60,7 +60,7 @@ def delete_service(obj_id, operator=None):
     base_ctl.delete_obj(ServiceModel, obj_id, operator)
 
 
-def get_services(keyword=None, project_id=None, page_num=None, page_size=None, operator=None):
+def get_services(keyword=None, project_id=None, department_id=None, page_num=None, page_size=None, operator=None):
     '''
     获取服务列表
     '''
@@ -70,6 +70,10 @@ def get_services(keyword=None, project_id=None, page_num=None, page_size=None, o
                                        Q(sign__icontains=keyword))
     if project_id:
         base_query = base_query.filter(project_id=project_id)
+    if department_id:
+        batch_ids = DepartmentServiceModel.objects.filter(department_id=department_id)\
+                .values_list('service_id', flat=True).all()
+        base_query = base_query.filter(id__in=batch_ids)
     base_query = base_query.select_related('project')
     total = base_query.count()
     objs = base_ctl.query_objs_by_page(base_query, page_num, page_size)
@@ -145,9 +149,6 @@ def get_service_departments(obj_id, page_num=None, page_size=None, operator=None
         'data_list': data_list,
     }
     return data
-
-
-
 
 
 @onlyone.lock(ServiceUserModel.model_sign, 'obj_id:user_id', 'obj_id:user_id', 30)

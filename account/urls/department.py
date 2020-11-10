@@ -13,4 +13,5 @@ urlpatterns = [
     path('department/user/update/', department_api.UpdateDepartmentUserApi.as_view()),
     path('department/user/delete/', department_api.DeleteDepartmentUserApi.as_view()),
     path('department/user/list/', department_api.ListDepartmentUserApi.as_view()),
+    path('department/service/list/', department_api.ListDepartmentServiceApi.as_view()),
 ]

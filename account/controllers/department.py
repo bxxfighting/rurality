@@ -5,6 +5,7 @@ from base import errors
 from base import controllers as base_ctl
 from account.models import DepartmentModel
 from account.models import DepartmentUserModel
+from business.service import controllers as service_ctl
 from utils.onlyone import onlyone
 
 
@@ -182,3 +183,17 @@ def get_departments_by_ids(obj_ids, operator=None):
     objs = DepartmentModel.objects.filter(id__in=obj_ids).all()
     data_list = [obj.to_dict() for obj in objs]
     return data_list
+
+
+def get_department_services(obj_id, keyword=None, page_num=None, page_size=None, operator=None):
+    '''
+    获取部门关联服务列表
+    '''
+    query = {
+        'keyword': keyword,
+        'department_id': obj_id,
+        'page_num': page_num,
+        'page_size': page_size,
+    }
+    data = service_ctl.get_services(**query)
+    return data
