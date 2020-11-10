@@ -343,6 +343,7 @@ def get_permissions_by_user_id(user_id, operator=None):
     根据user_id获取权限列表
     '''
     role_ids = get_role_ids_by_user_id(user_id)
-    permission_ids = RolePermissionModel.objects.filter(role_id__in=role_ids).all()
+    permission_ids = RolePermissionModel.objects.filter(role_id__in=role_ids)\
+            .values_list('permission_id', flat=True).all()
     permissions = PermissionModel.objects.filter(id__in=permission_ids).all()
     return permissions
