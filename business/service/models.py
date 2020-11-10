@@ -1,6 +1,7 @@
 from django.db import models
 from base.models import BaseModel
 from business.project.models import ProjectModel
+from account.models import DepartmentModel
 from account.models import UserModel
 
 
@@ -18,6 +19,20 @@ class ServiceModel(BaseModel):
 
     class Meta:
         db_table = 'service'
+
+
+class DepartmentServiceModel(BaseModel):
+    '''
+    部门关联服务
+    '''
+    model_name = '部门服务'
+    model_sign = 'department_service'
+
+    department = models.ForeignKey(DepartmentModel, on_delete=models.CASCADE)
+    service = models.ForeignKey(ServiceModel, on_delete=models.CASCADE)
+
+    class Meta:
+        db_table = 'department_service'
 
 
 class ServiceUserModel(BaseModel):

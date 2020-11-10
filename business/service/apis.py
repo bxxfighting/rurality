@@ -64,6 +64,41 @@ class ServiceApi(BaseApi):
         return data
 
 
+class CreateServiceDepartmentApi(BaseApi):
+
+    need_params = {
+        'obj_id': ('服务ID', 'required int'),
+        'department_id': ('部门ID', 'required int'),
+    }
+    def post(self, request, params):
+        data = service_ctl.create_service_department(**params)
+        return data
+
+
+class DeleteServiceDepartmentApi(BaseApi):
+
+    need_params = {
+        'obj_id': ('服务ID', 'required int'),
+        'department_id': ('部门ID', 'required int'),
+    }
+    def post(self, request, params):
+        data = service_ctl.delete_service_department(**params)
+        return data
+
+
+class ListServiceDepartmentApi(BaseApi):
+    NEED_PERMISSION = False
+
+    need_params = {
+        'obj_id': ('服务ID', 'required int'),
+        'page_num': ('页码', 'optional int'),
+        'page_size': ('页容量', 'optional int'),
+    }
+    def post(self, request, params):
+        data = service_ctl.get_service_departments(**params)
+        return data
+
+
 class CreateServiceUserApi(BaseApi):
 
     need_params = {

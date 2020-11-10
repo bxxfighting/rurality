@@ -4,6 +4,7 @@ from django.db.models import Q
 from base import errors
 from base import controllers as base_ctl
 from business.service.models import ServiceModel
+from business.service.models import DepartmentServiceModel
 from business.service.models import ServiceUserModel
 from utils.onlyone import onlyone
 
@@ -92,6 +93,61 @@ def get_service(obj_id, operator=None):
     data = obj.to_dict()
     data['project'] = obj.project.to_dict()
     return data
+
+
+@onlyone.lock(DepartmentServiceModel.model_sign, 'obj_id:department_id', 'obj_id:department_id', 30)
+def create_service_department(obj_id, department_id, operator=None):
+    '''
+    创建服务关联部门
+    '''
+    query = {
+        'service_id': obj_id,
+        'department_id': department_id,
+    }
+    if DepartmentServiceModel.objects.filter(**query).exists():
+        raise errors.CommonError('服务已关联此部门')
+    data = query
+    obj = base_ctl.create_obj(DepartmentServiceModel, data, operator)
+    data = obj.to_dict()
+    return data
+
+
+@onlyone.lock(DepartmentServiceModel.model_sign, 'obj_id:department_id', 'obj_id:department_id', 30)
+def delete_service_department(obj_id, department_id, operator=None):
+    '''
+    删除服务关联部门
+    '''
+    query = {
+        'service_id': obj_id,
+        'department_id': department_id,
+    }
+    obj = DepartmentServiceModel.objects.filter(**query).first()
+    if not obj:
+        raise errors.CommonError('服务未关联此部门')
+    base_ctl.delete_obj(DepartmentServiceModel, obj.id, operator)
+
+
+def get_service_departments(obj_id, page_num=None, page_size=None, operator=None):
+    '''
+    获取服务关联部门列表
+    '''
+    base_query = DepartmentServiceModel.objects.filter(service_id=obj_id)\
+            .filter(department__is_deleted=False).select_related('department')
+    total = base_query.count()
+    objs = base_ctl.query_objs_by_page(base_query, page_num, page_size)
+    data_list = []
+    for obj in objs:
+        data = obj.to_dict()
+        data['department'] = obj.department.to_dict()
+        data_list.append(data)
+    data = {
+        'total': total,
+        'data_list': data_list,
+    }
+    return data
+
+
+
 
 
 @onlyone.lock(ServiceUserModel.model_sign, 'obj_id:user_id', 'obj_id:user_id', 30)
