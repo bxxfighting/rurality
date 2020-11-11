@@ -63,5 +63,6 @@
 <a target="_blank" href="https://github.com/bxxfighting/rurality/blob/master/how/to/do/3/3.md">第三节 是时候展示复制粘贴的魅力了</a>
 <a target="_blank" href="https://github.com/bxxfighting/rurality/blob/master/how/to/do/3/4.md">第四节 继续感受复制粘贴的强大</a>
 <a target="_blank" href="https://github.com/bxxfighting/rurality/blob/master/how/to/do/3/5.md">第五节 无规矩不成方圆</a>
+<a target="_blank" href="https://github.com/bxxfighting/rurality/blob/master/how/to/do/3/6.md">第六节 整点实际的</a>
 </code></pre>
 </details>
