@@ -6,7 +6,6 @@ class CreateProjectApi(BaseApi):
 
     need_params = {
         'name': ('名称', 'required str 128'),
-        'sign': ('标识', 'required str 128'),
         'remark': ('备注', 'optional str 1024'),
     }
     def post(self, request, params):
@@ -19,7 +18,6 @@ class UpdateProjectApi(BaseApi):
     need_params = {
         'obj_id': ('项目ID', 'required int'),
         'name': ('名称', 'required str 128'),
-        'sign': ('标识', 'required str 128'),
         'remark': ('备注', 'optional str 1024'),
     }
     def post(self, request, params):
