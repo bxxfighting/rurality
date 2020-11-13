@@ -120,6 +120,7 @@ from kombu import Exchange, Queue
 # celery configs
 CELERY_BROKER_URL = os.getenv('CELERY_BROKER_URL', 'amqp://guest:guest@localhost:5672//')
 CELERY_TIMEZONE = 'Asia/Shanghai'
+# 一次在broker中取几个任务
 CELERY_WORKER_PREFETCH_MULTIPLIER = 1
 
 # 默认不记录结果

@@ -64,5 +64,6 @@
 <a target="_blank" href="https://github.com/bxxfighting/rurality/blob/master/how/to/do/3/4.md">第四节 继续感受复制粘贴的强大</a>
 <a target="_blank" href="https://github.com/bxxfighting/rurality/blob/master/how/to/do/3/5.md">第五节 无规矩不成方圆</a>
 <a target="_blank" href="https://github.com/bxxfighting/rurality/blob/master/how/to/do/3/6.md">第六节 整点实际的</a>
+<a target="_blank" href="https://github.com/bxxfighting/rurality/blob/master/how/to/do/3/7.md">第七节 啥系统都得有任务</a>
 </code></pre>
 </details>
