@@ -158,3 +158,63 @@ CELERY_BEAT_SCHEDULE = {
         'schedule': 10.0,
     },
 }
+
+LOG_DIR = os.path.join(BASE_DIR, 'var/log')
+if not os.path.exists(LOG_DIR):
+    os.makedirs(LOG_DIR)
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'info': {
+            'format': '%(asctime)s %(levelname)s %(message)s',
+        },
+        'request': {
+            'format': '%(asctime)s %(levelname)s %(message)s',
+        },
+        'error': {
+            'format': '%(asctime)s %(filename)s[line:%(lineno)d] %(levelname)s %(message)s'
+        }
+    },
+    'handlers': {
+        'info': {
+            'class': 'logging.handlers.TimedRotatingFileHandler',
+            'filename': os.path.join(LOG_DIR, 'info.log'),
+            'when': 'D',
+            'interval': 1,
+            'backupCount': 7,
+            'formatter': 'info',
+        },
+        'request': {
+            'class': 'logging.handlers.TimedRotatingFileHandler',
+            'filename': os.path.join(LOG_DIR, 'access.log'),
+            'when': 'D',
+            'interval': 1,
+            'backupCount': 7,
+            'formatter': 'request',
+        },
+        'error': {
+            'class': 'logging.handlers.TimedRotatingFileHandler',
+            'filename': os.path.join(LOG_DIR, 'error.log'),
+            'when': 'D',
+            'interval': 1,
+            'backupCount': 7,
+            'formatter': 'error',
+        }
+    },
+    'loggers': {
+        'gunicorn': {
+            'handlers': ['request'],
+            'level': 'INFO',
+        },
+        'info': {
+            'handlers': ['info'],
+            'level': 'INFO',
+        },
+        'error': {
+            'handlers': ['error'],
+            'level': 'ERROR',
+        }
+    },
+}
