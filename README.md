@@ -64,7 +64,12 @@
 <a target="_blank" href="https://github.com/bxxfighting/rurality/blob/master/how/to/do/3/4.md">第四节 继续感受复制粘贴的强大</a>
 <a target="_blank" href="https://github.com/bxxfighting/rurality/blob/master/how/to/do/3/5.md">第五节 无规矩不成方圆</a>
 <a target="_blank" href="https://github.com/bxxfighting/rurality/blob/master/how/to/do/3/6.md">第六节 整点实际的</a>
-<a target="_blank" href="https://github.com/bxxfighting/rurality/blob/master/how/to/do/3/7.md">第七节 啥系统都得有任务</a>
-<a target="_blank" href="https://github.com/bxxfighting/rurality/blob/master/how/to/do/3/8.md">第八节 总得有日志吧?</a>
+</code></pre>
+</details>
+<details>
+<summary>第四章 完善基础支撑功能</summary>
+<pre><code>
+<a target="_blank" href="https://github.com/bxxfighting/rurality/blob/master/how/to/do/4/1.md">第一节 啥系统都得有任务</a>
+<a target="_blank" href="https://github.com/bxxfighting/rurality/blob/master/how/to/do/4/2.md">第二节 总得有日志吧?</a>
 </code></pre>
 </details>
