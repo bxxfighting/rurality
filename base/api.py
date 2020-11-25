@@ -10,6 +10,10 @@ from base.check_params import CheckParams
 from utils import time_utils
 
 
+error_logger = logging.getLogger('error')
+access_logger = logging.getLogger('gunicorn')
+
+
 class BaseApi(View):
     NEED_LOGIN = True
     NEED_PERMISSION = True
@@ -84,8 +88,7 @@ class BaseApi(View):
             msg = e.errmsg
         except Exception as e:
             # TODO: 记录log
-            logger = logging.getLogger('error')
-            logger.exception(e)
+            error_logger.exception(e)
             code = errors.BaseError.errcode
             msg = errors.BaseError.errmsg
         result = {
@@ -93,6 +96,13 @@ class BaseApi(View):
             'msg': msg,
             'data': data,
         }
+        log_data = {
+            'url': request.get_full_path(),
+            'params': request.body,
+            'user_id': getattr(request, 'user_id', None),
+            'result': result,
+        }
+        access_logger.info(log_data)
         return HttpResponse(json.dumps(result), content_type='application/json')
 
     def check_params(self, request):
@@ -107,7 +117,6 @@ class BaseApi(View):
         # 再解析body中的参数，存在相同参数时，以body中为准
         if request.body:
             data.update(json.loads(request.body))
-        print(data)
         for key in self.need_params.keys():
             value = data.get(key)
             name, condition = self.need_params.get(key)
