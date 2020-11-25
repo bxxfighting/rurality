@@ -24,3 +24,19 @@ class AliyunKeyModel(BaseModel):
 
     class Meta:
         db_table = 'aliyun_key'
+
+
+class AssetModel(BaseModel):
+    '''
+    资产模块
+    '''
+    model_name = '资产模块'
+    model_sign = 'asset'
+
+    name = models.CharField('名称', max_length=128)
+    sign = models.CharField('标识', max_length=128)
+    rank = models.IntegerField('排序值')
+    remark = models.TextField('备注')
+
+    class Meta:
+        db_table = 'asset'
