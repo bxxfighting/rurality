@@ -74,3 +74,9 @@
 <a target="_blank" href="https://github.com/bxxfighting/rurality/blob/master/how/to/do/4/3.md">第三节 防背锅手册</a>
 </code></pre>
 </details>
+<details>
+<summary>第五章 拥抱阿里云</summary>
+<pre><code>
+<a target="_blank" href="https://github.com/bxxfighting/rurality/blob/master/how/to/do/5/1.md">第一节 开启阿里云的钥匙</a>
+</code></pre>
+</details>
