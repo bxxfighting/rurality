@@ -24,6 +24,7 @@ INSTALLED_APPS = [
     'account',
     'business.project',
     'business.service',
+    'asset.manager',
 ]
 
 MIDDLEWARE = [
