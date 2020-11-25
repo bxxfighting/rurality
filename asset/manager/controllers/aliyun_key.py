@@ -44,6 +44,9 @@ def delete_aliyun_key(obj_id, operator):
     '''
     删除阿里云key
     '''
+    obj = base_ctl.get_obj(AliyunKeyModel, obj_id)
+    if obj.status == AliyunKeyModel.ST_ENABLE:
+        raise errors.CommonError('不允许删除启用状态的Key')
     base_ctl.delete_obj(AliyunKeyModel, obj_id, operator)
 
 
