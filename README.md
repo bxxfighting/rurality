@@ -78,5 +78,6 @@
 <summary>第五章 拥抱阿里云</summary>
 <pre><code>
 <a target="_blank" href="https://github.com/bxxfighting/rurality/blob/master/how/to/do/5/1.md">第一节 开启阿里云的钥匙</a>
+<a target="_blank" href="https://github.com/bxxfighting/rurality/blob/master/how/to/do/5/1.md">第二节 阿里云资产模块管理</a>
 </code></pre>
 </details>
