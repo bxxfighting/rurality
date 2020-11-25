@@ -71,5 +71,6 @@
 <pre><code>
 <a target="_blank" href="https://github.com/bxxfighting/rurality/blob/master/how/to/do/4/1.md">第一节 啥系统都得有任务</a>
 <a target="_blank" href="https://github.com/bxxfighting/rurality/blob/master/how/to/do/4/2.md">第二节 总得有日志吧?</a>
+<a target="_blank" href="https://github.com/bxxfighting/rurality/blob/master/how/to/do/4/3.md">第三节 防背锅手册</a>
 </code></pre>
 </details>
