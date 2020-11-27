@@ -1,6 +1,6 @@
 from django.urls import path
 
-from business.service import apis as service_api
+from business.service.apis import service as service_api
 
 
 urlpatterns = [
@@ -16,4 +16,7 @@ urlpatterns = [
     path('service/user/update/', service_api.UpdateServiceUserApi.as_view()),
     path('service/user/delete/', service_api.DeleteServiceUserApi.as_view()),
     path('service/user/list/', service_api.ListServiceUserApi.as_view()),
+    path('service/environment/create/', service_api.CreateServiceEnvironmentApi.as_view()),
+    path('service/environment/delete/', service_api.DeleteServiceEnvironmentApi.as_view()),
+    path('service/environment/list/', service_api.ListServiceEnvironmentApi.as_view()),
 ]

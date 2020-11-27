@@ -4,6 +4,8 @@ from django.db.models import Q
 from base import errors
 from base import controllers as base_ctl
 from business.service.models import ServiceModel
+from business.service.models import ServiceEnvironmentModel
+from business.service.models import EnvironmentModel
 from business.service.models import DepartmentServiceModel
 from business.service.models import ServiceUserModel
 from utils.onlyone import onlyone
@@ -225,6 +227,59 @@ def get_service_users(obj_id, typ=None, page_num=None, page_size=None, operator=
     for obj in objs:
         data = obj.to_dict()
         data['user'] = obj.user.to_dict()
+        data_list.append(data)
+    data = {
+        'total': total,
+        'data_list': data_list,
+    }
+    return data
+
+
+@onlyone.lock(ServiceEnvironmentModel.model_sign, 'obj_id:environment_id', 'obj_id:environment_id', 30)
+def create_service_environment(obj_id, environment_id, operator=None):
+    '''
+    创建服务关联环境
+    '''
+    query = {
+        'service_id': obj_id,
+        'environment_id': environment_id,
+    }
+    if ServiceEnvironmentModel.objects.filter(**query).exists():
+        raise errors.CommonError('服务已关联此环境')
+    data = query
+    obj = base_ctl.create_obj(ServiceEnvironmentModel, data, operator)
+    data = obj.to_dict()
+    return data
+
+
+@onlyone.lock(ServiceEnvironmentModel.model_sign, 'obj_id:environment_id', 'obj_id:environment_id', 30)
+def delete_service_environment(obj_id, environment_id, operator=None):
+    '''
+    删除服务关联环境
+    '''
+    query = {
+        'service_id': obj_id,
+        'environment_id': environment_id,
+    }
+    obj = ServiceEnvironmentModel.objects.filter(**query).first()
+    if not obj:
+        raise errors.CommonError('服务未关联此环境')
+    # TODO: 增加不允许删除判断
+    base_ctl.delete_obj(ServiceEnvironmentModel, obj.id, operator)
+
+
+def get_service_environments(obj_id, page_num=None, page_size=None, operator=None):
+    '''
+    获取服务关联环境列表
+    '''
+    environment_ids = ServiceEnvironmentModel.objects.filter(service_id=obj_id)\
+            .values_list('environment_id', flat=True).all()
+    base_query = EnvironmentModel.objects.filter(id__in=environment_ids)
+    total = base_query.count()
+    objs = base_ctl.query_objs_by_page(base_query, page_num, page_size)
+    data_list = []
+    for obj in objs:
+        data = obj.to_dict()
         data_list.append(data)
     data = {
         'total': total,

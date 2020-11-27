@@ -5,6 +5,23 @@ from account.models import DepartmentModel
 from account.models import UserModel
 
 
+class EnvironmentModel(BaseModel):
+    '''
+    环境
+    qa/release/prod
+    '''
+    model_name = '环境'
+    model_sign = 'environment'
+
+    name = models.CharField('名称', max_length=128)
+    sign = models.CharField('标识', max_length=128)
+    rank = models.IntegerField('排序值', default=0)
+    remark = models.TextField('备注', default='', null=True)
+
+    class Meta:
+        db_table = 'environment'
+
+
 class ServiceModel(BaseModel):
     '''
     服务
@@ -55,3 +72,16 @@ class ServiceUserModel(BaseModel):
 
     class Meta:
         db_table = 'service_user'
+
+
+class ServiceEnvironmentModel(BaseModel):
+    '''
+    服务环境
+    不同服务可能并不一定有相同数量的环境
+    如果是强制必须都有的，则可以不使用此关联表
+    '''
+    service = models.ForeignKey(ServiceModel, on_delete=models.CASCADE)
+    environment = models.ForeignKey(EnvironmentModel, on_delete=models.CASCADE)
+
+    class Meta:
+        db_table = 'service_environment'

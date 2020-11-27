@@ -1,5 +1,5 @@
 from base.api import BaseApi
-from business.service import controllers as service_ctl
+from business.service.controllers import service as service_ctl
 
 
 class CreateServiceApi(BaseApi):
@@ -145,4 +145,39 @@ class ListServiceUserApi(BaseApi):
     }
     def post(self, request, params):
         data = service_ctl.get_service_users(**params)
+        return data
+
+
+class CreateServiceEnvironmentApi(BaseApi):
+
+    need_params = {
+        'obj_id': ('服务ID', 'required int'),
+        'environment_id': ('环境ID', 'required int'),
+    }
+    def post(self, request, params):
+        data = service_ctl.create_service_environment(**params)
+        return data
+
+
+class DeleteServiceEnvironmentApi(BaseApi):
+
+    need_params = {
+        'obj_id': ('服务ID', 'required int'),
+        'environment_id': ('环境ID', 'required int'),
+    }
+    def post(self, request, params):
+        data = service_ctl.delete_service_environment(**params)
+        return data
+
+
+class ListServiceEnvironmentApi(BaseApi):
+    NEED_PERMISSION = False
+
+    need_params = {
+        'obj_id': ('服务ID', 'required int'),
+        'page_num': ('页码', 'optional int'),
+        'page_size': ('页容量', 'optional int'),
+    }
+    def post(self, request, params):
+        data = service_ctl.get_service_environments(**params)
         return data
