@@ -40,3 +40,41 @@ class AssetModel(BaseModel):
 
     class Meta:
         db_table = 'asset'
+
+
+class RegionModel(BaseModel):
+    '''
+    地域
+    '''
+    model_name = '地域'
+    model_sign = 'region'
+
+    ST_ENABLE = 10
+    ST_DISABLE = 20
+    ST_CHOICES = (
+        (ST_ENABLE, '启用'),
+        (ST_DISABLE, '禁用'),
+    )
+
+    name = models.CharField('名称', max_length=128)
+    instance_id = models.CharField('实例ID', max_length=128)
+    endpoint = models.CharField('接入点', max_length=128)
+    status = models.SmallIntegerField('状态', choices=ST_CHOICES, default=ST_DISABLE)
+
+    class Meta:
+        db_table = 'region'
+
+
+class ZoneModel(BaseModel):
+    '''
+    可用区
+    '''
+    model_name = '可用区'
+    model_sign = 'zone'
+
+    region = models.ForeignKey(RegionModel, on_delete=models.CASCADE, verbose_name='地域')
+    name = models.CharField('名称', max_length=128)
+    instance_id = models.CharField('实例ID', max_length=128)
+
+    class Meta:
+        db_table = 'zone'

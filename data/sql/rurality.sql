@@ -11,11 +11,50 @@
  Target Server Version : 50643
  File Encoding         : 65001
 
- Date: 11/11/2020 14:15:31
+ Date: 27/11/2020 11:34:08
 */
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
+
+-- ----------------------------
+-- Table structure for aliyun_key
+-- ----------------------------
+DROP TABLE IF EXISTS `aliyun_key`;
+CREATE TABLE `aliyun_key` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `dt_create` datetime(6) NOT NULL,
+  `dt_update` datetime(6) NOT NULL,
+  `is_deleted` tinyint(1) NOT NULL,
+  `key` varchar(128) NOT NULL,
+  `secret` varchar(128) NOT NULL,
+  `status` smallint(6) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4;
+
+-- ----------------------------
+-- Table structure for asset
+-- ----------------------------
+DROP TABLE IF EXISTS `asset`;
+CREATE TABLE `asset` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `dt_create` datetime(6) NOT NULL,
+  `dt_update` datetime(6) NOT NULL,
+  `is_deleted` tinyint(1) NOT NULL,
+  `name` varchar(128) NOT NULL,
+  `sign` varchar(128) NOT NULL,
+  `rank` int(11) NOT NULL,
+  `remark` longtext NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
+
+-- ----------------------------
+-- Records of asset
+-- ----------------------------
+BEGIN;
+INSERT INTO `asset` VALUES (1, '2020-11-25 12:19:52.697156', '2020-11-25 12:20:01.468287', 0, 'ECS', 'ecs', 100, '阿里云ECS模块');
+INSERT INTO `asset` VALUES (2, '2020-11-25 12:20:14.068730', '2020-11-25 12:21:03.584707', 1, 'SLB', 'slb', 90, '阿里云SLB模块');
+COMMIT;
 
 -- ----------------------------
 -- Table structure for department
@@ -229,7 +268,7 @@ CREATE TABLE `project` (
   `name` varchar(128) NOT NULL,
   `remark` longtext,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of project
@@ -237,6 +276,7 @@ CREATE TABLE `project` (
 BEGIN;
 INSERT INTO `project` VALUES (1, '2020-11-06 10:33:10.920210', '2020-11-11 02:19:14.989482', 0, '运维平台', '用于运维');
 INSERT INTO `project` VALUES (2, '2020-11-07 10:17:08.967179', '2020-11-11 02:19:23.787115', 0, '权限系统', '用于权限管理');
+INSERT INTO `project` VALUES (3, '2020-11-25 06:15:58.064205', '2020-11-25 06:15:58.064707', 0, '工单系统', '用于流程审批');
 COMMIT;
 
 -- ----------------------------
@@ -263,6 +303,51 @@ CREATE TABLE `project_user` (
 -- ----------------------------
 BEGIN;
 INSERT INTO `project_user` VALUES (1, '2020-11-06 10:48:08.177234', '2020-11-06 10:48:08.177275', 0, 20, 1, 2);
+COMMIT;
+
+-- ----------------------------
+-- Table structure for region
+-- ----------------------------
+DROP TABLE IF EXISTS `region`;
+CREATE TABLE `region` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `dt_create` datetime(6) NOT NULL,
+  `dt_update` datetime(6) NOT NULL,
+  `is_deleted` tinyint(1) NOT NULL,
+  `name` varchar(128) NOT NULL,
+  `instance_id` varchar(128) NOT NULL,
+  `endpoint` varchar(128) NOT NULL,
+  `status` smallint(6) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=70 DEFAULT CHARSET=utf8mb4;
+
+-- ----------------------------
+-- Records of region
+-- ----------------------------
+BEGIN;
+INSERT INTO `region` VALUES (47, '2020-11-26 12:22:20.685658', '2020-11-26 12:22:20.685775', 0, '华北 1', 'cn-qingdao', 'ecs.aliyuncs.com', 20);
+INSERT INTO `region` VALUES (48, '2020-11-26 12:22:20.685818', '2020-11-26 12:22:38.212399', 0, '华北 2', 'cn-beijing', 'ecs.aliyuncs.com', 10);
+INSERT INTO `region` VALUES (49, '2020-11-26 12:22:20.685861', '2020-11-26 12:22:43.591381', 0, '华北 3', 'cn-zhangjiakou', 'ecs.cn-zhangjiakou.aliyuncs.com', 10);
+INSERT INTO `region` VALUES (50, '2020-11-26 12:22:20.685900', '2020-11-26 12:22:20.685914', 0, '华北 5', 'cn-huhehaote', 'ecs.cn-huhehaote.aliyuncs.com', 20);
+INSERT INTO `region` VALUES (51, '2020-11-26 12:22:20.685939', '2020-11-26 12:22:20.685952', 0, '华北6（乌兰察布）', 'cn-wulanchabu', 'ecs.cn-wulanchabu.aliyuncs.com', 20);
+INSERT INTO `region` VALUES (52, '2020-11-26 12:22:20.685978', '2020-11-26 12:22:20.685995', 0, '华东 1', 'cn-hangzhou', 'ecs.aliyuncs.com', 20);
+INSERT INTO `region` VALUES (53, '2020-11-26 12:22:20.686022', '2020-11-26 12:22:20.686035', 0, '华东 2', 'cn-shanghai', 'ecs.aliyuncs.com', 20);
+INSERT INTO `region` VALUES (54, '2020-11-26 12:22:20.686061', '2020-11-26 12:22:20.686074', 0, '华南 1', 'cn-shenzhen', 'ecs.aliyuncs.com', 20);
+INSERT INTO `region` VALUES (55, '2020-11-26 12:22:20.686100', '2020-11-26 12:22:20.686113', 0, '华南2（河源）', 'cn-heyuan', 'ecs.cn-heyuan.aliyuncs.com', 20);
+INSERT INTO `region` VALUES (56, '2020-11-26 12:22:20.686139', '2020-11-26 12:22:20.686155', 0, '华南3（广州）', 'cn-guangzhou', 'ecs.cn-guangzhou.aliyuncs.com', 20);
+INSERT INTO `region` VALUES (57, '2020-11-26 12:22:20.686181', '2020-11-26 12:22:20.686194', 0, '西南1（成都）', 'cn-chengdu', 'ecs.cn-chengdu.aliyuncs.com', 20);
+INSERT INTO `region` VALUES (58, '2020-11-26 12:22:20.686220', '2020-11-26 12:22:20.686233', 0, '香港', 'cn-hongkong', 'ecs.aliyuncs.com', 20);
+INSERT INTO `region` VALUES (59, '2020-11-26 12:22:20.686259', '2020-11-26 12:22:20.686272', 0, '亚太东北 1 (东京)', 'ap-northeast-1', 'ecs.ap-northeast-1.aliyuncs.com', 20);
+INSERT INTO `region` VALUES (60, '2020-11-26 12:22:20.686298', '2020-11-26 12:22:20.686311', 0, '亚太东南 1 (新加坡)', 'ap-southeast-1', 'ecs.aliyuncs.com', 20);
+INSERT INTO `region` VALUES (61, '2020-11-26 12:22:20.686336', '2020-11-26 12:22:20.686350', 0, '亚太东南 2 (悉尼)', 'ap-southeast-2', 'ecs.ap-southeast-2.aliyuncs.com', 20);
+INSERT INTO `region` VALUES (62, '2020-11-26 12:22:20.686375', '2020-11-26 12:22:20.686388', 0, '亚太东南 3 (吉隆坡)', 'ap-southeast-3', 'ecs.ap-southeast-3.aliyuncs.com', 20);
+INSERT INTO `region` VALUES (63, '2020-11-26 12:22:20.686414', '2020-11-26 12:22:20.686427', 0, '亚太东南 5 (雅加达)', 'ap-southeast-5', 'ecs.ap-southeast-5.aliyuncs.com', 20);
+INSERT INTO `region` VALUES (64, '2020-11-26 12:22:20.686453', '2020-11-26 12:22:20.686466', 0, '亚太南部 1 (孟买)', 'ap-south-1', 'ecs.ap-south-1.aliyuncs.com', 20);
+INSERT INTO `region` VALUES (65, '2020-11-26 12:22:20.686492', '2020-11-26 12:22:20.686505', 0, '美国东部 1 (弗吉尼亚)', 'us-east-1', 'ecs.aliyuncs.com', 20);
+INSERT INTO `region` VALUES (66, '2020-11-26 12:22:20.686531', '2020-11-26 12:22:20.686544', 0, '美国西部 1 (硅谷)', 'us-west-1', 'ecs.aliyuncs.com', 20);
+INSERT INTO `region` VALUES (67, '2020-11-26 12:22:20.686570', '2020-11-26 12:22:20.686583', 0, '英国 (伦敦)', 'eu-west-1', 'ecs.eu-west-1.aliyuncs.com', 20);
+INSERT INTO `region` VALUES (68, '2020-11-26 12:22:20.686608', '2020-11-26 12:22:20.686621', 0, '中东东部 1 (迪拜)', 'me-east-1', 'ecs.me-east-1.aliyuncs.com', 20);
+INSERT INTO `region` VALUES (69, '2020-11-26 12:22:20.686647', '2020-11-26 12:22:20.686660', 0, '欧洲中部 1 (法兰克福)', 'eu-central-1', 'ecs.eu-central-1.aliyuncs.com', 20);
 COMMIT;
 
 -- ----------------------------
@@ -511,6 +596,175 @@ BEGIN;
 INSERT INTO `user` VALUES (1, '2020-11-05 06:04:04.732877', '2020-11-05 06:04:04.958336', 0, 'admin', 'pbkdf2_sha256$216000$V5XG3BZQLTgW$Tfh/WgIj0slbyElYnZNAiLht9GInAlulqalTrTrDVzs=', '超级管理员', NULL, NULL, 10, 10);
 INSERT INTO `user` VALUES (2, '2020-11-06 07:17:47.936792', '2020-11-06 07:17:48.206010', 0, 'buxingxing', 'pbkdf2_sha256$216000$Vk8DCMr9YoSi$jftHttrQOfc5LwUsN0LvFYKubJ3sl8FlM8F9ak4fRHI=', '卜星星', '', '', 10, 10);
 INSERT INTO `user` VALUES (3, '2020-11-07 10:21:53.576676', '2020-11-07 10:21:53.865161', 0, 'wanger', 'pbkdf2_sha256$216000$K2nt1VoivRWL$0rFCNADRwwnsjJzE/PPLmP8MXoT9bqaVEqLFgFFQTsY=', '王二', '', '', 10, 10);
+COMMIT;
+
+-- ----------------------------
+-- Table structure for zone
+-- ----------------------------
+DROP TABLE IF EXISTS `zone`;
+CREATE TABLE `zone` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `dt_create` datetime(6) NOT NULL,
+  `dt_update` datetime(6) NOT NULL,
+  `is_deleted` tinyint(1) NOT NULL,
+  `name` varchar(128) NOT NULL,
+  `instance_id` varchar(128) NOT NULL,
+  `region_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `zone_region_id_d806a9c4_fk_region_id` (`region_id`),
+  CONSTRAINT `zone_region_id_d806a9c4_fk_region_id` FOREIGN KEY (`region_id`) REFERENCES `region` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=147 DEFAULT CHARSET=utf8mb4;
+
+-- ----------------------------
+-- Records of zone
+-- ----------------------------
+BEGIN;
+INSERT INTO `zone` VALUES (1, '2020-11-26 12:29:44.565805', '2020-11-26 12:29:44.565866', 0, '华北 1 可用区 C', 'cn-qingdao-c', 47);
+INSERT INTO `zone` VALUES (2, '2020-11-26 12:29:44.565915', '2020-11-26 12:29:44.565931', 0, '华北 1 可用区 C', 'cn-qingdao-c', 47);
+INSERT INTO `zone` VALUES (3, '2020-11-26 12:29:44.565960', '2020-11-26 12:29:44.565975', 0, '华北 1 可用区 B', 'cn-qingdao-b', 47);
+INSERT INTO `zone` VALUES (4, '2020-11-26 12:29:44.566002', '2020-11-26 12:29:44.566017', 0, '华北 1 可用区 B', 'cn-qingdao-b', 47);
+INSERT INTO `zone` VALUES (5, '2020-11-26 12:29:44.566044', '2020-11-26 12:29:44.566059', 0, '华北 2 可用区 H', 'cn-beijing-h', 48);
+INSERT INTO `zone` VALUES (6, '2020-11-26 12:29:44.566086', '2020-11-26 12:29:44.566100', 0, '华北 2 可用区 H', 'cn-beijing-h', 48);
+INSERT INTO `zone` VALUES (7, '2020-11-26 12:29:44.566127', '2020-11-26 12:29:44.566141', 0, '华北 2 可用区 G', 'cn-beijing-g', 48);
+INSERT INTO `zone` VALUES (8, '2020-11-26 12:29:44.566168', '2020-11-26 12:29:44.566183', 0, '华北 2 可用区 G', 'cn-beijing-g', 48);
+INSERT INTO `zone` VALUES (9, '2020-11-26 12:29:44.566209', '2020-11-26 12:29:44.566224', 0, '华北 2 可用区 F', 'cn-beijing-f', 48);
+INSERT INTO `zone` VALUES (10, '2020-11-26 12:29:44.566259', '2020-11-26 12:29:44.566274', 0, '华北 2 可用区 F', 'cn-beijing-f', 48);
+INSERT INTO `zone` VALUES (11, '2020-11-26 12:29:44.566301', '2020-11-26 12:29:44.566318', 0, '华北 2 可用区 C', 'cn-beijing-c', 48);
+INSERT INTO `zone` VALUES (12, '2020-11-26 12:29:44.566347', '2020-11-26 12:29:44.566362', 0, '华北 2 可用区 C', 'cn-beijing-c', 48);
+INSERT INTO `zone` VALUES (13, '2020-11-26 12:29:44.566404', '2020-11-26 12:29:44.566418', 0, '华北 2 可用区 E', 'cn-beijing-e', 48);
+INSERT INTO `zone` VALUES (14, '2020-11-26 12:29:44.566445', '2020-11-26 12:29:44.566462', 0, '华北 2 可用区 E', 'cn-beijing-e', 48);
+INSERT INTO `zone` VALUES (15, '2020-11-26 12:29:44.566491', '2020-11-26 12:29:44.566505', 0, '华北 2 可用区 D', 'cn-beijing-d', 48);
+INSERT INTO `zone` VALUES (16, '2020-11-26 12:29:44.566531', '2020-11-26 12:29:44.566544', 0, '华北 2 可用区 D', 'cn-beijing-d', 48);
+INSERT INTO `zone` VALUES (17, '2020-11-26 12:29:44.566570', '2020-11-26 12:29:44.566606', 0, '华北 2 可用区 A', 'cn-beijing-a', 48);
+INSERT INTO `zone` VALUES (18, '2020-11-26 12:29:44.566665', '2020-11-26 12:29:44.566683', 0, '华北 2 可用区 A', 'cn-beijing-a', 48);
+INSERT INTO `zone` VALUES (19, '2020-11-26 12:29:44.566711', '2020-11-26 12:29:44.566725', 0, '华北 2 可用区 B', 'cn-beijing-b', 48);
+INSERT INTO `zone` VALUES (20, '2020-11-26 12:29:44.566750', '2020-11-26 12:29:44.566764', 0, '华北 2 可用区 B', 'cn-beijing-b', 48);
+INSERT INTO `zone` VALUES (21, '2020-11-26 12:29:44.566789', '2020-11-26 12:29:44.566803', 0, '华北 2 可用区 J', 'cn-beijing-j', 48);
+INSERT INTO `zone` VALUES (22, '2020-11-26 12:29:44.566828', '2020-11-26 12:29:44.566842', 0, '华北 2 可用区 J', 'cn-beijing-j', 48);
+INSERT INTO `zone` VALUES (23, '2020-11-26 12:29:44.566867', '2020-11-26 12:29:44.566880', 0, '华北 3 可用区 A', 'cn-zhangjiakou-a', 49);
+INSERT INTO `zone` VALUES (24, '2020-11-26 12:29:44.566906', '2020-11-26 12:29:44.566919', 0, '华北 3 可用区 A', 'cn-zhangjiakou-a', 49);
+INSERT INTO `zone` VALUES (25, '2020-11-26 12:29:44.566944', '2020-11-26 12:29:44.566958', 0, '华北 3 可用区 C', 'cn-zhangjiakou-c', 49);
+INSERT INTO `zone` VALUES (26, '2020-11-26 12:29:44.566983', '2020-11-26 12:29:44.566997', 0, '华北 3 可用区 C', 'cn-zhangjiakou-c', 49);
+INSERT INTO `zone` VALUES (27, '2020-11-26 12:29:44.567022', '2020-11-26 12:29:44.567036', 0, '华北 3 可用区 B', 'cn-zhangjiakou-b', 49);
+INSERT INTO `zone` VALUES (28, '2020-11-26 12:29:44.567062', '2020-11-26 12:29:44.567076', 0, '华北 3 可用区 B', 'cn-zhangjiakou-b', 49);
+INSERT INTO `zone` VALUES (29, '2020-11-26 12:29:44.567101', '2020-11-26 12:29:44.567114', 0, '华北5 可用区A', 'cn-huhehaote-a', 50);
+INSERT INTO `zone` VALUES (30, '2020-11-26 12:29:44.567139', '2020-11-26 12:29:44.567153', 0, '华北5 可用区A', 'cn-huhehaote-a', 50);
+INSERT INTO `zone` VALUES (31, '2020-11-26 12:29:44.567178', '2020-11-26 12:29:44.567192', 0, '华北5 可用区B', 'cn-huhehaote-b', 50);
+INSERT INTO `zone` VALUES (32, '2020-11-26 12:29:44.567217', '2020-11-26 12:29:44.567231', 0, '华北5 可用区B', 'cn-huhehaote-b', 50);
+INSERT INTO `zone` VALUES (33, '2020-11-26 12:29:44.567256', '2020-11-26 12:29:44.567270', 0, '乌兰察布 可用区B', 'cn-wulanchabu-b', 51);
+INSERT INTO `zone` VALUES (34, '2020-11-26 12:29:44.567295', '2020-11-26 12:29:44.567309', 0, '乌兰察布 可用区B', 'cn-wulanchabu-b', 51);
+INSERT INTO `zone` VALUES (35, '2020-11-26 12:29:44.567334', '2020-11-26 12:29:44.567347', 0, '乌兰察布 可用区A', 'cn-wulanchabu-a', 51);
+INSERT INTO `zone` VALUES (36, '2020-11-26 12:29:44.567372', '2020-11-26 12:29:44.567386', 0, '乌兰察布 可用区A', 'cn-wulanchabu-a', 51);
+INSERT INTO `zone` VALUES (37, '2020-11-26 12:29:44.567411', '2020-11-26 12:29:44.567424', 0, '乌兰察布 可用区C', 'cn-wulanchabu-c', 51);
+INSERT INTO `zone` VALUES (38, '2020-11-26 12:29:44.567450', '2020-11-26 12:29:44.567463', 0, '乌兰察布 可用区C', 'cn-wulanchabu-c', 51);
+INSERT INTO `zone` VALUES (39, '2020-11-26 12:29:44.567488', '2020-11-26 12:29:44.567502', 0, '华东 1 可用区 I', 'cn-hangzhou-i', 52);
+INSERT INTO `zone` VALUES (40, '2020-11-26 12:29:44.567532', '2020-11-26 12:29:44.567546', 0, '华东 1 可用区 I', 'cn-hangzhou-i', 52);
+INSERT INTO `zone` VALUES (41, '2020-11-26 12:29:44.567572', '2020-11-26 12:29:44.567585', 0, '华东 1 可用区 H', 'cn-hangzhou-h', 52);
+INSERT INTO `zone` VALUES (42, '2020-11-26 12:29:44.567611', '2020-11-26 12:29:44.567624', 0, '华东 1 可用区 H', 'cn-hangzhou-h', 52);
+INSERT INTO `zone` VALUES (43, '2020-11-26 12:29:44.567649', '2020-11-26 12:29:44.567663', 0, '华东 1 可用区 G', 'cn-hangzhou-g', 52);
+INSERT INTO `zone` VALUES (44, '2020-11-26 12:29:44.567688', '2020-11-26 12:29:44.567701', 0, '华东 1 可用区 G', 'cn-hangzhou-g', 52);
+INSERT INTO `zone` VALUES (45, '2020-11-26 12:29:44.567726', '2020-11-26 12:29:44.567740', 0, '华东 1 可用区 F', 'cn-hangzhou-f', 52);
+INSERT INTO `zone` VALUES (46, '2020-11-26 12:29:44.567765', '2020-11-26 12:29:44.567779', 0, '华东 1 可用区 F', 'cn-hangzhou-f', 52);
+INSERT INTO `zone` VALUES (47, '2020-11-26 12:29:44.567804', '2020-11-26 12:29:44.567818', 0, '华东 1 可用区 B', 'cn-hangzhou-b', 52);
+INSERT INTO `zone` VALUES (48, '2020-11-26 12:29:44.567843', '2020-11-26 12:29:44.567857', 0, '华东 1 可用区 B', 'cn-hangzhou-b', 52);
+INSERT INTO `zone` VALUES (49, '2020-11-26 12:29:44.567882', '2020-11-26 12:29:44.567895', 0, '华东 1 可用区 E', 'cn-hangzhou-e', 52);
+INSERT INTO `zone` VALUES (50, '2020-11-26 12:29:44.567920', '2020-11-26 12:29:44.567934', 0, '华东 1 可用区 E', 'cn-hangzhou-e', 52);
+INSERT INTO `zone` VALUES (51, '2020-11-26 12:29:44.567959', '2020-11-26 12:29:44.567972', 0, '华东 1 可用区 D', 'cn-hangzhou-d', 52);
+INSERT INTO `zone` VALUES (52, '2020-11-26 12:29:44.567997', '2020-11-26 12:29:44.568011', 0, '华东 1 可用区 D', 'cn-hangzhou-d', 52);
+INSERT INTO `zone` VALUES (53, '2020-11-26 12:29:44.568036', '2020-11-26 12:29:44.568049', 0, '华东 1 可用区 C', 'cn-hangzhou-c', 52);
+INSERT INTO `zone` VALUES (54, '2020-11-26 12:29:44.568074', '2020-11-26 12:29:44.568088', 0, '华东 1 可用区 C', 'cn-hangzhou-c', 52);
+INSERT INTO `zone` VALUES (55, '2020-11-26 12:29:44.568112', '2020-11-26 12:29:44.568126', 0, '华东 1 可用区 J', 'cn-hangzhou-j', 52);
+INSERT INTO `zone` VALUES (56, '2020-11-26 12:29:44.568151', '2020-11-26 12:29:44.568168', 0, '华东 1 可用区 J', 'cn-hangzhou-j', 52);
+INSERT INTO `zone` VALUES (57, '2020-11-26 12:29:44.568194', '2020-11-26 12:29:44.568208', 0, '华东 2 可用区 G', 'cn-shanghai-g', 53);
+INSERT INTO `zone` VALUES (58, '2020-11-26 12:29:44.568233', '2020-11-26 12:29:44.568247', 0, '华东 2 可用区 G', 'cn-shanghai-g', 53);
+INSERT INTO `zone` VALUES (59, '2020-11-26 12:29:44.568272', '2020-11-26 12:29:44.568285', 0, '华东 2 可用区 F', 'cn-shanghai-f', 53);
+INSERT INTO `zone` VALUES (60, '2020-11-26 12:29:44.568311', '2020-11-26 12:29:44.568325', 0, '华东 2 可用区 F', 'cn-shanghai-f', 53);
+INSERT INTO `zone` VALUES (61, '2020-11-26 12:29:44.568350', '2020-11-26 12:29:44.568364', 0, '华东 2 可用区 E', 'cn-shanghai-e', 53);
+INSERT INTO `zone` VALUES (62, '2020-11-26 12:29:44.568389', '2020-11-26 12:29:44.568402', 0, '华东 2 可用区 E', 'cn-shanghai-e', 53);
+INSERT INTO `zone` VALUES (63, '2020-11-26 12:29:44.568427', '2020-11-26 12:29:44.568441', 0, '华东 2 可用区 D', 'cn-shanghai-d', 53);
+INSERT INTO `zone` VALUES (64, '2020-11-26 12:29:44.568466', '2020-11-26 12:29:44.568480', 0, '华东 2 可用区 D', 'cn-shanghai-d', 53);
+INSERT INTO `zone` VALUES (65, '2020-11-26 12:29:44.568507', '2020-11-26 12:29:44.568521', 0, '华东 2 可用区 C', 'cn-shanghai-c', 53);
+INSERT INTO `zone` VALUES (66, '2020-11-26 12:29:44.568546', '2020-11-26 12:29:44.568560', 0, '华东 2 可用区 C', 'cn-shanghai-c', 53);
+INSERT INTO `zone` VALUES (67, '2020-11-26 12:29:44.568585', '2020-11-26 12:29:44.568599', 0, '华东 2 可用区 B', 'cn-shanghai-b', 53);
+INSERT INTO `zone` VALUES (68, '2020-11-26 12:29:44.568624', '2020-11-26 12:29:44.568637', 0, '华东 2 可用区 B', 'cn-shanghai-b', 53);
+INSERT INTO `zone` VALUES (69, '2020-11-26 12:29:44.568662', '2020-11-26 12:29:44.568676', 0, '华东 2 可用区 A', 'cn-shanghai-a', 53);
+INSERT INTO `zone` VALUES (70, '2020-11-26 12:29:44.568701', '2020-11-26 12:29:44.568715', 0, '华东 2 可用区 A', 'cn-shanghai-a', 53);
+INSERT INTO `zone` VALUES (71, '2020-11-26 12:29:44.568740', '2020-11-26 12:29:44.568753', 0, '华南1 可用区 E', 'cn-shenzhen-e', 54);
+INSERT INTO `zone` VALUES (72, '2020-11-26 12:29:44.568779', '2020-11-26 12:29:44.568792', 0, '华南1 可用区 E', 'cn-shenzhen-e', 54);
+INSERT INTO `zone` VALUES (73, '2020-11-26 12:29:44.568817', '2020-11-26 12:29:44.568834', 0, '华南 1 可用区 D', 'cn-shenzhen-d', 54);
+INSERT INTO `zone` VALUES (74, '2020-11-26 12:29:44.568861', '2020-11-26 12:29:44.568875', 0, '华南 1 可用区 D', 'cn-shenzhen-d', 54);
+INSERT INTO `zone` VALUES (75, '2020-11-26 12:29:44.568900', '2020-11-26 12:29:44.568914', 0, '华南 1 可用区 C', 'cn-shenzhen-c', 54);
+INSERT INTO `zone` VALUES (76, '2020-11-26 12:29:44.568939', '2020-11-26 12:29:44.568953', 0, '华南 1 可用区 C', 'cn-shenzhen-c', 54);
+INSERT INTO `zone` VALUES (77, '2020-11-26 12:29:44.568978', '2020-11-26 12:29:44.568991', 0, '华南 1 可用区 A', 'cn-shenzhen-a', 54);
+INSERT INTO `zone` VALUES (78, '2020-11-26 12:29:44.569016', '2020-11-26 12:29:44.569030', 0, '华南 1 可用区 A', 'cn-shenzhen-a', 54);
+INSERT INTO `zone` VALUES (79, '2020-11-26 12:29:44.569055', '2020-11-26 12:29:44.569069', 0, '华南 1 可用区 B', 'cn-shenzhen-b', 54);
+INSERT INTO `zone` VALUES (80, '2020-11-26 12:29:44.569094', '2020-11-26 12:29:44.569107', 0, '华南 1 可用区 B', 'cn-shenzhen-b', 54);
+INSERT INTO `zone` VALUES (81, '2020-11-26 12:29:44.569132', '2020-11-26 12:29:44.569145', 0, '华南1 可用区 F', 'cn-shenzhen-f', 54);
+INSERT INTO `zone` VALUES (82, '2020-11-26 12:29:44.569171', '2020-11-26 12:29:44.569184', 0, '华南1 可用区 F', 'cn-shenzhen-f', 54);
+INSERT INTO `zone` VALUES (83, '2020-11-26 12:29:44.569209', '2020-11-26 12:29:44.569223', 0, '河源 可用区B', 'cn-heyuan-b', 55);
+INSERT INTO `zone` VALUES (84, '2020-11-26 12:29:44.569248', '2020-11-26 12:29:44.569261', 0, '河源 可用区B', 'cn-heyuan-b', 55);
+INSERT INTO `zone` VALUES (85, '2020-11-26 12:29:44.569286', '2020-11-26 12:29:44.569300', 0, '河源 可用区A', 'cn-heyuan-a', 55);
+INSERT INTO `zone` VALUES (86, '2020-11-26 12:29:44.569325', '2020-11-26 12:29:44.569339', 0, '河源 可用区A', 'cn-heyuan-a', 55);
+INSERT INTO `zone` VALUES (87, '2020-11-26 12:29:44.569364', '2020-11-26 12:29:44.569377', 0, '广州 可用区A', 'cn-guangzhou-a', 56);
+INSERT INTO `zone` VALUES (88, '2020-11-26 12:29:44.569403', '2020-11-26 12:29:44.569416', 0, '广州 可用区A', 'cn-guangzhou-a', 56);
+INSERT INTO `zone` VALUES (89, '2020-11-26 12:29:44.569441', '2020-11-26 12:29:44.569455', 0, '广州 可用区B', 'cn-guangzhou-b', 56);
+INSERT INTO `zone` VALUES (90, '2020-11-26 12:29:44.569483', '2020-11-26 12:29:44.569497', 0, '广州 可用区B', 'cn-guangzhou-b', 56);
+INSERT INTO `zone` VALUES (91, '2020-11-26 12:29:44.569523', '2020-11-26 12:29:44.569536', 0, '成都 可用区 A', 'cn-chengdu-a', 57);
+INSERT INTO `zone` VALUES (92, '2020-11-26 12:29:44.569562', '2020-11-26 12:29:44.569575', 0, '成都 可用区 A', 'cn-chengdu-a', 57);
+INSERT INTO `zone` VALUES (93, '2020-11-26 12:29:44.569600', '2020-11-26 12:29:44.569614', 0, '成都 可用区 B', 'cn-chengdu-b', 57);
+INSERT INTO `zone` VALUES (94, '2020-11-26 12:29:44.569639', '2020-11-26 12:29:44.569652', 0, '成都 可用区 B', 'cn-chengdu-b', 57);
+INSERT INTO `zone` VALUES (95, '2020-11-26 12:29:44.569678', '2020-11-26 12:29:44.569691', 0, '香港可用区 B', 'cn-hongkong-b', 58);
+INSERT INTO `zone` VALUES (96, '2020-11-26 12:29:44.569716', '2020-11-26 12:29:44.569730', 0, '香港可用区 B', 'cn-hongkong-b', 58);
+INSERT INTO `zone` VALUES (97, '2020-11-26 12:29:44.569755', '2020-11-26 12:29:44.569768', 0, '香港可用区 C', 'cn-hongkong-c', 58);
+INSERT INTO `zone` VALUES (98, '2020-11-26 12:29:44.569794', '2020-11-26 12:29:44.569810', 0, '香港可用区 C', 'cn-hongkong-c', 58);
+INSERT INTO `zone` VALUES (99, '2020-11-26 12:29:44.569836', '2020-11-26 12:29:44.569849', 0, '香港可用区 A', 'cn-hongkong-a', 58);
+INSERT INTO `zone` VALUES (100, '2020-11-26 12:29:44.569875', '2020-11-26 12:29:44.569888', 0, '香港可用区 A', 'cn-hongkong-a', 58);
+INSERT INTO `zone` VALUES (101, '2020-11-26 12:29:44.569914', '2020-11-26 12:29:44.569927', 0, '香港可用区 D', 'cn-hongkong-d', 58);
+INSERT INTO `zone` VALUES (102, '2020-11-26 12:29:44.569952', '2020-11-26 12:29:44.569966', 0, '香港可用区 D', 'cn-hongkong-d', 58);
+INSERT INTO `zone` VALUES (103, '2020-11-26 12:29:44.569991', '2020-11-26 12:29:44.570005', 0, '亚太东北1 可用区B', 'ap-northeast-1b', 59);
+INSERT INTO `zone` VALUES (104, '2020-11-26 12:29:44.570030', '2020-11-26 12:29:44.570043', 0, '亚太东北1 可用区B', 'ap-northeast-1b', 59);
+INSERT INTO `zone` VALUES (105, '2020-11-26 12:29:44.570071', '2020-11-26 12:29:44.570085', 0, '亚太东北1 可用区A', 'ap-northeast-1a', 59);
+INSERT INTO `zone` VALUES (106, '2020-11-26 12:29:44.570110', '2020-11-26 12:29:44.570124', 0, '亚太东北1 可用区A', 'ap-northeast-1a', 59);
+INSERT INTO `zone` VALUES (107, '2020-11-26 12:29:44.570149', '2020-11-26 12:29:44.570163', 0, '亚太东南1 可用区C', 'ap-southeast-1c', 60);
+INSERT INTO `zone` VALUES (108, '2020-11-26 12:29:44.570188', '2020-11-26 12:29:44.570202', 0, '亚太东南1 可用区C', 'ap-southeast-1c', 60);
+INSERT INTO `zone` VALUES (109, '2020-11-26 12:29:44.570227', '2020-11-26 12:29:44.570240', 0, '亚太东南1 可用区B', 'ap-southeast-1b', 60);
+INSERT INTO `zone` VALUES (110, '2020-11-26 12:29:44.570266', '2020-11-26 12:29:44.570279', 0, '亚太东南1 可用区B', 'ap-southeast-1b', 60);
+INSERT INTO `zone` VALUES (111, '2020-11-26 12:29:44.570304', '2020-11-26 12:29:44.570318', 0, '亚太东南1 可用区A', 'ap-southeast-1a', 60);
+INSERT INTO `zone` VALUES (112, '2020-11-26 12:29:44.570343', '2020-11-26 12:29:44.570357', 0, '亚太东南1 可用区A', 'ap-southeast-1a', 60);
+INSERT INTO `zone` VALUES (113, '2020-11-26 12:29:44.570382', '2020-11-26 12:29:44.570396', 0, '亚太东南 2 可用区B', 'ap-southeast-2b', 61);
+INSERT INTO `zone` VALUES (114, '2020-11-26 12:29:44.570421', '2020-11-26 12:29:44.570435', 0, '亚太东南 2 可用区B', 'ap-southeast-2b', 61);
+INSERT INTO `zone` VALUES (115, '2020-11-26 12:29:44.570472', '2020-11-26 12:29:44.570487', 0, '亚太东南 2 可用区A', 'ap-southeast-2a', 61);
+INSERT INTO `zone` VALUES (116, '2020-11-26 12:29:44.570512', '2020-11-26 12:29:44.570526', 0, '亚太东南 2 可用区A', 'ap-southeast-2a', 61);
+INSERT INTO `zone` VALUES (117, '2020-11-26 12:29:44.570551', '2020-11-26 12:29:44.570564', 0, '亚太东南3 可用区A', 'ap-southeast-3a', 62);
+INSERT INTO `zone` VALUES (118, '2020-11-26 12:29:44.570590', '2020-11-26 12:29:44.570604', 0, '亚太东南3 可用区A', 'ap-southeast-3a', 62);
+INSERT INTO `zone` VALUES (119, '2020-11-26 12:29:44.570629', '2020-11-26 12:29:44.570642', 0, '亚太东南3 可用区B', 'ap-southeast-3b', 62);
+INSERT INTO `zone` VALUES (120, '2020-11-26 12:29:44.570667', '2020-11-26 12:29:44.570681', 0, '亚太东南3 可用区B', 'ap-southeast-3b', 62);
+INSERT INTO `zone` VALUES (121, '2020-11-26 12:29:44.570706', '2020-11-26 12:29:44.570720', 0, '亚太东南 5 可用区A', 'ap-southeast-5a', 63);
+INSERT INTO `zone` VALUES (122, '2020-11-26 12:29:44.570745', '2020-11-26 12:29:44.570759', 0, '亚太东南 5 可用区A', 'ap-southeast-5a', 63);
+INSERT INTO `zone` VALUES (123, '2020-11-26 12:29:44.570784', '2020-11-26 12:29:44.570798', 0, '亚太东南 5 可用区B', 'ap-southeast-5b', 63);
+INSERT INTO `zone` VALUES (124, '2020-11-26 12:29:44.570823', '2020-11-26 12:29:44.570836', 0, '亚太东南 5 可用区B', 'ap-southeast-5b', 63);
+INSERT INTO `zone` VALUES (125, '2020-11-26 12:29:44.570860', '2020-11-26 12:29:44.570874', 0, '亚太南部1 可用区B', 'ap-south-1b', 64);
+INSERT INTO `zone` VALUES (126, '2020-11-26 12:29:44.570898', '2020-11-26 12:29:44.570912', 0, '亚太南部1 可用区B', 'ap-south-1b', 64);
+INSERT INTO `zone` VALUES (127, '2020-11-26 12:29:44.570936', '2020-11-26 12:29:44.570950', 0, '亚太南部1 可用区A', 'ap-south-1a', 64);
+INSERT INTO `zone` VALUES (128, '2020-11-26 12:29:44.570975', '2020-11-26 12:29:44.570989', 0, '亚太南部1 可用区A', 'ap-south-1a', 64);
+INSERT INTO `zone` VALUES (129, '2020-11-26 12:29:44.571014', '2020-11-26 12:29:44.571027', 0, '美国东部1 可用区B', 'us-east-1b', 65);
+INSERT INTO `zone` VALUES (130, '2020-11-26 12:29:44.571052', '2020-11-26 12:29:44.571065', 0, '美国东部1 可用区B', 'us-east-1b', 65);
+INSERT INTO `zone` VALUES (131, '2020-11-26 12:29:44.571091', '2020-11-26 12:29:44.571104', 0, '美国东部1 可用区A', 'us-east-1a', 65);
+INSERT INTO `zone` VALUES (132, '2020-11-26 12:29:44.571129', '2020-11-26 12:29:44.571142', 0, '美国东部1 可用区A', 'us-east-1a', 65);
+INSERT INTO `zone` VALUES (133, '2020-11-26 12:29:44.571167', '2020-11-26 12:29:44.571180', 0, '美国西部1 可用区B', 'us-west-1b', 66);
+INSERT INTO `zone` VALUES (134, '2020-11-26 12:29:44.571205', '2020-11-26 12:29:44.571219', 0, '美国西部1 可用区B', 'us-west-1b', 66);
+INSERT INTO `zone` VALUES (135, '2020-11-26 12:29:44.571243', '2020-11-26 12:29:44.571257', 0, '美国西部1 可用区A', 'us-west-1a', 66);
+INSERT INTO `zone` VALUES (136, '2020-11-26 12:29:44.571286', '2020-11-26 12:29:44.571300', 0, '美国西部1 可用区A', 'us-west-1a', 66);
+INSERT INTO `zone` VALUES (137, '2020-11-26 12:29:44.571325', '2020-11-26 12:29:44.571338', 0, '伦敦 可用区B', 'eu-west-1b', 67);
+INSERT INTO `zone` VALUES (138, '2020-11-26 12:29:44.571363', '2020-11-26 12:29:44.571376', 0, '伦敦 可用区B', 'eu-west-1b', 67);
+INSERT INTO `zone` VALUES (139, '2020-11-26 12:29:44.571401', '2020-11-26 12:29:44.571415', 0, '伦敦 可用区A', 'eu-west-1a', 67);
+INSERT INTO `zone` VALUES (140, '2020-11-26 12:29:44.571443', '2020-11-26 12:29:44.571459', 0, '伦敦 可用区A', 'eu-west-1a', 67);
+INSERT INTO `zone` VALUES (141, '2020-11-26 12:29:44.571484', '2020-11-26 12:29:44.571498', 0, '中东东部1 可用区A', 'me-east-1a', 68);
+INSERT INTO `zone` VALUES (142, '2020-11-26 12:29:44.571523', '2020-11-26 12:29:44.571536', 0, '中东东部1 可用区A', 'me-east-1a', 68);
+INSERT INTO `zone` VALUES (143, '2020-11-26 12:29:44.571561', '2020-11-26 12:29:44.571575', 0, '欧洲中部1 可用区B', 'eu-central-1b', 69);
+INSERT INTO `zone` VALUES (144, '2020-11-26 12:29:44.571600', '2020-11-26 12:29:44.571613', 0, '欧洲中部1 可用区B', 'eu-central-1b', 69);
+INSERT INTO `zone` VALUES (145, '2020-11-26 12:29:44.571639', '2020-11-26 12:29:44.571652', 0, '欧洲中部1 可用区A', 'eu-central-1a', 69);
+INSERT INTO `zone` VALUES (146, '2020-11-26 12:29:44.571677', '2020-11-26 12:29:44.571690', 0, '欧洲中部1 可用区A', 'eu-central-1a', 69);
 COMMIT;
 
 SET FOREIGN_KEY_CHECKS = 1;
