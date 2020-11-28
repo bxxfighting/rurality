@@ -25,6 +25,7 @@ INSTALLED_APPS = [
     'business.project',
     'business.service',
     'asset.manager',
+    'asset.ecs',
 ]
 
 MIDDLEWARE = [

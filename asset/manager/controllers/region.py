@@ -14,6 +14,8 @@ def get_regions(status=None, page_num=None, page_size=None, operator=None):
     获取地域列表
     '''
     base_query = RegionModel.objects
+    if status:
+        base_query = base_query.filter(status=status)
     total = base_query.count()
     objs = base_ctl.query_objs_by_page(base_query, page_num, page_size)
     data_list = []
@@ -49,16 +51,6 @@ def set_region_status(obj_id, status, operator):
     obj = base_ctl.update_obj(RegionModel, obj_id, data)
     data = obj.to_dict()
     return data
-
-
-def get_enabled_aliyun_key():
-    '''
-    获取启用状态的阿里云key
-    '''
-    obj = AliyunKeyModel.objects.filter(status=AliyunKeyModel.ST_ENABLE).first()
-    if not obj:
-        raise errors.CommonError('无可用阿里云key')
-    return obj.key, obj.secret
 
 
 def get_zones(region_id, page_num=None, page_size=None, operator=None):
