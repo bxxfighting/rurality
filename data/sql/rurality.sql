@@ -11,7 +11,7 @@
  Target Server Version : 50643
  File Encoding         : 65001
 
- Date: 27/11/2020 16:57:47
+ Date: 28/11/2020 18:24:24
 */
 
 SET NAMES utf8mb4;
@@ -30,7 +30,7 @@ CREATE TABLE `aliyun_key` (
   `secret` varchar(128) NOT NULL,
   `status` smallint(6) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of aliyun_key
@@ -154,7 +154,7 @@ CREATE TABLE `django_migrations` (
   `name` varchar(255) NOT NULL,
   `applied` datetime(6) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of django_migrations
@@ -172,6 +172,38 @@ INSERT INTO `django_migrations` VALUES (9, 'project', '0004_remove_projectmodel_
 INSERT INTO `django_migrations` VALUES (10, 'manager', '0001_initial', '2020-11-25 07:24:57.541805');
 INSERT INTO `django_migrations` VALUES (11, 'service', '0004_environmentmodel_serviceenvironmentmodel', '2020-11-27 05:57:36.937384');
 INSERT INTO `django_migrations` VALUES (12, 'service', '0005_auto_20201127_1610', '2020-11-27 08:10:32.261804');
+INSERT INTO `django_migrations` VALUES (13, 'ecs', '0001_initial', '2020-11-27 12:22:07.219712');
+COMMIT;
+
+-- ----------------------------
+-- Table structure for ecs
+-- ----------------------------
+DROP TABLE IF EXISTS `ecs`;
+CREATE TABLE `ecs` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `dt_create` datetime(6) NOT NULL,
+  `dt_update` datetime(6) NOT NULL,
+  `is_deleted` tinyint(1) NOT NULL,
+  `region_id` varchar(128) NOT NULL,
+  `zone_id` varchar(128) NOT NULL,
+  `name` varchar(128) NOT NULL,
+  `instance_id` varchar(128) NOT NULL,
+  `hostname` varchar(128) NOT NULL,
+  `inner_ip` varchar(128) NOT NULL,
+  `outer_ip` varchar(128) NOT NULL,
+  `cpu` int(11) NOT NULL,
+  `os` varchar(128) NOT NULL,
+  `memory` int(11) NOT NULL,
+  `dt_buy` datetime(6) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
+
+-- ----------------------------
+-- Records of ecs
+-- ----------------------------
+BEGIN;
+INSERT INTO `ecs` VALUES (1, '2020-11-27 12:27:10.525321', '2020-11-27 12:27:10.525373', 0, 'cn-zhangjiakou', 'cn-zhangjiakou-a', '量量', 'i-8vb19kumx22v0hxpzqni', 'iZ8vb19kumx22v0hxpzqniZ', '172.26.106.158', '47.92.71.110', 1, 'Ubuntu  16.04 64位', 1024, '2017-03-27 00:15:00.000000');
+INSERT INTO `ecs` VALUES (2, '2020-11-27 12:30:44.048351', '2020-11-27 12:30:44.048397', 0, 'cn-beijing', 'cn-beijing-a', 'yike', 'i-2zedsuhv55oquitw5pqw', 'yike', '172.17.16.167', '39.105.71.60', 1, 'Ubuntu  16.04 64位', 1024, '2018-10-10 17:56:00.000000');
 COMMIT;
 
 -- ----------------------------
@@ -211,7 +243,7 @@ CREATE TABLE `mod` (
   `sign` varchar(32) NOT NULL,
   `rank` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of mod
@@ -224,6 +256,7 @@ INSERT INTO `mod` VALUES (4, '2020-11-05 06:10:42.545597', '2020-11-05 06:10:42.
 INSERT INTO `mod` VALUES (5, '2020-11-10 06:02:59.689214', '2020-11-10 06:02:59.689266', 0, '项目管理', 'project', 50);
 INSERT INTO `mod` VALUES (6, '2020-11-10 06:06:17.629788', '2020-11-10 06:06:17.629874', 0, '服务管理', 'service', 48);
 INSERT INTO `mod` VALUES (7, '2020-11-27 08:36:39.506846', '2020-11-27 08:36:39.506887', 0, '环境管理', 'environment', 30);
+INSERT INTO `mod` VALUES (8, '2020-11-28 10:23:27.332670', '2020-11-28 10:23:27.332722', 0, 'ECS管理', 'ecs', 80);
 COMMIT;
 
 -- ----------------------------
@@ -457,7 +490,7 @@ CREATE TABLE `role_mod` (
   KEY `role_mod_role_id_827d1e5a_fk_role_id` (`role_id`),
   CONSTRAINT `role_mod_mod_id_053ffcd7_fk_mod_id` FOREIGN KEY (`mod_id`) REFERENCES `mod` (`id`),
   CONSTRAINT `role_mod_role_id_827d1e5a_fk_role_id` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of role_mod
@@ -476,6 +509,7 @@ INSERT INTO `role_mod` VALUES (10, '2020-11-10 06:08:09.095080', '2020-11-10 06:
 INSERT INTO `role_mod` VALUES (11, '2020-11-10 06:08:15.207004', '2020-11-10 09:59:22.143137', 1, 6, 2);
 INSERT INTO `role_mod` VALUES (12, '2020-11-10 09:59:55.159388', '2020-11-10 09:59:55.159732', 0, 6, 2);
 INSERT INTO `role_mod` VALUES (13, '2020-11-27 08:37:40.118063', '2020-11-27 08:37:40.118103', 0, 7, 2);
+INSERT INTO `role_mod` VALUES (14, '2020-11-28 10:23:37.035079', '2020-11-28 10:23:37.035126', 0, 8, 2);
 COMMIT;
 
 -- ----------------------------
