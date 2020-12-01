@@ -82,5 +82,6 @@
 <a target="_blank" href="https://github.com/bxxfighting/rurality/blob/master/how/to/do/5/3.md">第三节 阿里云地域、可用区管理</a>
 <a target="_blank" href="https://github.com/bxxfighting/rurality/blob/master/how/to/do/5/4.md">第四节 环境管理</a>
 <a target="_blank" href="https://github.com/bxxfighting/rurality/blob/master/how/to/do/5/5.md">第五节 先玩玩阿里云ECS</a>
+<a target="_blank" href="https://github.com/bxxfighting/rurality/blob/master/how/to/do/5/6.md">第六节 服务配置需要用到的资产模块</a>
 </code></pre>
 </details>
