@@ -11,7 +11,7 @@
  Target Server Version : 50643
  File Encoding         : 65001
 
- Date: 28/11/2020 18:24:24
+ Date: 01/12/2020 11:29:01
 */
 
 SET NAMES utf8mb4;
@@ -54,7 +54,7 @@ CREATE TABLE `asset` (
   `rank` int(11) NOT NULL,
   `remark` longtext NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of asset
@@ -62,6 +62,10 @@ CREATE TABLE `asset` (
 BEGIN;
 INSERT INTO `asset` VALUES (1, '2020-11-25 12:19:52.697156', '2020-11-25 12:20:01.468287', 0, 'ECS', 'ecs', 100, '阿里云ECS模块');
 INSERT INTO `asset` VALUES (2, '2020-11-25 12:20:14.068730', '2020-11-25 12:21:03.584707', 1, 'SLB', 'slb', 90, '阿里云SLB模块');
+INSERT INTO `asset` VALUES (3, '2020-12-01 03:11:37.112352', '2020-12-01 03:11:37.112405', 0, 'SLB', 'slb', 96, '');
+INSERT INTO `asset` VALUES (4, '2020-12-01 03:11:46.209042', '2020-12-01 03:11:46.209111', 0, 'RDS', 'rds', 93, '');
+INSERT INTO `asset` VALUES (5, '2020-12-01 03:11:56.487127', '2020-12-01 03:11:56.487428', 0, 'Redis', 'redis', 89, '');
+INSERT INTO `asset` VALUES (6, '2020-12-01 03:12:09.098221', '2020-12-01 03:12:09.098283', 0, 'Mongo', 'mongo', 85, '');
 COMMIT;
 
 -- ----------------------------
@@ -154,7 +158,7 @@ CREATE TABLE `django_migrations` (
   `name` varchar(255) NOT NULL,
   `applied` datetime(6) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of django_migrations
@@ -173,6 +177,7 @@ INSERT INTO `django_migrations` VALUES (10, 'manager', '0001_initial', '2020-11-
 INSERT INTO `django_migrations` VALUES (11, 'service', '0004_environmentmodel_serviceenvironmentmodel', '2020-11-27 05:57:36.937384');
 INSERT INTO `django_migrations` VALUES (12, 'service', '0005_auto_20201127_1610', '2020-11-27 08:10:32.261804');
 INSERT INTO `django_migrations` VALUES (13, 'ecs', '0001_initial', '2020-11-27 12:22:07.219712');
+INSERT INTO `django_migrations` VALUES (14, 'service', '0006_serviceassetmodel', '2020-12-01 03:25:52.397268');
 COMMIT;
 
 -- ----------------------------
@@ -276,7 +281,7 @@ CREATE TABLE `permission` (
   PRIMARY KEY (`id`),
   KEY `permission_mod_id_f75289cc_fk_mod_id` (`mod_id`),
   CONSTRAINT `permission_mod_id_f75289cc_fk_mod_id` FOREIGN KEY (`mod_id`) REFERENCES `mod` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=74 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=76 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of permission
@@ -355,6 +360,8 @@ INSERT INTO `permission` VALUES (70, '2020-11-27 08:34:58.347496', '2020-11-27 0
 INSERT INTO `permission` VALUES (71, '2020-11-27 08:37:07.390971', '2020-11-27 08:37:07.391019', 0, '创建环境', 10, '/api/v1/business/environment/create/', 100, 7);
 INSERT INTO `permission` VALUES (72, '2020-11-27 08:37:19.315751', '2020-11-27 08:37:19.315797', 0, '编辑环境', 10, '/api/v1/business/environment/update/', 90, 7);
 INSERT INTO `permission` VALUES (73, '2020-11-27 08:37:32.801874', '2020-11-27 08:37:32.801936', 0, '删除环境', 10, '/api/v1/business/environment/delete/', 80, 7);
+INSERT INTO `permission` VALUES (74, '2020-12-01 03:26:47.000402', '2020-12-01 03:26:47.000469', 0, '创建服务关联资产模块', 10, '/api/v1/business/service/asset/create/', 30, 6);
+INSERT INTO `permission` VALUES (75, '2020-12-01 03:27:06.514420', '2020-12-01 03:27:06.514461', 0, '删除服务关联资产模块', 10, '/api/v1/business/service/asset/delete/', 29, 6);
 COMMIT;
 
 -- ----------------------------
@@ -528,7 +535,7 @@ CREATE TABLE `role_permission` (
   KEY `role_permission_role_id_877a80a4_fk_role_id` (`role_id`),
   CONSTRAINT `role_permission_permission_id_ee9c5982_fk_permission_id` FOREIGN KEY (`permission_id`) REFERENCES `permission` (`id`),
   CONSTRAINT `role_permission_role_id_877a80a4_fk_role_id` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=61 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=63 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of role_permission
@@ -594,6 +601,8 @@ INSERT INTO `role_permission` VALUES (57, '2020-11-27 08:35:06.400507', '2020-11
 INSERT INTO `role_permission` VALUES (58, '2020-11-27 08:37:41.069126', '2020-11-27 08:37:41.069165', 0, 71, 2);
 INSERT INTO `role_permission` VALUES (59, '2020-11-27 08:37:41.678468', '2020-11-27 08:37:53.992781', 1, 72, 2);
 INSERT INTO `role_permission` VALUES (60, '2020-11-27 08:37:42.292193', '2020-11-27 08:37:53.040048', 1, 73, 2);
+INSERT INTO `role_permission` VALUES (61, '2020-12-01 03:27:19.000342', '2020-12-01 03:27:19.000386', 0, 74, 2);
+INSERT INTO `role_permission` VALUES (62, '2020-12-01 03:27:19.854893', '2020-12-01 03:27:19.854939', 0, 75, 2);
 COMMIT;
 
 -- ----------------------------
@@ -645,6 +654,33 @@ CREATE TABLE `service` (
 BEGIN;
 INSERT INTO `service` VALUES (1, '2020-11-07 10:17:30.413472', '2020-11-07 10:52:11.582977', 0, '运维系统前端', 'enjoy', NULL, 1);
 INSERT INTO `service` VALUES (2, '2020-11-07 10:45:01.293950', '2020-11-07 10:52:20.488689', 0, '运维系统后端', 'rurality', NULL, 1);
+COMMIT;
+
+-- ----------------------------
+-- Table structure for service_asset
+-- ----------------------------
+DROP TABLE IF EXISTS `service_asset`;
+CREATE TABLE `service_asset` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `dt_create` datetime(6) NOT NULL,
+  `dt_update` datetime(6) NOT NULL,
+  `is_deleted` tinyint(1) NOT NULL,
+  `asset_id` int(11) NOT NULL,
+  `service_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `service_asset_asset_id_a00b7f13_fk_asset_id` (`asset_id`),
+  KEY `service_asset_service_id_2805134d_fk_service_id` (`service_id`),
+  CONSTRAINT `service_asset_asset_id_a00b7f13_fk_asset_id` FOREIGN KEY (`asset_id`) REFERENCES `asset` (`id`),
+  CONSTRAINT `service_asset_service_id_2805134d_fk_service_id` FOREIGN KEY (`service_id`) REFERENCES `service` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
+
+-- ----------------------------
+-- Records of service_asset
+-- ----------------------------
+BEGIN;
+INSERT INTO `service_asset` VALUES (1, '2020-12-01 03:27:43.783912', '2020-12-01 03:27:43.783956', 0, 1, 1);
+INSERT INTO `service_asset` VALUES (2, '2020-12-01 03:27:49.322467', '2020-12-01 03:27:49.322532', 0, 3, 1);
+INSERT INTO `service_asset` VALUES (3, '2020-12-01 03:27:53.259204', '2020-12-01 03:27:53.259265', 0, 4, 1);
 COMMIT;
 
 -- ----------------------------

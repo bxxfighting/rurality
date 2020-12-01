@@ -1,6 +1,7 @@
 from django.db import models
 from base.models import BaseModel
 from business.project.models import ProjectModel
+from asset.manager.models import AssetModel
 from account.models import DepartmentModel
 from account.models import UserModel
 
@@ -85,3 +86,14 @@ class ServiceEnvironmentModel(BaseModel):
 
     class Meta:
         db_table = 'service_environment'
+
+
+class ServiceAssetModel(BaseModel):
+    '''
+    服务关联资产模块
+    '''
+    service = models.ForeignKey(ServiceModel, on_delete=models.CASCADE)
+    asset = models.ForeignKey(AssetModel, on_delete=models.CASCADE)
+
+    class Meta:
+        db_table = 'service_asset'
