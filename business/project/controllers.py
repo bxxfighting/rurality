@@ -5,7 +5,7 @@ from base import errors
 from base import controllers as base_ctl
 from business.project.models import ProjectModel
 from business.project.models import ProjectUserModel
-from business.service import controllers as service_ctl
+from business.service.controllers import service as service_ctl
 from utils.onlyone import onlyone
 
 
