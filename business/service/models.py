@@ -81,6 +81,9 @@ class ServiceEnvironmentModel(BaseModel):
     不同服务可能并不一定有相同数量的环境
     如果是强制必须都有的，则可以不使用此关联表
     '''
+    model_name = '服务环境'
+    model_sign = 'service_environment'
+
     service = models.ForeignKey(ServiceModel, on_delete=models.CASCADE)
     environment = models.ForeignKey(EnvironmentModel, on_delete=models.CASCADE)
 
@@ -92,8 +95,63 @@ class ServiceAssetModel(BaseModel):
     '''
     服务关联资产模块
     '''
+    model_name = '服务资产模块'
+    model_sign = 'service_asset'
+
     service = models.ForeignKey(ServiceModel, on_delete=models.CASCADE)
     asset = models.ForeignKey(AssetModel, on_delete=models.CASCADE)
 
     class Meta:
         db_table = 'service_asset'
+
+
+class ServiceAssetObjModel(BaseModel):
+    '''
+    服务关联资产实例
+    '''
+    model_name = '服务资产实例'
+    model_sign = 'service_asset_obj'
+
+    TYP_ECS = 'ecs'
+    TYP_RDS = 'rds'
+    TYP_SLB = 'slb'
+    TYP_DNS = 'dns'
+    TYP_REDIS = 'redis'
+    TYP_MONGO = 'mongo'
+    TYP_ROCKET = 'rocket'
+    TYP_KAFKA = 'kafka'
+
+    TYP_CHOICES = (
+        (TYP_ECS, 'ECS'),
+        (TYP_RDS, 'RDS'),
+        (TYP_SLB, 'SLB'),
+        (TYP_DNS, 'DNS'),
+        (TYP_REDIS, 'Redis'),
+        (TYP_MONGO, 'Mongo'),
+        (TYP_ROCKET, 'Rocket'),
+        (TYP_KAFKA, 'Kafka'),
+    )
+
+    ST_PENDING_ADD = 10
+    ST_SUCCESS_ADD = 20
+    ST_FAILED_ADD = 30
+    ST_PENDING_REMOVE = 40
+    ST_SUCCESS_REMOVE = 50
+    ST_FAILED_REMOVE = 60
+    ST_CHOICES = (
+        (ST_PENDING_ADD, '等待添加'),
+        (ST_SUCCESS_ADD, '添加成功'),
+        (ST_FAILED_ADD, '添加失败'),
+        (ST_PENDING_REMOVE, '等待删除'),
+        (ST_SUCCESS_REMOVE, '删除成功'),
+        (ST_FAILED_REMOVE, '删除失败'),
+    )
+
+    service = models.ForeignKey(ServiceModel, on_delete=models.CASCADE, verbose_name='服务')
+    environment = models.ForeignKey(EnvironmentModel, on_delete=models.CASCADE, verbose_name='环境')
+    typ = models.CharField('资产类型', max_length=128, choices=TYP_CHOICES)
+    status = models.SmallIntegerField('状态', choices=ST_CHOICES, default=ST_PENDING_ADD)
+    asset_obj_id = models.IntegerField('资产实例ID', db_index=True)
+
+    class Meta:
+        db_table = 'service_asset_obj'

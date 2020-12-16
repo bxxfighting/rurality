@@ -11,7 +11,7 @@
  Target Server Version : 50643
  File Encoding         : 65001
 
- Date: 01/12/2020 11:29:01
+ Date: 16/12/2020 18:33:40
 */
 
 SET NAMES utf8mb4;
@@ -107,7 +107,7 @@ CREATE TABLE `department_service` (
   KEY `department_service_service_id_b86a666f_fk_service_id` (`service_id`),
   CONSTRAINT `department_service_department_id_8a798ac7_fk_department_id` FOREIGN KEY (`department_id`) REFERENCES `department` (`id`),
   CONSTRAINT `department_service_service_id_b86a666f_fk_service_id` FOREIGN KEY (`service_id`) REFERENCES `service` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of department_service
@@ -116,9 +116,11 @@ BEGIN;
 INSERT INTO `department_service` VALUES (1, '2020-11-10 10:05:15.039312', '2020-11-10 10:06:04.151615', 1, 1, 1);
 INSERT INTO `department_service` VALUES (2, '2020-11-10 10:05:59.074737', '2020-11-10 10:06:01.946124', 1, 2, 1);
 INSERT INTO `department_service` VALUES (3, '2020-11-10 10:06:07.711059', '2020-11-10 10:06:07.711119', 0, 2, 1);
-INSERT INTO `department_service` VALUES (4, '2020-11-10 10:06:11.069409', '2020-11-10 10:06:11.069449', 0, 3, 1);
+INSERT INTO `department_service` VALUES (4, '2020-11-10 10:06:11.069409', '2020-12-16 09:11:12.431806', 1, 3, 1);
 INSERT INTO `department_service` VALUES (5, '2020-11-11 02:45:14.984173', '2020-11-11 02:45:14.984214', 0, 1, 1);
 INSERT INTO `department_service` VALUES (6, '2020-11-11 02:45:26.036309', '2020-11-11 02:45:26.036364', 0, 1, 2);
+INSERT INTO `department_service` VALUES (7, '2020-12-10 06:39:46.597724', '2020-12-10 06:39:46.597797', 0, 2, 2);
+INSERT INTO `department_service` VALUES (8, '2020-12-16 09:11:16.529785', '2020-12-16 09:11:16.529834', 0, 3, 1);
 COMMIT;
 
 -- ----------------------------
@@ -158,7 +160,7 @@ CREATE TABLE `django_migrations` (
   `name` varchar(255) NOT NULL,
   `applied` datetime(6) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of django_migrations
@@ -178,6 +180,9 @@ INSERT INTO `django_migrations` VALUES (11, 'service', '0004_environmentmodel_se
 INSERT INTO `django_migrations` VALUES (12, 'service', '0005_auto_20201127_1610', '2020-11-27 08:10:32.261804');
 INSERT INTO `django_migrations` VALUES (13, 'ecs', '0001_initial', '2020-11-27 12:22:07.219712');
 INSERT INTO `django_migrations` VALUES (14, 'service', '0006_serviceassetmodel', '2020-12-01 03:25:52.397268');
+INSERT INTO `django_migrations` VALUES (16, 'service', '0007_serviceassetobjmodel', '2020-12-11 03:01:01.827517');
+INSERT INTO `django_migrations` VALUES (17, 'service', '0008_auto_20201211_1100', '2020-12-11 03:01:02.167420');
+INSERT INTO `django_migrations` VALUES (18, 'service', '0009_serviceassetobjmodel_status', '2020-12-11 06:15:22.332508');
 COMMIT;
 
 -- ----------------------------
@@ -225,7 +230,7 @@ CREATE TABLE `environment` (
   `rank` int(11) NOT NULL,
   `remark` longtext,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of environment
@@ -233,6 +238,7 @@ CREATE TABLE `environment` (
 BEGIN;
 INSERT INTO `environment` VALUES (1, '2020-11-27 08:11:09.071451', '2020-11-27 08:11:18.147764', 1, '线上环境', 'prod', 100, '用于线上环境');
 INSERT INTO `environment` VALUES (2, '2020-11-27 08:11:31.618363', '2020-11-27 08:11:37.917759', 0, '生产环境', 'prod', 100, '生产环境');
+INSERT INTO `environment` VALUES (3, '2020-12-04 07:46:42.350105', '2020-12-04 07:46:42.350175', 0, 'Release环境', 'release', 90, '');
 COMMIT;
 
 -- ----------------------------
@@ -281,7 +287,7 @@ CREATE TABLE `permission` (
   PRIMARY KEY (`id`),
   KEY `permission_mod_id_f75289cc_fk_mod_id` (`mod_id`),
   CONSTRAINT `permission_mod_id_f75289cc_fk_mod_id` FOREIGN KEY (`mod_id`) REFERENCES `mod` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=76 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=78 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of permission
@@ -362,6 +368,8 @@ INSERT INTO `permission` VALUES (72, '2020-11-27 08:37:19.315751', '2020-11-27 0
 INSERT INTO `permission` VALUES (73, '2020-11-27 08:37:32.801874', '2020-11-27 08:37:32.801936', 0, '删除环境', 10, '/api/v1/business/environment/delete/', 80, 7);
 INSERT INTO `permission` VALUES (74, '2020-12-01 03:26:47.000402', '2020-12-01 03:26:47.000469', 0, '创建服务关联资产模块', 10, '/api/v1/business/service/asset/create/', 30, 6);
 INSERT INTO `permission` VALUES (75, '2020-12-01 03:27:06.514420', '2020-12-01 03:27:06.514461', 0, '删除服务关联资产模块', 10, '/api/v1/business/service/asset/delete/', 29, 6);
+INSERT INTO `permission` VALUES (76, '2020-12-11 08:23:30.301107', '2020-12-11 08:23:30.301238', 0, '创建服务关联ECS', 10, '/api/v1/business/service/ecs/create/', 28, 6);
+INSERT INTO `permission` VALUES (77, '2020-12-11 08:23:47.275331', '2020-12-11 08:23:47.275373', 0, '删除服务关联ECS', 10, '/api/v1/business/service/ecs/delete/', 27, 6);
 COMMIT;
 
 -- ----------------------------
@@ -535,7 +543,7 @@ CREATE TABLE `role_permission` (
   KEY `role_permission_role_id_877a80a4_fk_role_id` (`role_id`),
   CONSTRAINT `role_permission_permission_id_ee9c5982_fk_permission_id` FOREIGN KEY (`permission_id`) REFERENCES `permission` (`id`),
   CONSTRAINT `role_permission_role_id_877a80a4_fk_role_id` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=63 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=65 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of role_permission
@@ -603,6 +611,8 @@ INSERT INTO `role_permission` VALUES (59, '2020-11-27 08:37:41.678468', '2020-11
 INSERT INTO `role_permission` VALUES (60, '2020-11-27 08:37:42.292193', '2020-11-27 08:37:53.040048', 1, 73, 2);
 INSERT INTO `role_permission` VALUES (61, '2020-12-01 03:27:19.000342', '2020-12-01 03:27:19.000386', 0, 74, 2);
 INSERT INTO `role_permission` VALUES (62, '2020-12-01 03:27:19.854893', '2020-12-01 03:27:19.854939', 0, 75, 2);
+INSERT INTO `role_permission` VALUES (63, '2020-12-11 08:23:55.181671', '2020-12-11 08:23:55.181714', 0, 76, 2);
+INSERT INTO `role_permission` VALUES (64, '2020-12-11 08:23:56.464432', '2020-12-11 08:23:56.464525', 0, 77, 2);
 COMMIT;
 
 -- ----------------------------
@@ -621,13 +631,14 @@ CREATE TABLE `role_user` (
   KEY `role_user_user_id_c9245d4a_fk_user_id` (`user_id`),
   CONSTRAINT `role_user_role_id_3b7811a1_fk_role_id` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`),
   CONSTRAINT `role_user_user_id_c9245d4a_fk_user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of role_user
 -- ----------------------------
 BEGIN;
 INSERT INTO `role_user` VALUES (1, '2020-11-06 07:18:23.928603', '2020-11-06 07:18:23.928671', 0, 2, 2);
+INSERT INTO `role_user` VALUES (2, '2020-12-10 07:08:38.066752', '2020-12-10 07:08:38.066796', 0, 1, 2);
 COMMIT;
 
 -- ----------------------------
@@ -653,7 +664,7 @@ CREATE TABLE `service` (
 -- ----------------------------
 BEGIN;
 INSERT INTO `service` VALUES (1, '2020-11-07 10:17:30.413472', '2020-11-07 10:52:11.582977', 0, '运维系统前端', 'enjoy', NULL, 1);
-INSERT INTO `service` VALUES (2, '2020-11-07 10:45:01.293950', '2020-11-07 10:52:20.488689', 0, '运维系统后端', 'rurality', NULL, 1);
+INSERT INTO `service` VALUES (2, '2020-11-07 10:45:01.293950', '2020-12-10 07:04:35.029954', 0, '运维系统后端', 'rurality', NULL, 2);
 COMMIT;
 
 -- ----------------------------
@@ -672,7 +683,7 @@ CREATE TABLE `service_asset` (
   KEY `service_asset_service_id_2805134d_fk_service_id` (`service_id`),
   CONSTRAINT `service_asset_asset_id_a00b7f13_fk_asset_id` FOREIGN KEY (`asset_id`) REFERENCES `asset` (`id`),
   CONSTRAINT `service_asset_service_id_2805134d_fk_service_id` FOREIGN KEY (`service_id`) REFERENCES `service` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of service_asset
@@ -681,6 +692,42 @@ BEGIN;
 INSERT INTO `service_asset` VALUES (1, '2020-12-01 03:27:43.783912', '2020-12-01 03:27:43.783956', 0, 1, 1);
 INSERT INTO `service_asset` VALUES (2, '2020-12-01 03:27:49.322467', '2020-12-01 03:27:49.322532', 0, 3, 1);
 INSERT INTO `service_asset` VALUES (3, '2020-12-01 03:27:53.259204', '2020-12-01 03:27:53.259265', 0, 4, 1);
+INSERT INTO `service_asset` VALUES (4, '2020-12-08 02:24:05.106019', '2020-12-08 02:24:05.106088', 0, 5, 1);
+INSERT INTO `service_asset` VALUES (5, '2020-12-09 02:24:22.736519', '2020-12-09 02:24:22.736562', 0, 1, 2);
+INSERT INTO `service_asset` VALUES (6, '2020-12-09 02:38:16.815380', '2020-12-09 02:38:16.815431', 0, 3, 2);
+INSERT INTO `service_asset` VALUES (7, '2020-12-16 09:03:41.530714', '2020-12-16 09:03:41.530779', 0, 4, 2);
+COMMIT;
+
+-- ----------------------------
+-- Table structure for service_asset_obj
+-- ----------------------------
+DROP TABLE IF EXISTS `service_asset_obj`;
+CREATE TABLE `service_asset_obj` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `dt_create` datetime(6) NOT NULL,
+  `dt_update` datetime(6) NOT NULL,
+  `is_deleted` tinyint(1) NOT NULL,
+  `asset_obj_id` int(11) NOT NULL,
+  `environment_id` int(11) NOT NULL,
+  `service_id` int(11) NOT NULL,
+  `typ` varchar(128) NOT NULL,
+  `status` smallint(6) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `service_asset_obj_environment_id_b3021b21_fk_environment_id` (`environment_id`),
+  KEY `service_asset_obj_service_id_074819e0_fk_service_id` (`service_id`),
+  KEY `service_asset_obj_asset_obj_id_33f9c96f` (`asset_obj_id`),
+  CONSTRAINT `service_asset_obj_environment_id_b3021b21_fk_environment_id` FOREIGN KEY (`environment_id`) REFERENCES `environment` (`id`),
+  CONSTRAINT `service_asset_obj_service_id_074819e0_fk_service_id` FOREIGN KEY (`service_id`) REFERENCES `service` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
+
+-- ----------------------------
+-- Records of service_asset_obj
+-- ----------------------------
+BEGIN;
+INSERT INTO `service_asset_obj` VALUES (1, '2020-12-12 09:54:22.445696', '2020-12-16 08:31:07.869815', 0, 1, 2, 1, 'ecs', 40);
+INSERT INTO `service_asset_obj` VALUES (2, '2020-12-16 08:27:13.673619', '2020-12-16 08:29:30.113564', 0, 2, 2, 1, 'ecs', 40);
+INSERT INTO `service_asset_obj` VALUES (3, '2020-12-16 08:34:49.055819', '2020-12-16 08:34:49.055893', 0, 1, 2, 2, 'ecs', 10);
+INSERT INTO `service_asset_obj` VALUES (4, '2020-12-16 10:13:09.526626', '2020-12-16 10:13:09.526697', 0, 2, 3, 2, 'ecs', 10);
 COMMIT;
 
 -- ----------------------------
@@ -699,7 +746,7 @@ CREATE TABLE `service_environment` (
   KEY `service_environment_service_id_c6f2006f_fk_service_id` (`service_id`),
   CONSTRAINT `service_environment_environment_id_9cbd560e_fk_environment_id` FOREIGN KEY (`environment_id`) REFERENCES `environment` (`id`),
   CONSTRAINT `service_environment_service_id_c6f2006f_fk_service_id` FOREIGN KEY (`service_id`) REFERENCES `service` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of service_environment
@@ -707,6 +754,13 @@ CREATE TABLE `service_environment` (
 BEGIN;
 INSERT INTO `service_environment` VALUES (1, '2020-11-27 08:35:23.610069', '2020-11-27 08:35:26.457864', 1, 2, 1);
 INSERT INTO `service_environment` VALUES (2, '2020-11-27 08:35:30.507815', '2020-11-27 08:35:30.507885', 0, 2, 1);
+INSERT INTO `service_environment` VALUES (3, '2020-12-04 09:07:50.835452', '2020-12-11 08:12:10.116493', 1, 3, 1);
+INSERT INTO `service_environment` VALUES (4, '2020-12-05 01:53:50.124002', '2020-12-05 01:53:50.124044', 0, 2, 2);
+INSERT INTO `service_environment` VALUES (5, '2020-12-05 03:48:11.955181', '2020-12-09 05:53:56.161483', 1, 3, 2);
+INSERT INTO `service_environment` VALUES (6, '2020-12-11 08:31:20.881268', '2020-12-11 08:31:20.881420', 0, 3, 1);
+INSERT INTO `service_environment` VALUES (7, '2020-12-16 08:37:25.588533', '2020-12-16 08:56:09.176522', 1, 3, 2);
+INSERT INTO `service_environment` VALUES (8, '2020-12-16 08:56:17.557746', '2020-12-16 08:56:24.443189', 1, 3, 2);
+INSERT INTO `service_environment` VALUES (9, '2020-12-16 10:13:03.024471', '2020-12-16 10:13:03.024559', 0, 3, 2);
 COMMIT;
 
 -- ----------------------------
@@ -726,7 +780,7 @@ CREATE TABLE `service_user` (
   KEY `service_user_user_id_c30338c4_fk_user_id` (`user_id`),
   CONSTRAINT `service_user_service_id_841bc91a_fk_service_id` FOREIGN KEY (`service_id`) REFERENCES `service` (`id`),
   CONSTRAINT `service_user_user_id_c30338c4_fk_user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of service_user
@@ -736,8 +790,9 @@ INSERT INTO `service_user` VALUES (1, '2020-11-07 10:21:38.487791', '2020-11-10 
 INSERT INTO `service_user` VALUES (2, '2020-11-07 10:22:23.302933', '2020-11-10 09:35:19.484129', 1, 20, 1, 3);
 INSERT INTO `service_user` VALUES (3, '2020-11-07 10:54:27.332821', '2020-11-07 10:54:27.332863', 0, 20, 2, 2);
 INSERT INTO `service_user` VALUES (4, '2020-11-07 10:54:41.238474', '2020-11-07 10:54:41.238520', 0, 10, 2, 3);
-INSERT INTO `service_user` VALUES (5, '2020-11-10 09:35:28.016470', '2020-11-10 09:35:28.016512', 0, 10, 1, 2);
-INSERT INTO `service_user` VALUES (6, '2020-11-10 09:35:45.275634', '2020-11-10 09:35:45.275743', 0, 20, 1, 3);
+INSERT INTO `service_user` VALUES (5, '2020-11-10 09:35:28.016470', '2020-12-16 09:10:59.212896', 1, 10, 1, 2);
+INSERT INTO `service_user` VALUES (6, '2020-11-10 09:35:45.275634', '2020-12-16 09:10:57.374622', 1, 20, 1, 3);
+INSERT INTO `service_user` VALUES (7, '2020-12-16 09:11:06.067298', '2020-12-16 09:11:06.067343', 0, 20, 1, 3);
 COMMIT;
 
 -- ----------------------------
