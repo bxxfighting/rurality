@@ -86,3 +86,7 @@
 <a target="_blank" href="https://github.com/bxxfighting/rurality/blob/master/how/to/do/5/7.md">第七节 服务与ECS有个约会</a>
 </code></pre>
 </details>
+
+哈哈，支付宝收款码在此，一分不嫌少，一元不嫌多，就是图一个乐子  
+<img src="https://github.com/bxxfighting/rurality/blob/master/data/sponsor/images/支付宝收款码.jpeg" hegiht="300" />
+[赞助名单](https://github.com/bxxfighting/rurality/blob/master/data/sponsor/README.md)
