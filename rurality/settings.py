@@ -26,6 +26,7 @@ INSTALLED_APPS = [
     'business.service',
     'asset.manager',
     'asset.ecs',
+    'asset.slb',
 ]
 
 MIDDLEWARE = [

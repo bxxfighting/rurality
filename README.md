@@ -84,6 +84,7 @@
 <a target="_blank" href="https://github.com/bxxfighting/rurality/blob/master/how/to/do/5/5.md">第五节 先玩玩阿里云ECS</a>
 <a target="_blank" href="https://github.com/bxxfighting/rurality/blob/master/how/to/do/5/6.md">第六节 服务配置需要用到的资产模块</a>
 <a target="_blank" href="https://github.com/bxxfighting/rurality/blob/master/how/to/do/5/7.md">第七节 服务与ECS有个约会</a>
+<a target="_blank" href="https://github.com/bxxfighting/rurality/blob/master/how/to/do/5/8.md">第八节 干SLB</a>
 </code></pre>
 </details>
 

@@ -11,7 +11,7 @@
  Target Server Version : 50643
  File Encoding         : 65001
 
- Date: 16/12/2020 18:33:40
+ Date: 18/12/2020 19:58:45
 */
 
 SET NAMES utf8mb4;
@@ -160,7 +160,7 @@ CREATE TABLE `django_migrations` (
   `name` varchar(255) NOT NULL,
   `applied` datetime(6) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of django_migrations
@@ -183,6 +183,9 @@ INSERT INTO `django_migrations` VALUES (14, 'service', '0006_serviceassetmodel',
 INSERT INTO `django_migrations` VALUES (16, 'service', '0007_serviceassetobjmodel', '2020-12-11 03:01:01.827517');
 INSERT INTO `django_migrations` VALUES (17, 'service', '0008_auto_20201211_1100', '2020-12-11 03:01:02.167420');
 INSERT INTO `django_migrations` VALUES (18, 'service', '0009_serviceassetobjmodel_status', '2020-12-11 06:15:22.332508');
+INSERT INTO `django_migrations` VALUES (19, 'service', '0010_auto_20201217_1658', '2020-12-17 08:58:42.288754');
+INSERT INTO `django_migrations` VALUES (20, 'slb', '0001_initial', '2020-12-17 08:58:42.394138');
+INSERT INTO `django_migrations` VALUES (21, 'slb', '0002_slbservergroupecsmodel', '2020-12-17 09:05:56.426316');
 COMMIT;
 
 -- ----------------------------
@@ -254,7 +257,7 @@ CREATE TABLE `mod` (
   `sign` varchar(32) NOT NULL,
   `rank` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of mod
@@ -268,6 +271,7 @@ INSERT INTO `mod` VALUES (5, '2020-11-10 06:02:59.689214', '2020-11-10 06:02:59.
 INSERT INTO `mod` VALUES (6, '2020-11-10 06:06:17.629788', '2020-11-10 06:06:17.629874', 0, '服务管理', 'service', 48);
 INSERT INTO `mod` VALUES (7, '2020-11-27 08:36:39.506846', '2020-11-27 08:36:39.506887', 0, '环境管理', 'environment', 30);
 INSERT INTO `mod` VALUES (8, '2020-11-28 10:23:27.332670', '2020-11-28 10:23:27.332722', 0, 'ECS管理', 'ecs', 80);
+INSERT INTO `mod` VALUES (9, '2020-12-18 03:42:20.473478', '2020-12-18 03:42:20.473522', 0, 'SLB管理', 'slb', 79);
 COMMIT;
 
 -- ----------------------------
@@ -505,7 +509,7 @@ CREATE TABLE `role_mod` (
   KEY `role_mod_role_id_827d1e5a_fk_role_id` (`role_id`),
   CONSTRAINT `role_mod_mod_id_053ffcd7_fk_mod_id` FOREIGN KEY (`mod_id`) REFERENCES `mod` (`id`),
   CONSTRAINT `role_mod_role_id_827d1e5a_fk_role_id` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of role_mod
@@ -525,6 +529,7 @@ INSERT INTO `role_mod` VALUES (11, '2020-11-10 06:08:15.207004', '2020-11-10 09:
 INSERT INTO `role_mod` VALUES (12, '2020-11-10 09:59:55.159388', '2020-11-10 09:59:55.159732', 0, 6, 2);
 INSERT INTO `role_mod` VALUES (13, '2020-11-27 08:37:40.118063', '2020-11-27 08:37:40.118103', 0, 7, 2);
 INSERT INTO `role_mod` VALUES (14, '2020-11-28 10:23:37.035079', '2020-11-28 10:23:37.035126', 0, 8, 2);
+INSERT INTO `role_mod` VALUES (15, '2020-12-18 04:28:01.078940', '2020-12-18 04:28:01.079045', 0, 9, 2);
 COMMIT;
 
 -- ----------------------------
@@ -793,6 +798,98 @@ INSERT INTO `service_user` VALUES (4, '2020-11-07 10:54:41.238474', '2020-11-07 
 INSERT INTO `service_user` VALUES (5, '2020-11-10 09:35:28.016470', '2020-12-16 09:10:59.212896', 1, 10, 1, 2);
 INSERT INTO `service_user` VALUES (6, '2020-11-10 09:35:45.275634', '2020-12-16 09:10:57.374622', 1, 20, 1, 3);
 INSERT INTO `service_user` VALUES (7, '2020-12-16 09:11:06.067298', '2020-12-16 09:11:06.067343', 0, 20, 1, 3);
+COMMIT;
+
+-- ----------------------------
+-- Table structure for slb
+-- ----------------------------
+DROP TABLE IF EXISTS `slb`;
+CREATE TABLE `slb` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `dt_create` datetime(6) NOT NULL,
+  `dt_update` datetime(6) NOT NULL,
+  `is_deleted` tinyint(1) NOT NULL,
+  `name` varchar(128) NOT NULL,
+  `instance_id` varchar(128) NOT NULL,
+  `ip` varchar(128) NOT NULL,
+  `ip_typ` varchar(128) NOT NULL,
+  `region_id` varchar(128) NOT NULL,
+  `zone_id` varchar(128) NOT NULL,
+  `slave_zone_id` varchar(128) NOT NULL,
+  `dt_buy` datetime(6) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
+
+-- ----------------------------
+-- Records of slb
+-- ----------------------------
+BEGIN;
+INSERT INTO `slb` VALUES (1, '2020-12-17 08:59:57.137973', '2020-12-17 08:59:57.138017', 0, 'auto_named_slb', 'lb-8vb2majrt8jodsxtx1m5w', '172.26.117.97', 'intranet', 'cn-zhangjiakou', 'cn-zhangjiakou-c', 'cn-zhangjiakou-b', '2020-04-29 07:47:00.000000');
+INSERT INTO `slb` VALUES (2, '2020-12-17 08:59:57.138171', '2020-12-17 08:59:57.138189', 0, 'test_slb', 'lb-8vbco4c0wopdm6je80ugi', '172.26.106.159', 'intranet', 'cn-zhangjiakou', 'cn-zhangjiakou-a', 'cn-zhangjiakou-b', '2020-04-28 09:01:00.000000');
+COMMIT;
+
+-- ----------------------------
+-- Table structure for slb_server_group
+-- ----------------------------
+DROP TABLE IF EXISTS `slb_server_group`;
+CREATE TABLE `slb_server_group` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `dt_create` datetime(6) NOT NULL,
+  `dt_update` datetime(6) NOT NULL,
+  `is_deleted` tinyint(1) NOT NULL,
+  `name` varchar(128) NOT NULL,
+  `instance_id` varchar(128) NOT NULL,
+  `typ` smallint(6) NOT NULL,
+  `slb_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `slb_server_group_slb_id_286742b3_fk_slb_id` (`slb_id`),
+  CONSTRAINT `slb_server_group_slb_id_286742b3_fk_slb_id` FOREIGN KEY (`slb_id`) REFERENCES `slb` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4;
+
+-- ----------------------------
+-- Records of slb_server_group
+-- ----------------------------
+BEGIN;
+INSERT INTO `slb_server_group` VALUES (7, '2020-12-17 09:24:37.389078', '2020-12-17 09:24:37.389133', 0, 'default', 'default', 10, 1);
+INSERT INTO `slb_server_group` VALUES (8, '2020-12-17 09:24:37.594685', '2020-12-17 09:24:37.594728', 0, 'default', 'default', 10, 2);
+INSERT INTO `slb_server_group` VALUES (9, '2020-12-17 09:32:30.699045', '2020-12-17 09:32:30.699106', 0, 'default', 'rsp-8vbacr0ua87w9', 20, 2);
+INSERT INTO `slb_server_group` VALUES (10, '2020-12-17 09:32:30.699161', '2020-12-17 09:32:30.699179', 0, 'waylonglong', 'rsp-8vbbvttp4676d', 20, 2);
+COMMIT;
+
+-- ----------------------------
+-- Table structure for slb_server_group_ecs
+-- ----------------------------
+DROP TABLE IF EXISTS `slb_server_group_ecs`;
+CREATE TABLE `slb_server_group_ecs` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `dt_create` datetime(6) NOT NULL,
+  `dt_update` datetime(6) NOT NULL,
+  `is_deleted` tinyint(1) NOT NULL,
+  `weight` int(11) NOT NULL,
+  `ecs_id` int(11) NOT NULL,
+  `server_group_id` int(11) NOT NULL,
+  `slb_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `slb_server_group_ecs_ecs_id_01166d39_fk_ecs_id` (`ecs_id`),
+  KEY `slb_server_group_ecs_server_group_id_e9a98b6f_fk_slb_serve` (`server_group_id`),
+  KEY `slb_server_group_ecs_slb_id_3d138a9d_fk_slb_id` (`slb_id`),
+  CONSTRAINT `slb_server_group_ecs_ecs_id_01166d39_fk_ecs_id` FOREIGN KEY (`ecs_id`) REFERENCES `ecs` (`id`),
+  CONSTRAINT `slb_server_group_ecs_server_group_id_e9a98b6f_fk_slb_serve` FOREIGN KEY (`server_group_id`) REFERENCES `slb_server_group` (`id`),
+  CONSTRAINT `slb_server_group_ecs_slb_id_3d138a9d_fk_slb_id` FOREIGN KEY (`slb_id`) REFERENCES `slb` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4;
+
+-- ----------------------------
+-- Records of slb_server_group_ecs
+-- ----------------------------
+BEGIN;
+INSERT INTO `slb_server_group_ecs` VALUES (1, '2020-12-17 09:24:37.780800', '2020-12-17 09:24:37.780853', 0, 100, 1, 8, 2);
+INSERT INTO `slb_server_group_ecs` VALUES (2, '2020-12-17 09:41:40.957942', '2020-12-17 09:43:04.259405', 1, 100, 1, 10, 2);
+INSERT INTO `slb_server_group_ecs` VALUES (3, '2020-12-17 09:43:45.965650', '2020-12-17 09:44:05.552280', 1, 100, 1, 10, 2);
+INSERT INTO `slb_server_group_ecs` VALUES (4, '2020-12-17 09:44:05.972015', '2020-12-17 09:46:11.200706', 1, 100, 1, 10, 2);
+INSERT INTO `slb_server_group_ecs` VALUES (5, '2020-12-17 09:46:11.691094', '2020-12-17 09:50:10.071900', 1, 100, 1, 10, 2);
+INSERT INTO `slb_server_group_ecs` VALUES (6, '2020-12-17 09:50:10.655848', '2020-12-17 09:51:28.507710', 1, 100, 1, 10, 2);
+INSERT INTO `slb_server_group_ecs` VALUES (7, '2020-12-17 09:51:28.912674', '2020-12-17 09:53:32.574265', 1, 100, 1, 10, 2);
+INSERT INTO `slb_server_group_ecs` VALUES (8, '2020-12-17 09:53:33.067413', '2020-12-17 09:53:33.067471', 0, 100, 1, 10, 2);
 COMMIT;
 
 -- ----------------------------
