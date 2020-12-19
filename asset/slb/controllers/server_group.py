@@ -4,14 +4,24 @@ from django.db.models import Q
 from asset.ecs.models import EcsModel
 from asset.slb.models import SlbServerGroupModel
 from asset.slb.models import SlbServerGroupEcsModel
+from business.service.models import ServiceAssetObjModel
+from business.service.controllers import asset_obj as asset_obj_ctl
 from base import controllers as base_ctl
+from base import errors
 
 
-def get_server_groups(slb_id, keyword=None, page_num=None, page_size=None, operator=None):
+def get_server_groups(slb_id=None, slb_instance_id=None, keyword=None, page_num=None, page_size=None, operator=None):
     '''
     获取SLB服务器组列表
     '''
-    base_query = SlbServerGroupModel.objects.filter(slb_id=slb_id)
+    if not slb_id and not slb_instance_id:
+        raise errors.CommonError('缺少SLB ID或SLB实例ID')
+    base_query = SlbServerGroupModel.objects
+    if slb_id:
+        base_query = base_query.filter(slb_id=slb_id)
+    else:
+        base_query = base_query.filter(slb__instance_id=slb_instance_id)
+
     if keyword:
         base_query = base_query.filter(Q(name__icontains=keyword) |
                                        Q(instance_id__icontains=keyword))
@@ -63,3 +73,16 @@ def get_server_group_ecses(obj_id, keyword=None, page_num=None, page_size=None, 
         'data_list': data_list,
     }
     return data
+
+
+def get_server_group_services(obj_id, page_num=None, page_size=None, operator=None):
+    '''
+    获取SLB服务器组关联服务列表
+    '''
+    query = {
+        'asset_obj_id': obj_id,
+        'typ': ServiceAssetObjModel.TYP_SLB_SERVER_GROUP,
+        'page_num': page_num,
+        'page_size': page_size,
+    }
+    return asset_obj_ctl.get_asset_obj_services(**query)

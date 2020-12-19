@@ -11,7 +11,7 @@
  Target Server Version : 50643
  File Encoding         : 65001
 
- Date: 18/12/2020 19:58:45
+ Date: 19/12/2020 16:13:39
 */
 
 SET NAMES utf8mb4;
@@ -54,7 +54,7 @@ CREATE TABLE `asset` (
   `rank` int(11) NOT NULL,
   `remark` longtext NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of asset
@@ -66,6 +66,7 @@ INSERT INTO `asset` VALUES (3, '2020-12-01 03:11:37.112352', '2020-12-01 03:11:3
 INSERT INTO `asset` VALUES (4, '2020-12-01 03:11:46.209042', '2020-12-01 03:11:46.209111', 0, 'RDS', 'rds', 93, '');
 INSERT INTO `asset` VALUES (5, '2020-12-01 03:11:56.487127', '2020-12-01 03:11:56.487428', 0, 'Redis', 'redis', 89, '');
 INSERT INTO `asset` VALUES (6, '2020-12-01 03:12:09.098221', '2020-12-01 03:12:09.098283', 0, 'Mongo', 'mongo', 85, '');
+INSERT INTO `asset` VALUES (7, '2020-12-19 07:09:19.039171', '2020-12-19 07:09:28.555340', 0, '服务器组', 'slb_server_group', 95, '');
 COMMIT;
 
 -- ----------------------------
@@ -291,7 +292,7 @@ CREATE TABLE `permission` (
   PRIMARY KEY (`id`),
   KEY `permission_mod_id_f75289cc_fk_mod_id` (`mod_id`),
   CONSTRAINT `permission_mod_id_f75289cc_fk_mod_id` FOREIGN KEY (`mod_id`) REFERENCES `mod` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=78 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=80 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of permission
@@ -374,6 +375,8 @@ INSERT INTO `permission` VALUES (74, '2020-12-01 03:26:47.000402', '2020-12-01 0
 INSERT INTO `permission` VALUES (75, '2020-12-01 03:27:06.514420', '2020-12-01 03:27:06.514461', 0, '删除服务关联资产模块', 10, '/api/v1/business/service/asset/delete/', 29, 6);
 INSERT INTO `permission` VALUES (76, '2020-12-11 08:23:30.301107', '2020-12-11 08:23:30.301238', 0, '创建服务关联ECS', 10, '/api/v1/business/service/ecs/create/', 28, 6);
 INSERT INTO `permission` VALUES (77, '2020-12-11 08:23:47.275331', '2020-12-11 08:23:47.275373', 0, '删除服务关联ECS', 10, '/api/v1/business/service/ecs/delete/', 27, 6);
+INSERT INTO `permission` VALUES (78, '2020-12-11 08:23:47.275373', '2020-12-11 08:23:47.275373', 0, '创建服务关联服务器组', 10, '/api/v1/business/service/server/group/create/', 26, 6);
+INSERT INTO `permission` VALUES (79, '2020-12-11 08:23:47.275373', '2020-12-11 08:23:47.275373', 0, '删除服务关联服务器组', 10, '/api/v1/business/service/server/group/delete/', 25, 6);
 COMMIT;
 
 -- ----------------------------
@@ -548,7 +551,7 @@ CREATE TABLE `role_permission` (
   KEY `role_permission_role_id_877a80a4_fk_role_id` (`role_id`),
   CONSTRAINT `role_permission_permission_id_ee9c5982_fk_permission_id` FOREIGN KEY (`permission_id`) REFERENCES `permission` (`id`),
   CONSTRAINT `role_permission_role_id_877a80a4_fk_role_id` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=65 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=67 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of role_permission
@@ -618,6 +621,8 @@ INSERT INTO `role_permission` VALUES (61, '2020-12-01 03:27:19.000342', '2020-12
 INSERT INTO `role_permission` VALUES (62, '2020-12-01 03:27:19.854893', '2020-12-01 03:27:19.854939', 0, 75, 2);
 INSERT INTO `role_permission` VALUES (63, '2020-12-11 08:23:55.181671', '2020-12-11 08:23:55.181714', 0, 76, 2);
 INSERT INTO `role_permission` VALUES (64, '2020-12-11 08:23:56.464432', '2020-12-11 08:23:56.464525', 0, 77, 2);
+INSERT INTO `role_permission` VALUES (65, '2020-12-19 08:10:03.586313', '2020-12-19 08:10:03.586414', 0, 78, 2);
+INSERT INTO `role_permission` VALUES (66, '2020-12-19 08:10:04.297935', '2020-12-19 08:10:04.298010', 0, 79, 2);
 COMMIT;
 
 -- ----------------------------
@@ -688,7 +693,7 @@ CREATE TABLE `service_asset` (
   KEY `service_asset_service_id_2805134d_fk_service_id` (`service_id`),
   CONSTRAINT `service_asset_asset_id_a00b7f13_fk_asset_id` FOREIGN KEY (`asset_id`) REFERENCES `asset` (`id`),
   CONSTRAINT `service_asset_service_id_2805134d_fk_service_id` FOREIGN KEY (`service_id`) REFERENCES `service` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of service_asset
@@ -701,6 +706,7 @@ INSERT INTO `service_asset` VALUES (4, '2020-12-08 02:24:05.106019', '2020-12-08
 INSERT INTO `service_asset` VALUES (5, '2020-12-09 02:24:22.736519', '2020-12-09 02:24:22.736562', 0, 1, 2);
 INSERT INTO `service_asset` VALUES (6, '2020-12-09 02:38:16.815380', '2020-12-09 02:38:16.815431', 0, 3, 2);
 INSERT INTO `service_asset` VALUES (7, '2020-12-16 09:03:41.530714', '2020-12-16 09:03:41.530779', 0, 4, 2);
+INSERT INTO `service_asset` VALUES (8, '2020-12-19 07:10:04.257433', '2020-12-19 07:10:04.257478', 0, 7, 2);
 COMMIT;
 
 -- ----------------------------
@@ -723,7 +729,7 @@ CREATE TABLE `service_asset_obj` (
   KEY `service_asset_obj_asset_obj_id_33f9c96f` (`asset_obj_id`),
   CONSTRAINT `service_asset_obj_environment_id_b3021b21_fk_environment_id` FOREIGN KEY (`environment_id`) REFERENCES `environment` (`id`),
   CONSTRAINT `service_asset_obj_service_id_074819e0_fk_service_id` FOREIGN KEY (`service_id`) REFERENCES `service` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of service_asset_obj
@@ -733,6 +739,8 @@ INSERT INTO `service_asset_obj` VALUES (1, '2020-12-12 09:54:22.445696', '2020-1
 INSERT INTO `service_asset_obj` VALUES (2, '2020-12-16 08:27:13.673619', '2020-12-16 08:29:30.113564', 0, 2, 2, 1, 'ecs', 40);
 INSERT INTO `service_asset_obj` VALUES (3, '2020-12-16 08:34:49.055819', '2020-12-16 08:34:49.055893', 0, 1, 2, 2, 'ecs', 10);
 INSERT INTO `service_asset_obj` VALUES (4, '2020-12-16 10:13:09.526626', '2020-12-16 10:13:09.526697', 0, 2, 3, 2, 'ecs', 10);
+INSERT INTO `service_asset_obj` VALUES (5, '2020-12-19 07:21:06.472070', '2020-12-19 07:28:59.103085', 0, 10, 2, 2, 'slb_server_group', 40);
+INSERT INTO `service_asset_obj` VALUES (6, '2020-12-19 08:10:37.914607', '2020-12-19 08:10:37.914653', 0, 7, 2, 2, 'slb_server_group', 10);
 COMMIT;
 
 -- ----------------------------

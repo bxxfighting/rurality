@@ -17,7 +17,8 @@ class ListServerGroupApi(BaseApi):
     NEED_PERMISSION = False
 
     need_params = {
-        'slb_id': ('SLB ID', 'required int'),
+        'slb_id': ('SLB ID', 'optional int'),
+        'slb_instance_id': ('SLB实例ID', 'optional str'),
         'keyword': ('关键字', 'optional str'),
         'page_num': ('页码', 'optional int'),
         'page_size': ('页容量', 'optional int'),
@@ -38,4 +39,17 @@ class ListServerGroupEcsApi(BaseApi):
     }
     def post(self, request, params):
         data = server_group_ctl.get_server_group_ecses(**params)
+        return data
+
+
+class ListServerGroupServiceApi(BaseApi):
+    NEED_PERMISSION = False
+
+    need_params = {
+        'obj_id': ('服务器组ID', 'required int'),
+        'page_num': ('页码', 'optional int'),
+        'page_size': ('页容量', 'optional int'),
+    }
+    def post(self, request, params):
+        data = server_group_ctl.get_server_group_services(**params)
         return data

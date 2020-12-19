@@ -115,6 +115,7 @@ class ServiceAssetObjModel(BaseModel):
     TYP_ECS = 'ecs'
     TYP_RDS = 'rds'
     TYP_SLB = 'slb'
+    TYP_SLB_SERVER_GROUP = 'slb_server_group'
     TYP_DNS = 'dns'
     TYP_REDIS = 'redis'
     TYP_MONGO = 'mongo'
@@ -125,6 +126,7 @@ class ServiceAssetObjModel(BaseModel):
         (TYP_ECS, 'ECS'),
         (TYP_RDS, 'RDS'),
         (TYP_SLB, 'SLB'),
+        (TYP_SLB_SERVER_GROUP, 'SLB服务器组'),
         (TYP_DNS, 'DNS'),
         (TYP_REDIS, 'Redis'),
         (TYP_MONGO, 'Mongo'),

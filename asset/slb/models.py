@@ -52,6 +52,12 @@ class SlbServerGroupModel(BaseModel):
     class Meta:
         db_table = 'slb_server_group'
 
+    def to_dict(self, is_base=True):
+        data = super().to_dict()
+        if not is_base:
+            data['slb'] = self.slb.to_dict()
+        return data
+
 
 class SlbServerGroupEcsModel(BaseModel):
     '''
