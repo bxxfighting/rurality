@@ -14,7 +14,8 @@
 [前端代码库](https://github.com/bxxfighting/enjoy)  
 
 > [体验地址](http://39.105.71.60)  
-> 体验账号: admin/123456  
+> 体验账号: admin/123456 (超级管理员)  
+> 体验账号: buxingxing/123456 (管理员)  
 > 暂时因为域名未备案，所以先使用IP.  
 
 > 友情提示: 最好使用右击新标签页打开以下链接  
@@ -92,3 +93,17 @@
 哈哈，支付宝收款码在此，一分不嫌少，一元不嫌多，就是图一个乐子  
 <img src="https://github.com/bxxfighting/rurality/blob/master/data/sponsor/images/支付宝收款码.jpeg" width="300" hegiht="300" />
 [赞助名单](https://github.com/bxxfighting/rurality/blob/master/data/sponsor/README.md)
+
+<details>
+<summary>Todo List</summary>
+<pre><code>
+<ol>
+<li>接入阿里云Redis/RDS/Mongo/Kafka/Rocketmq管理</li>
+<li>服务关联jenkins进行部署，采用pipeline加ansible的方式</li>
+<li>实现阿里云资源的购买释放以及与服务相关功能进行联动</li>
+<li>购买等行为增加审批</li>
+<li>统一的任务管理</li>
+<li>操作审批</li>
+</ol>
+</code></pre>
+</details>
