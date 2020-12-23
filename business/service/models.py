@@ -114,6 +114,7 @@ class ServiceAssetObjModel(BaseModel):
 
     TYP_ECS = 'ecs'
     TYP_RDS = 'rds'
+    TYP_DATABASE = 'database'
     TYP_SLB = 'slb'
     TYP_SLB_SERVER_GROUP = 'slb_server_group'
     TYP_DNS = 'dns'
@@ -125,6 +126,7 @@ class ServiceAssetObjModel(BaseModel):
     TYP_CHOICES = (
         (TYP_ECS, 'ECS'),
         (TYP_RDS, 'RDS'),
+        (TYP_DATABASE, '数据库'),
         (TYP_SLB, 'SLB'),
         (TYP_SLB_SERVER_GROUP, 'SLB服务器组'),
         (TYP_DNS, 'DNS'),

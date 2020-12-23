@@ -7,8 +7,10 @@ from business.service.models import ServiceAssetModel
 from business.service.models import ServiceAssetObjModel
 from asset.ecs.models import EcsModel
 from asset.slb.models import SlbServerGroupModel
+from asset.rds.models import RdsDatabaseModel
 from business.service.controllers import ecs as ecs_ctl
 from business.service.controllers import server_group as server_group_ctl
+from business.service.controllers import database as database_ctl
 from utils.onlyone import onlyone
 
 
@@ -20,6 +22,8 @@ def is_existed_asset_obj(typ, asset_obj_id):
         return EcsModel.objects.filter(id=asset_obj_id).exists()
     elif typ == ServiceAssetObjModel.TYP_SLB_SERVER_GROUP:
         return SlbServerGroupModel.objects.filter(id=asset_obj_id).exists()
+    elif typ == ServiceAssetObjModel.TYP_DATABASE:
+        return RdsDatabaseModel.objects.filter(id=asset_obj_id).exists()
     return False
 
 
@@ -126,6 +130,8 @@ def get_service_asset_objs(obj_id, environment_id, typ, page_num=None, page_size
         data = ecs_ctl.get_service_ecses(**query)
     elif typ == ServiceAssetObjModel.TYP_SLB_SERVER_GROUP:
         data = server_group_ctl.get_service_server_groups(**query)
+    elif typ == ServiceAssetObjModel.TYP_DATABASE:
+        data = database_ctl.get_service_databases(**query)
 
     return data
 
