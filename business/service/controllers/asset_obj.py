@@ -9,10 +9,12 @@ from asset.ecs.models import EcsModel
 from asset.slb.models import SlbServerGroupModel
 from asset.rds.models import RdsDatabaseModel
 from asset.redis.models import RedisModel
+from asset.mongo.models import MongoModel
 from business.service.controllers import ecs as ecs_ctl
 from business.service.controllers import server_group as server_group_ctl
 from business.service.controllers import database as database_ctl
 from business.service.controllers import redis as redis_ctl
+from business.service.controllers import mongo as mongo_ctl
 from utils.onlyone import onlyone
 
 
@@ -28,6 +30,8 @@ def is_existed_asset_obj(typ, asset_obj_id):
         return RdsDatabaseModel.objects.filter(id=asset_obj_id).exists()
     elif typ == ServiceAssetObjModel.TYP_REDIS:
         return RedisModel.objects.filter(id=asset_obj_id).exists()
+    elif typ == ServiceAssetObjModel.TYP_MONGO:
+        return MongoModel.objects.filter(id=asset_obj_id).exists()
     return False
 
 
@@ -138,6 +142,8 @@ def get_service_asset_objs(obj_id, environment_id, typ, page_num=None, page_size
         data = database_ctl.get_service_databases(**query)
     elif typ == ServiceAssetObjModel.TYP_REDIS:
         data = redis_ctl.get_service_redises(**query)
+    elif typ == ServiceAssetObjModel.TYP_MONGO:
+        data = mongo_ctl.get_service_mongos(**query)
 
     return data
 
