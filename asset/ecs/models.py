@@ -9,6 +9,13 @@ class EcsModel(BaseModel):
     model_name = 'ECS'
     model_sign = 'ecs'
 
+    CHARGE_TYP_PRE = 'PrePaid'
+    CHARGE_TYP_POST = 'PostPaid'
+    CHARGE_TYP_CHOICES = (
+        (CHARGE_TYP_PRE, '包年包月'),
+        (CHARGE_TYP_POST, '按量付费'),
+    )
+
     region_id = models.CharField('地域ID', max_length=128)
     zone_id = models.CharField('可用区ID', max_length=128)
     name = models.CharField('名称', max_length=128)
@@ -17,6 +24,7 @@ class EcsModel(BaseModel):
     inner_ip = models.CharField('内网IP', max_length=128)
     outer_ip = models.CharField('外网IP', max_length=128)
     cpu = models.IntegerField('CPU')
+    charge_typ = models.CharField('付费方式', max_length=128, choices=CHARGE_TYP_CHOICES)
     os = models.CharField('操作系统', max_length=128)
     memory = models.IntegerField('内存')
     dt_buy = models.DateTimeField('购买时间')

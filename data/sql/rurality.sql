@@ -11,7 +11,7 @@
  Target Server Version : 50643
  File Encoding         : 65001
 
- Date: 23/12/2020 19:15:55
+ Date: 23/12/2020 20:28:52
 */
 
 SET NAMES utf8mb4;
@@ -161,7 +161,7 @@ CREATE TABLE `django_migrations` (
   `name` varchar(255) NOT NULL,
   `applied` datetime(6) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of django_migrations
@@ -191,6 +191,9 @@ INSERT INTO `django_migrations` VALUES (22, 'rds', '0001_initial', '2020-12-22 0
 INSERT INTO `django_migrations` VALUES (23, 'rds', '0002_rdsdatabasemodel_accounts', '2020-12-22 10:57:16.329826');
 INSERT INTO `django_migrations` VALUES (24, 'service', '0011_auto_20201222_1857', '2020-12-22 10:57:16.346636');
 INSERT INTO `django_migrations` VALUES (25, 'rds', '0003_auto_20201223_1821', '2020-12-23 10:21:06.073596');
+INSERT INTO `django_migrations` VALUES (26, 'ecs', '0002_ecsmodel_charge_typ', '2020-12-23 11:29:30.711766');
+INSERT INTO `django_migrations` VALUES (27, 'service', '0012_auto_20201223_1929', '2020-12-23 11:29:30.725584');
+INSERT INTO `django_migrations` VALUES (28, 'redis', '0001_initial', '2020-12-23 11:29:40.350245');
 COMMIT;
 
 -- ----------------------------
@@ -213,6 +216,7 @@ CREATE TABLE `ecs` (
   `os` varchar(128) NOT NULL,
   `memory` int(11) NOT NULL,
   `dt_buy` datetime(6) NOT NULL,
+  `charge_typ` varchar(128) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
 
@@ -220,8 +224,8 @@ CREATE TABLE `ecs` (
 -- Records of ecs
 -- ----------------------------
 BEGIN;
-INSERT INTO `ecs` VALUES (1, '2020-11-27 12:27:10.525321', '2020-11-27 12:27:10.525373', 0, 'cn-zhangjiakou', 'cn-zhangjiakou-a', '量量', 'i-8vb19kumx22v0hxpzqni', 'iZ8vb19kumx22v0hxpzqniZ', '172.26.106.158', '47.92.71.110', 1, 'Ubuntu  16.04 64位', 1024, '2017-03-27 00:15:00.000000');
-INSERT INTO `ecs` VALUES (2, '2020-11-27 12:30:44.048351', '2020-11-27 12:30:44.048397', 0, 'cn-beijing', 'cn-beijing-a', 'yike', 'i-2zedsuhv55oquitw5pqw', 'yike', '172.17.16.167', '39.105.71.60', 1, 'Ubuntu  16.04 64位', 1024, '2018-10-10 17:56:00.000000');
+INSERT INTO `ecs` VALUES (1, '2020-11-27 12:27:10.525321', '2020-11-27 12:27:10.525373', 0, 'cn-zhangjiakou', 'cn-zhangjiakou-a', '量量', 'i-8vb19kumx22v0hxpzqni', 'iZ8vb19kumx22v0hxpzqniZ', '172.26.106.158', '47.92.71.110', 1, 'Ubuntu  16.04 64位', 1024, '2017-03-27 00:15:00.000000', '');
+INSERT INTO `ecs` VALUES (2, '2020-11-27 12:30:44.048351', '2020-11-27 12:30:44.048397', 0, 'cn-beijing', 'cn-beijing-a', 'yike', 'i-2zedsuhv55oquitw5pqw', 'yike', '172.17.16.167', '39.105.71.60', 1, 'Ubuntu  16.04 64位', 1024, '2018-10-10 17:56:00.000000', '');
 COMMIT;
 
 -- ----------------------------
@@ -262,7 +266,7 @@ CREATE TABLE `mod` (
   `sign` varchar(32) NOT NULL,
   `rank` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of mod
@@ -278,6 +282,7 @@ INSERT INTO `mod` VALUES (7, '2020-11-27 08:36:39.506846', '2020-11-27 08:36:39.
 INSERT INTO `mod` VALUES (8, '2020-11-28 10:23:27.332670', '2020-11-28 10:23:27.332722', 0, 'ECS管理', 'ecs', 80);
 INSERT INTO `mod` VALUES (9, '2020-12-18 03:42:20.473478', '2020-12-18 03:42:20.473522', 0, 'SLB管理', 'slb', 79);
 INSERT INTO `mod` VALUES (10, '2020-12-22 12:39:45.784173', '2020-12-22 12:39:55.026043', 0, 'RDS管理', 'rds', 78);
+INSERT INTO `mod` VALUES (11, '2020-12-23 11:40:25.716845', '2020-12-23 11:40:25.716898', 0, 'Redis管理', 'redis', 77);
 COMMIT;
 
 -- ----------------------------
@@ -297,7 +302,7 @@ CREATE TABLE `permission` (
   PRIMARY KEY (`id`),
   KEY `permission_mod_id_f75289cc_fk_mod_id` (`mod_id`),
   CONSTRAINT `permission_mod_id_f75289cc_fk_mod_id` FOREIGN KEY (`mod_id`) REFERENCES `mod` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=83 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=86 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of permission
@@ -385,6 +390,9 @@ INSERT INTO `permission` VALUES (79, '2020-12-11 08:23:47.275373', '2020-12-11 0
 INSERT INTO `permission` VALUES (80, '2020-12-23 10:05:21.565084', '2020-12-23 10:05:21.565129', 0, '编辑RDS账号', 10, '/api/v1/asset/rds/account/update/', 100, 10);
 INSERT INTO `permission` VALUES (81, '2020-12-23 11:01:43.921727', '2020-12-23 11:01:43.921774', 0, '创建服务关联数据库', 10, '/api/v1/business/service/database/create/', 24, 6);
 INSERT INTO `permission` VALUES (82, '2020-12-23 11:02:02.481348', '2020-12-23 11:02:02.481410', 0, '删除服务关联数据库', 10, '/api/v1/business/service/database/delete/', 23, 6);
+INSERT INTO `permission` VALUES (83, '2020-12-23 11:55:52.737161', '2020-12-23 11:55:52.737243', 0, '编辑Redis账号', 10, '/api/v1/asset/redis/account/update/', 100, 11);
+INSERT INTO `permission` VALUES (84, '2020-12-23 12:10:45.120882', '2020-12-23 12:10:45.120977', 0, '创建服务关联Redis', 10, '/api/v1/business/service/redis/create/', 22, 6);
+INSERT INTO `permission` VALUES (85, '2020-12-23 12:11:01.592450', '2020-12-23 12:11:01.592495', 0, '删除服务关联Redis', 10, '/api/v1/business/service/redis/delete/', 21, 6);
 COMMIT;
 
 -- ----------------------------
@@ -550,6 +558,64 @@ INSERT INTO `rds_database_account` VALUES (4, '2020-12-23 10:35:57.150099', '202
 COMMIT;
 
 -- ----------------------------
+-- Table structure for redis
+-- ----------------------------
+DROP TABLE IF EXISTS `redis`;
+CREATE TABLE `redis` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `dt_create` datetime(6) NOT NULL,
+  `dt_update` datetime(6) NOT NULL,
+  `is_deleted` tinyint(1) NOT NULL,
+  `name` varchar(128) NOT NULL,
+  `instance_id` varchar(128) NOT NULL,
+  `version` varchar(128) NOT NULL,
+  `port` int(11) NOT NULL,
+  `inner_ip` varchar(128) NOT NULL,
+  `deploy_typ` varchar(128) NOT NULL,
+  `username` varchar(128) NOT NULL,
+  `region_id` varchar(128) NOT NULL,
+  `zone_id` varchar(128) NOT NULL,
+  `connection` varchar(128) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=utf8mb4;
+
+-- ----------------------------
+-- Records of redis
+-- ----------------------------
+BEGIN;
+INSERT INTO `redis` VALUES (43, '2020-12-23 12:20:15.478185', '2020-12-23 12:20:15.478296', 0, '', 'r-8vbwldcjdcu3e0mcwg', '5.0', 6379, '172.26.106.167', 'standard', 'r-8vbwldcjdcu3e0mcwg', 'cn-zhangjiakou', 'cn-zhangjiakou-MAZ1(a,b)', 'r-8vbwldcjdcu3e0mcwg.redis.zhangbei.rds.aliyuncs.com');
+COMMIT;
+
+-- ----------------------------
+-- Table structure for redis_account
+-- ----------------------------
+DROP TABLE IF EXISTS `redis_account`;
+CREATE TABLE `redis_account` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `dt_create` datetime(6) NOT NULL,
+  `dt_update` datetime(6) NOT NULL,
+  `is_deleted` tinyint(1) NOT NULL,
+  `username` varchar(128) NOT NULL,
+  `password` varchar(128) NOT NULL,
+  `typ` varchar(128) NOT NULL,
+  `status` varchar(128) NOT NULL,
+  `privilege` varchar(128) NOT NULL,
+  `redis_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `redis_account_redis_id_97d34fec_fk_redis_id` (`redis_id`),
+  CONSTRAINT `redis_account_redis_id_97d34fec_fk_redis_id` FOREIGN KEY (`redis_id`) REFERENCES `redis` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8mb4;
+
+-- ----------------------------
+-- Records of redis_account
+-- ----------------------------
+BEGIN;
+INSERT INTO `redis_account` VALUES (48, '2020-12-23 12:20:15.608964', '2020-12-23 12:28:27.033846', 0, 'r-8vbwldcjdcu3e0mcwg', '', 'Normal', 'Available', 'RoleReadWrite', 43);
+INSERT INTO `redis_account` VALUES (49, '2020-12-23 12:28:27.041311', '2020-12-23 12:28:27.041355', 0, 'r_gg', '', 'Normal', 'Available', 'RoleReadOnly', 43);
+INSERT INTO `redis_account` VALUES (50, '2020-12-23 12:28:27.041417', '2020-12-23 12:28:27.041435', 0, 'rw_gg', '', 'Normal', 'Unavailable', 'RoleReadWrite', 43);
+COMMIT;
+
+-- ----------------------------
 -- Table structure for region
 -- ----------------------------
 DROP TABLE IF EXISTS `region`;
@@ -633,7 +699,7 @@ CREATE TABLE `role_mod` (
   KEY `role_mod_role_id_827d1e5a_fk_role_id` (`role_id`),
   CONSTRAINT `role_mod_mod_id_053ffcd7_fk_mod_id` FOREIGN KEY (`mod_id`) REFERENCES `mod` (`id`),
   CONSTRAINT `role_mod_role_id_827d1e5a_fk_role_id` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of role_mod
@@ -655,6 +721,7 @@ INSERT INTO `role_mod` VALUES (13, '2020-11-27 08:37:40.118063', '2020-11-27 08:
 INSERT INTO `role_mod` VALUES (14, '2020-11-28 10:23:37.035079', '2020-11-28 10:23:37.035126', 0, 8, 2);
 INSERT INTO `role_mod` VALUES (15, '2020-12-18 04:28:01.078940', '2020-12-18 04:28:01.079045', 0, 9, 2);
 INSERT INTO `role_mod` VALUES (16, '2020-12-22 12:40:02.963325', '2020-12-22 12:40:02.963401', 0, 10, 2);
+INSERT INTO `role_mod` VALUES (17, '2020-12-23 11:40:32.721287', '2020-12-23 11:40:32.721341', 0, 11, 2);
 COMMIT;
 
 -- ----------------------------
@@ -673,7 +740,7 @@ CREATE TABLE `role_permission` (
   KEY `role_permission_role_id_877a80a4_fk_role_id` (`role_id`),
   CONSTRAINT `role_permission_permission_id_ee9c5982_fk_permission_id` FOREIGN KEY (`permission_id`) REFERENCES `permission` (`id`),
   CONSTRAINT `role_permission_role_id_877a80a4_fk_role_id` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=70 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=73 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of role_permission
@@ -748,6 +815,9 @@ INSERT INTO `role_permission` VALUES (66, '2020-12-19 08:10:04.297935', '2020-12
 INSERT INTO `role_permission` VALUES (67, '2020-12-23 10:05:27.445145', '2020-12-23 10:05:27.445197', 0, 80, 2);
 INSERT INTO `role_permission` VALUES (68, '2020-12-23 11:02:11.079847', '2020-12-23 11:02:11.079889', 0, 81, 2);
 INSERT INTO `role_permission` VALUES (69, '2020-12-23 11:02:11.704682', '2020-12-23 11:02:11.704743', 0, 82, 2);
+INSERT INTO `role_permission` VALUES (70, '2020-12-23 11:56:02.188134', '2020-12-23 11:56:02.188215', 0, 83, 2);
+INSERT INTO `role_permission` VALUES (71, '2020-12-23 12:11:07.953895', '2020-12-23 12:11:07.953945', 0, 85, 2);
+INSERT INTO `role_permission` VALUES (72, '2020-12-23 12:11:08.876581', '2020-12-23 12:11:08.876801', 0, 84, 2);
 COMMIT;
 
 -- ----------------------------
@@ -818,7 +888,7 @@ CREATE TABLE `service_asset` (
   KEY `service_asset_service_id_2805134d_fk_service_id` (`service_id`),
   CONSTRAINT `service_asset_asset_id_a00b7f13_fk_asset_id` FOREIGN KEY (`asset_id`) REFERENCES `asset` (`id`),
   CONSTRAINT `service_asset_service_id_2805134d_fk_service_id` FOREIGN KEY (`service_id`) REFERENCES `service` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of service_asset
@@ -832,6 +902,7 @@ INSERT INTO `service_asset` VALUES (5, '2020-12-09 02:24:22.736519', '2020-12-09
 INSERT INTO `service_asset` VALUES (6, '2020-12-09 02:38:16.815380', '2020-12-09 02:38:16.815431', 0, 3, 2);
 INSERT INTO `service_asset` VALUES (7, '2020-12-16 09:03:41.530714', '2020-12-16 09:03:41.530779', 0, 4, 2);
 INSERT INTO `service_asset` VALUES (8, '2020-12-19 07:10:04.257433', '2020-12-19 07:10:04.257478', 0, 7, 2);
+INSERT INTO `service_asset` VALUES (9, '2020-12-23 12:06:11.816951', '2020-12-23 12:06:11.817064', 0, 5, 2);
 COMMIT;
 
 -- ----------------------------
@@ -854,7 +925,7 @@ CREATE TABLE `service_asset_obj` (
   KEY `service_asset_obj_asset_obj_id_33f9c96f` (`asset_obj_id`),
   CONSTRAINT `service_asset_obj_environment_id_b3021b21_fk_environment_id` FOREIGN KEY (`environment_id`) REFERENCES `environment` (`id`),
   CONSTRAINT `service_asset_obj_service_id_074819e0_fk_service_id` FOREIGN KEY (`service_id`) REFERENCES `service` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of service_asset_obj
