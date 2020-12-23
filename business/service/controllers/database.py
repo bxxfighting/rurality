@@ -35,7 +35,7 @@ def get_service_databases(service_id, environment_id, page_num=None, page_size=N
     for obj in objs:
         data = obj.to_dict()
         related_obj = base_ctl.get_obj(RdsDatabaseModel, obj.asset_obj_id)
-        data['database'] = related_obj.to_dict()
+        data['database'] = related_obj.to_dict(is_base=False)
         data_list.append(data)
     data = {
         'total': total,

@@ -63,6 +63,12 @@ class RdsDatabaseModel(BaseModel):
     class Meta:
         db_table = 'rds_database'
 
+    def to_dict(self, is_base=True):
+        data = super().to_dict()
+        if not is_base:
+            data['rds'] = self.rds.to_dict()
+        return data
+
 
 class RdsDatabaseAccountModel(BaseModel):
     '''
