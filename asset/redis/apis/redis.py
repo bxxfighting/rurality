@@ -24,3 +24,16 @@ class ListRedisApi(BaseApi):
     def post(self, request, params):
         data = redis_ctl.get_redises(**params)
         return data
+
+
+class ListRedisServiceApi(BaseApi):
+    NEED_PERMISSION = False
+
+    need_params = {
+        'obj_id': ('Redis ID', 'required int'),
+        'page_num': ('页码', 'optional int'),
+        'page_size': ('页容量', 'optional int'),
+    }
+    def post(self, request, params):
+        data = redis_ctl.get_redis_services(**params)
+        return data

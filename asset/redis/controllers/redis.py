@@ -2,6 +2,8 @@ from django.db import transaction
 from django.db.models import Q
 
 from asset.redis.models import RedisModel
+from business.service.models import ServiceAssetObjModel
+from business.service.controllers import asset_obj as asset_obj_ctl
 from base import controllers as base_ctl
 
 
@@ -34,3 +36,16 @@ def get_redis(obj_id, operator=None):
     obj = base_ctl.get_obj(RedisModel, obj_id)
     data = obj.to_dict()
     return data
+
+
+def get_redis_services(obj_id, page_num=None, page_size=None, operator=None):
+    '''
+    获取Redis关联服务列表
+    '''
+    query = {
+        'asset_obj_id': obj_id,
+        'typ': ServiceAssetObjModel.TYP_REDIS,
+        'page_num': page_num,
+        'page_size': page_size,
+    }
+    return asset_obj_ctl.get_asset_obj_services(**query)
