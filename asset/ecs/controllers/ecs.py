@@ -81,6 +81,7 @@ def format_data(data):
     memory = data.get('Memory')
     cpu = data.get('Cpu')
     os = data.get('OSName')
+    charge_typ = data.get('InstanceChargeType')
     region_id = data.get('RegionId')
     zone_id = data.get('ZoneId')
     dt_buy = data.get('CreationTime')
@@ -98,6 +99,7 @@ def format_data(data):
         'region_id': region_id,
         'zone_id': zone_id,
         'dt_buy': dt_buy,
+        'charge_typ': charge_typ,
     }
     return result
 
