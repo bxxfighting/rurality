@@ -4,6 +4,7 @@ from business.service.urls import asset
 from business.service.urls import ecs
 from business.service.urls import server_group
 from business.service.urls import database
+from business.service.urls import redis
 
 
 urlpatterns = service.urlpatterns + \
@@ -11,4 +12,5 @@ urlpatterns = service.urlpatterns + \
               asset.urlpatterns + \
               ecs.urlpatterns + \
               server_group.urlpatterns + \
-              database.urlpatterns
+              database.urlpatterns + \
+              redis.urlpatterns
