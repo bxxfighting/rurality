@@ -3,6 +3,8 @@ from django.db.models import Q
 
 from asset.rds.models import RdsDatabaseModel
 from asset.rds.models import RdsDatabaseAccountModel
+from business.service.models import ServiceAssetObjModel
+from business.service.controllers import asset_obj as asset_obj_ctl
 from base import controllers as base_ctl
 
 
@@ -53,3 +55,16 @@ def get_database_accounts(obj_id, page_num=None, page_size=None, operator=None):
         'data_list': data_list,
     }
     return data
+
+
+def get_database_services(obj_id, page_num=None, page_size=None, operator=None):
+    '''
+    获取数据库关联服务列表
+    '''
+    query = {
+        'asset_obj_id': obj_id,
+        'typ': ServiceAssetObjModel.TYP_DATABASE,
+        'page_num': page_num,
+        'page_size': page_size,
+    }
+    return asset_obj_ctl.get_asset_obj_services(**query)

@@ -38,3 +38,16 @@ class ListRdsDatabaseAccountApi(BaseApi):
     def post(self, request, params):
         data = database_ctl.get_database_accounts(**params)
         return data
+
+
+class ListRdsDatabaseServiceApi(BaseApi):
+    NEED_PERMISSION = False
+
+    need_params = {
+        'obj_id': ('数据库ID', 'required int'),
+        'page_num': ('页码', 'optional int'),
+        'page_size': ('页容量', 'optional int'),
+    }
+    def post(self, request, params):
+        data = database_ctl.get_database_services(**params)
+        return data
