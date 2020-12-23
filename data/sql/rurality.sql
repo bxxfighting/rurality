@@ -11,7 +11,7 @@
  Target Server Version : 50643
  File Encoding         : 65001
 
- Date: 23/12/2020 18:37:24
+ Date: 23/12/2020 19:15:55
 */
 
 SET NAMES utf8mb4;
@@ -297,7 +297,7 @@ CREATE TABLE `permission` (
   PRIMARY KEY (`id`),
   KEY `permission_mod_id_f75289cc_fk_mod_id` (`mod_id`),
   CONSTRAINT `permission_mod_id_f75289cc_fk_mod_id` FOREIGN KEY (`mod_id`) REFERENCES `mod` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=81 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=83 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of permission
@@ -383,6 +383,8 @@ INSERT INTO `permission` VALUES (77, '2020-12-11 08:23:47.275331', '2020-12-11 0
 INSERT INTO `permission` VALUES (78, '2020-12-11 08:23:47.275373', '2020-12-11 08:23:47.275373', 0, '创建服务关联服务器组', 10, '/api/v1/business/service/server/group/create/', 26, 6);
 INSERT INTO `permission` VALUES (79, '2020-12-11 08:23:47.275373', '2020-12-11 08:23:47.275373', 0, '删除服务关联服务器组', 10, '/api/v1/business/service/server/group/delete/', 25, 6);
 INSERT INTO `permission` VALUES (80, '2020-12-23 10:05:21.565084', '2020-12-23 10:05:21.565129', 0, '编辑RDS账号', 10, '/api/v1/asset/rds/account/update/', 100, 10);
+INSERT INTO `permission` VALUES (81, '2020-12-23 11:01:43.921727', '2020-12-23 11:01:43.921774', 0, '创建服务关联数据库', 10, '/api/v1/business/service/database/create/', 24, 6);
+INSERT INTO `permission` VALUES (82, '2020-12-23 11:02:02.481348', '2020-12-23 11:02:02.481410', 0, '删除服务关联数据库', 10, '/api/v1/business/service/database/delete/', 23, 6);
 COMMIT;
 
 -- ----------------------------
@@ -671,7 +673,7 @@ CREATE TABLE `role_permission` (
   KEY `role_permission_role_id_877a80a4_fk_role_id` (`role_id`),
   CONSTRAINT `role_permission_permission_id_ee9c5982_fk_permission_id` FOREIGN KEY (`permission_id`) REFERENCES `permission` (`id`),
   CONSTRAINT `role_permission_role_id_877a80a4_fk_role_id` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=68 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=70 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of role_permission
@@ -744,6 +746,8 @@ INSERT INTO `role_permission` VALUES (64, '2020-12-11 08:23:56.464432', '2020-12
 INSERT INTO `role_permission` VALUES (65, '2020-12-19 08:10:03.586313', '2020-12-19 08:10:03.586414', 0, 78, 2);
 INSERT INTO `role_permission` VALUES (66, '2020-12-19 08:10:04.297935', '2020-12-19 08:10:04.298010', 0, 79, 2);
 INSERT INTO `role_permission` VALUES (67, '2020-12-23 10:05:27.445145', '2020-12-23 10:05:27.445197', 0, 80, 2);
+INSERT INTO `role_permission` VALUES (68, '2020-12-23 11:02:11.079847', '2020-12-23 11:02:11.079889', 0, 81, 2);
+INSERT INTO `role_permission` VALUES (69, '2020-12-23 11:02:11.704682', '2020-12-23 11:02:11.704743', 0, 82, 2);
 COMMIT;
 
 -- ----------------------------
@@ -850,7 +854,7 @@ CREATE TABLE `service_asset_obj` (
   KEY `service_asset_obj_asset_obj_id_33f9c96f` (`asset_obj_id`),
   CONSTRAINT `service_asset_obj_environment_id_b3021b21_fk_environment_id` FOREIGN KEY (`environment_id`) REFERENCES `environment` (`id`),
   CONSTRAINT `service_asset_obj_service_id_074819e0_fk_service_id` FOREIGN KEY (`service_id`) REFERENCES `service` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of service_asset_obj
@@ -862,6 +866,7 @@ INSERT INTO `service_asset_obj` VALUES (3, '2020-12-16 08:34:49.055819', '2020-1
 INSERT INTO `service_asset_obj` VALUES (4, '2020-12-16 10:13:09.526626', '2020-12-16 10:13:09.526697', 0, 2, 3, 2, 'ecs', 10);
 INSERT INTO `service_asset_obj` VALUES (5, '2020-12-19 07:21:06.472070', '2020-12-19 07:28:59.103085', 0, 10, 2, 2, 'slb_server_group', 40);
 INSERT INTO `service_asset_obj` VALUES (6, '2020-12-19 08:10:37.914607', '2020-12-19 08:10:37.914653', 0, 7, 2, 2, 'slb_server_group', 10);
+INSERT INTO `service_asset_obj` VALUES (7, '2020-12-23 11:02:45.584127', '2020-12-23 11:02:45.584288', 0, 814, 2, 2, 'database', 10);
 COMMIT;
 
 -- ----------------------------
