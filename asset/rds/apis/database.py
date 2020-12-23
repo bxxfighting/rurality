@@ -17,7 +17,8 @@ class ListRdsDatabaseApi(BaseApi):
     NEED_PERMISSION = False
 
     need_params = {
-        'rds_id': ('RDS ID', 'required int'),
+        'rds_id': ('RDS ID', 'optional int'),
+        'rds_instance_id': ('RDS实例ID', 'optional str'),
         'keyword': ('关键字', 'optional str'),
         'page_num': ('页码', 'optional int'),
         'page_size': ('页容量', 'optional int'),

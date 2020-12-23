@@ -8,11 +8,17 @@ from business.service.controllers import asset_obj as asset_obj_ctl
 from base import controllers as base_ctl
 
 
-def get_databases(rds_id, keyword=None, page_num=None, page_size=None, operator=None):
+def get_databases(rds_id=None, rds_instance_id=None, keyword=None, page_num=None, page_size=None, operator=None):
     '''
     获取Database列表
     '''
-    base_query = RdsDatabaseModel.objects.filter(rds_id=rds_id)
+    if not rds_id and not rds_instance_id:
+        raise errors.CommonError('缺少RDS ID或RDS实例ID')
+    base_query = RdsDatabaseModel.objects
+    if rds_id:
+        base_query = base_query.filter(rds_id=rds_id)
+    else:
+        base_query = base_query.filter(rds__instance_id=rds_instance_id)
     if keyword:
         base_query = base_query.filter(name__icontains=keyword)
     total = base_query.count()
