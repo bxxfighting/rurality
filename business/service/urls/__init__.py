@@ -5,6 +5,7 @@ from business.service.urls import ecs
 from business.service.urls import server_group
 from business.service.urls import database
 from business.service.urls import redis
+from business.service.urls import mongo
 
 
 urlpatterns = service.urlpatterns + \
@@ -13,4 +14,5 @@ urlpatterns = service.urlpatterns + \
               ecs.urlpatterns + \
               server_group.urlpatterns + \
               database.urlpatterns + \
-              redis.urlpatterns
+              redis.urlpatterns + \
+              mongo.urlpatterns

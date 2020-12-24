@@ -1,4 +1,5 @@
 aliyun-python-sdk-core==2.13.29
+aliyun-python-sdk-dds==3.4.0
 aliyun-python-sdk-ecs==4.22.1
 aliyun-python-sdk-r-kvstore==2.9.0
 aliyun-python-sdk-rds==2.5.2

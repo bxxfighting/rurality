@@ -2,10 +2,18 @@
 
 #### 扯犊子
 * 这种垃圾代码，我一天能写五公斤  
+* 阻挠我速度的不是代码怎么写，而是代码放到哪  
+* 别跟我扯面向对象，真的明白的不会问出那么SB的问题  
+
+
+#### 目的
+* 不是为了实现，一切都是为了整合  
 
 
 #### 说在前面
-> 如果觉得有用，请点个star(这就是俺的动力)  
+> 如果觉得有用，请点个Star(这就是俺的动力, 一个Star我能开心一天)  
+
+> 项目中所有资产都是使用阿里云，但是如果要接入其它平台，只要平台提供了接口很容易接入.  
 
 > 阅读时，请根据指定的tag号，切换到对应代码版本查看.  
 > 可以使用git diff 0.0.3 0.0.4来查看不同版本之间的改动.  
@@ -94,6 +102,7 @@
 <a target="_blank" href="https://github.com/bxxfighting/rurality/blob/master/how/to/do/5/10.md">第十节 干RDS</a>
 <a target="_blank" href="https://github.com/bxxfighting/rurality/blob/master/how/to/do/5/11.md">第十一节 服务关联数据库</a>
 <a target="_blank" href="https://github.com/bxxfighting/rurality/blob/master/how/to/do/5/12.md">第十二节 干Redis</a>
+<a target="_blank" href="https://github.com/bxxfighting/rurality/blob/master/how/to/do/5/12.md">第十三节 干Mongo</a>
 </code></pre>
 </details>
 

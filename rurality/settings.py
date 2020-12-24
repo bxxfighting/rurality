@@ -29,6 +29,7 @@ INSTALLED_APPS = [
     'asset.slb',
     'asset.rds',
     'asset.redis',
+    'asset.mongo',
 ]
 
 MIDDLEWARE = [

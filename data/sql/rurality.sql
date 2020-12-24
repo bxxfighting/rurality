@@ -11,7 +11,7 @@
  Target Server Version : 50643
  File Encoding         : 65001
 
- Date: 23/12/2020 20:28:52
+ Date: 24/12/2020 11:26:03
 */
 
 SET NAMES utf8mb4;
@@ -161,7 +161,7 @@ CREATE TABLE `django_migrations` (
   `name` varchar(255) NOT NULL,
   `applied` datetime(6) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of django_migrations
@@ -194,6 +194,8 @@ INSERT INTO `django_migrations` VALUES (25, 'rds', '0003_auto_20201223_1821', '2
 INSERT INTO `django_migrations` VALUES (26, 'ecs', '0002_ecsmodel_charge_typ', '2020-12-23 11:29:30.711766');
 INSERT INTO `django_migrations` VALUES (27, 'service', '0012_auto_20201223_1929', '2020-12-23 11:29:30.725584');
 INSERT INTO `django_migrations` VALUES (28, 'redis', '0001_initial', '2020-12-23 11:29:40.350245');
+INSERT INTO `django_migrations` VALUES (29, 'mongo', '0001_initial', '2020-12-24 02:09:29.753120');
+INSERT INTO `django_migrations` VALUES (30, 'mongo', '0002_auto_20201224_1021', '2020-12-24 02:21:39.099347');
 COMMIT;
 
 -- ----------------------------
@@ -266,7 +268,7 @@ CREATE TABLE `mod` (
   `sign` varchar(32) NOT NULL,
   `rank` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of mod
@@ -283,6 +285,64 @@ INSERT INTO `mod` VALUES (8, '2020-11-28 10:23:27.332670', '2020-11-28 10:23:27.
 INSERT INTO `mod` VALUES (9, '2020-12-18 03:42:20.473478', '2020-12-18 03:42:20.473522', 0, 'SLB管理', 'slb', 79);
 INSERT INTO `mod` VALUES (10, '2020-12-22 12:39:45.784173', '2020-12-22 12:39:55.026043', 0, 'RDS管理', 'rds', 78);
 INSERT INTO `mod` VALUES (11, '2020-12-23 11:40:25.716845', '2020-12-23 11:40:25.716898', 0, 'Redis管理', 'redis', 77);
+INSERT INTO `mod` VALUES (12, '2020-12-24 03:21:29.562453', '2020-12-24 03:21:29.562538', 0, 'Mongo管理', 'mongo', 76);
+COMMIT;
+
+-- ----------------------------
+-- Table structure for mongo
+-- ----------------------------
+DROP TABLE IF EXISTS `mongo`;
+CREATE TABLE `mongo` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `dt_create` datetime(6) NOT NULL,
+  `dt_update` datetime(6) NOT NULL,
+  `is_deleted` tinyint(1) NOT NULL,
+  `name` varchar(128) NOT NULL,
+  `instance_id` varchar(128) NOT NULL,
+  `typ` varchar(128) NOT NULL,
+  `version` varchar(128) NOT NULL,
+  `db_typ` varchar(128) NOT NULL,
+  `net_typ` varchar(128) NOT NULL,
+  `replica_count` int(11) NOT NULL,
+  `region_id` varchar(128) NOT NULL,
+  `zone_id` varchar(128) NOT NULL,
+  `connection` varchar(128) NOT NULL,
+  `remark` longtext,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+
+-- ----------------------------
+-- Records of mongo
+-- ----------------------------
+BEGIN;
+INSERT INTO `mongo` VALUES (1, '2020-12-24 03:09:17.979361', '2020-12-24 03:19:32.268487', 0, 'dds-8vbfc7c5c948c184', 'dds-8vbfc7c5c948c184', 'MongoDB', '4.2', 'replicate', 'VPC', 3, 'cn-zhangjiakou', 'cn-zhangjiakou-a', '', NULL);
+COMMIT;
+
+-- ----------------------------
+-- Table structure for mongo_account
+-- ----------------------------
+DROP TABLE IF EXISTS `mongo_account`;
+CREATE TABLE `mongo_account` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `dt_create` datetime(6) NOT NULL,
+  `dt_update` datetime(6) NOT NULL,
+  `is_deleted` tinyint(1) NOT NULL,
+  `username` varchar(128) NOT NULL,
+  `password` varchar(128) NOT NULL,
+  `status` varchar(128) NOT NULL,
+  `typ` varchar(128) NOT NULL,
+  `remark` longtext,
+  `mongo_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `mongo_account_mongo_id_9f9e855b_fk_mongo_id` (`mongo_id`),
+  CONSTRAINT `mongo_account_mongo_id_9f9e855b_fk_mongo_id` FOREIGN KEY (`mongo_id`) REFERENCES `mongo` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+
+-- ----------------------------
+-- Records of mongo_account
+-- ----------------------------
+BEGIN;
+INSERT INTO `mongo_account` VALUES (1, '2020-12-24 03:09:45.603763', '2020-12-24 03:23:37.791514', 0, 'root', '45566', 'Available', 'normal', NULL, 1);
 COMMIT;
 
 -- ----------------------------
@@ -302,7 +362,7 @@ CREATE TABLE `permission` (
   PRIMARY KEY (`id`),
   KEY `permission_mod_id_f75289cc_fk_mod_id` (`mod_id`),
   CONSTRAINT `permission_mod_id_f75289cc_fk_mod_id` FOREIGN KEY (`mod_id`) REFERENCES `mod` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=86 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=89 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of permission
@@ -393,6 +453,9 @@ INSERT INTO `permission` VALUES (82, '2020-12-23 11:02:02.481348', '2020-12-23 1
 INSERT INTO `permission` VALUES (83, '2020-12-23 11:55:52.737161', '2020-12-23 11:55:52.737243', 0, '编辑Redis账号', 10, '/api/v1/asset/redis/account/update/', 100, 11);
 INSERT INTO `permission` VALUES (84, '2020-12-23 12:10:45.120882', '2020-12-23 12:10:45.120977', 0, '创建服务关联Redis', 10, '/api/v1/business/service/redis/create/', 22, 6);
 INSERT INTO `permission` VALUES (85, '2020-12-23 12:11:01.592450', '2020-12-23 12:11:01.592495', 0, '删除服务关联Redis', 10, '/api/v1/business/service/redis/delete/', 21, 6);
+INSERT INTO `permission` VALUES (86, '2020-12-24 03:21:57.024600', '2020-12-24 03:21:57.024640', 0, '编辑Mongo账号', 10, '/api/v1/asset/mongo/account/update/', 100, 12);
+INSERT INTO `permission` VALUES (87, '2020-12-24 03:22:34.948218', '2020-12-24 03:22:34.948261', 0, '创建服务关联Mongo', 10, '/api/v1/business/service/mongo/create/', 20, 6);
+INSERT INTO `permission` VALUES (88, '2020-12-24 03:22:53.338506', '2020-12-24 03:22:53.338549', 0, '删除服务关联Mongo', 10, '/api/v1/business/service/mongo/delete/', 19, 6);
 COMMIT;
 
 -- ----------------------------
@@ -699,7 +762,7 @@ CREATE TABLE `role_mod` (
   KEY `role_mod_role_id_827d1e5a_fk_role_id` (`role_id`),
   CONSTRAINT `role_mod_mod_id_053ffcd7_fk_mod_id` FOREIGN KEY (`mod_id`) REFERENCES `mod` (`id`),
   CONSTRAINT `role_mod_role_id_827d1e5a_fk_role_id` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of role_mod
@@ -722,6 +785,7 @@ INSERT INTO `role_mod` VALUES (14, '2020-11-28 10:23:37.035079', '2020-11-28 10:
 INSERT INTO `role_mod` VALUES (15, '2020-12-18 04:28:01.078940', '2020-12-18 04:28:01.079045', 0, 9, 2);
 INSERT INTO `role_mod` VALUES (16, '2020-12-22 12:40:02.963325', '2020-12-22 12:40:02.963401', 0, 10, 2);
 INSERT INTO `role_mod` VALUES (17, '2020-12-23 11:40:32.721287', '2020-12-23 11:40:32.721341', 0, 11, 2);
+INSERT INTO `role_mod` VALUES (18, '2020-12-24 03:22:02.531004', '2020-12-24 03:22:02.531045', 0, 12, 2);
 COMMIT;
 
 -- ----------------------------
@@ -740,7 +804,7 @@ CREATE TABLE `role_permission` (
   KEY `role_permission_role_id_877a80a4_fk_role_id` (`role_id`),
   CONSTRAINT `role_permission_permission_id_ee9c5982_fk_permission_id` FOREIGN KEY (`permission_id`) REFERENCES `permission` (`id`),
   CONSTRAINT `role_permission_role_id_877a80a4_fk_role_id` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=73 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=76 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of role_permission
@@ -818,6 +882,9 @@ INSERT INTO `role_permission` VALUES (69, '2020-12-23 11:02:11.704682', '2020-12
 INSERT INTO `role_permission` VALUES (70, '2020-12-23 11:56:02.188134', '2020-12-23 11:56:02.188215', 0, 83, 2);
 INSERT INTO `role_permission` VALUES (71, '2020-12-23 12:11:07.953895', '2020-12-23 12:11:07.953945', 0, 85, 2);
 INSERT INTO `role_permission` VALUES (72, '2020-12-23 12:11:08.876581', '2020-12-23 12:11:08.876801', 0, 84, 2);
+INSERT INTO `role_permission` VALUES (73, '2020-12-24 03:22:03.643314', '2020-12-24 03:22:03.643354', 0, 86, 2);
+INSERT INTO `role_permission` VALUES (74, '2020-12-24 03:23:02.820440', '2020-12-24 03:23:02.820479', 0, 87, 2);
+INSERT INTO `role_permission` VALUES (75, '2020-12-24 03:23:03.472884', '2020-12-24 03:23:03.472929', 0, 88, 2);
 COMMIT;
 
 -- ----------------------------
@@ -888,7 +955,7 @@ CREATE TABLE `service_asset` (
   KEY `service_asset_service_id_2805134d_fk_service_id` (`service_id`),
   CONSTRAINT `service_asset_asset_id_a00b7f13_fk_asset_id` FOREIGN KEY (`asset_id`) REFERENCES `asset` (`id`),
   CONSTRAINT `service_asset_service_id_2805134d_fk_service_id` FOREIGN KEY (`service_id`) REFERENCES `service` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of service_asset
@@ -903,6 +970,7 @@ INSERT INTO `service_asset` VALUES (6, '2020-12-09 02:38:16.815380', '2020-12-09
 INSERT INTO `service_asset` VALUES (7, '2020-12-16 09:03:41.530714', '2020-12-16 09:03:41.530779', 0, 4, 2);
 INSERT INTO `service_asset` VALUES (8, '2020-12-19 07:10:04.257433', '2020-12-19 07:10:04.257478', 0, 7, 2);
 INSERT INTO `service_asset` VALUES (9, '2020-12-23 12:06:11.816951', '2020-12-23 12:06:11.817064', 0, 5, 2);
+INSERT INTO `service_asset` VALUES (10, '2020-12-24 03:23:49.880693', '2020-12-24 03:23:49.880737', 0, 6, 2);
 COMMIT;
 
 -- ----------------------------
@@ -938,6 +1006,8 @@ INSERT INTO `service_asset_obj` VALUES (4, '2020-12-16 10:13:09.526626', '2020-1
 INSERT INTO `service_asset_obj` VALUES (5, '2020-12-19 07:21:06.472070', '2020-12-19 07:28:59.103085', 0, 10, 2, 2, 'slb_server_group', 40);
 INSERT INTO `service_asset_obj` VALUES (6, '2020-12-19 08:10:37.914607', '2020-12-19 08:10:37.914653', 0, 7, 2, 2, 'slb_server_group', 10);
 INSERT INTO `service_asset_obj` VALUES (7, '2020-12-23 11:02:45.584127', '2020-12-23 11:02:45.584288', 0, 814, 2, 2, 'database', 10);
+INSERT INTO `service_asset_obj` VALUES (8, '2020-12-24 03:24:42.969589', '2020-12-24 03:24:48.540548', 0, 1, 2, 2, 'mongo', 40);
+INSERT INTO `service_asset_obj` VALUES (9, '2020-12-24 03:25:27.810162', '2020-12-24 03:25:27.810203', 0, 1, 3, 2, 'mongo', 10);
 COMMIT;
 
 -- ----------------------------
