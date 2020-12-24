@@ -6,6 +6,7 @@ from business.service.urls import server_group
 from business.service.urls import database
 from business.service.urls import redis
 from business.service.urls import mongo
+from business.service.urls import domain
 
 
 urlpatterns = service.urlpatterns + \
@@ -15,4 +16,5 @@ urlpatterns = service.urlpatterns + \
               server_group.urlpatterns + \
               database.urlpatterns + \
               redis.urlpatterns + \
-              mongo.urlpatterns
+              mongo.urlpatterns + \
+              domain.urlpatterns

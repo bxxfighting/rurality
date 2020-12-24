@@ -4,6 +4,7 @@ from asset.slb import urls as slb_urls
 from asset.rds import urls as rds_urls
 from asset.redis import urls as redis_urls
 from asset.mongo import urls as mongo_urls
+from asset.domain import urls as domain_urls
 
 
 urlpatterns = manager_urls.urlpatterns + \
@@ -11,4 +12,5 @@ urlpatterns = manager_urls.urlpatterns + \
               slb_urls.urlpatterns + \
               rds_urls.urlpatterns + \
               redis_urls.urlpatterns + \
-              mongo_urls.urlpatterns
+              mongo_urls.urlpatterns + \
+              domain_urls.urlpatterns

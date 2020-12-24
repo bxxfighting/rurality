@@ -102,7 +102,8 @@
 <a target="_blank" href="https://github.com/bxxfighting/rurality/blob/master/how/to/do/5/10.md">第十节 干RDS</a>
 <a target="_blank" href="https://github.com/bxxfighting/rurality/blob/master/how/to/do/5/11.md">第十一节 服务关联数据库</a>
 <a target="_blank" href="https://github.com/bxxfighting/rurality/blob/master/how/to/do/5/12.md">第十二节 干Redis</a>
-<a target="_blank" href="https://github.com/bxxfighting/rurality/blob/master/how/to/do/5/12.md">第十三节 干Mongo</a>
+<a target="_blank" href="https://github.com/bxxfighting/rurality/blob/master/how/to/do/5/13.md">第十三节 干Mongo</a>
+<a target="_blank" href="https://github.com/bxxfighting/rurality/blob/master/how/to/do/5/14.md">第十四节 域名也得管理上</a>
 </code></pre>
 </details>
 

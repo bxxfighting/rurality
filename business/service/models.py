@@ -122,6 +122,7 @@ class ServiceAssetObjModel(BaseModel):
     TYP_MONGO = 'mongo'
     TYP_ROCKET = 'rocket'
     TYP_KAFKA = 'kafka'
+    TYP_DOMAIN = 'domain'
 
     TYP_CHOICES = (
         (TYP_ECS, 'ECS'),
@@ -134,6 +135,7 @@ class ServiceAssetObjModel(BaseModel):
         (TYP_MONGO, 'Mongo'),
         (TYP_ROCKET, 'Rocket'),
         (TYP_KAFKA, 'Kafka'),
+        (TYP_DOMAIN, '域名'),
     )
 
     ST_PENDING_ADD = 10
