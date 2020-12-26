@@ -31,6 +31,7 @@ INSTALLED_APPS = [
     'asset.redis',
     'asset.mongo',
     'asset.domain',
+    'asset.rocket',
 ]
 
 MIDDLEWARE = [

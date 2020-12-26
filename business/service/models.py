@@ -120,7 +120,7 @@ class ServiceAssetObjModel(BaseModel):
     TYP_DNS = 'dns'
     TYP_REDIS = 'redis'
     TYP_MONGO = 'mongo'
-    TYP_ROCKET = 'rocket'
+    TYP_ROCKET_TOPIC = 'rocket_topic'
     TYP_KAFKA = 'kafka'
     TYP_DOMAIN = 'domain'
 
@@ -133,7 +133,7 @@ class ServiceAssetObjModel(BaseModel):
         (TYP_DNS, 'DNS'),
         (TYP_REDIS, 'Redis'),
         (TYP_MONGO, 'Mongo'),
-        (TYP_ROCKET, 'Rocket'),
+        (TYP_ROCKET_TOPIC, 'Rocket Topic'),
         (TYP_KAFKA, 'Kafka'),
         (TYP_DOMAIN, '域名'),
     )

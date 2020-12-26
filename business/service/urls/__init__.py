@@ -7,6 +7,7 @@ from business.service.urls import database
 from business.service.urls import redis
 from business.service.urls import mongo
 from business.service.urls import domain
+from business.service.urls import rocket_topic
 
 
 urlpatterns = service.urlpatterns + \
@@ -17,4 +18,5 @@ urlpatterns = service.urlpatterns + \
               database.urlpatterns + \
               redis.urlpatterns + \
               mongo.urlpatterns + \
-              domain.urlpatterns
+              domain.urlpatterns + \
+              rocket_topic.urlpatterns

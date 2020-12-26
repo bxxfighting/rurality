@@ -11,12 +11,14 @@ from asset.rds.models import RdsDatabaseModel
 from asset.redis.models import RedisModel
 from asset.mongo.models import MongoModel
 from asset.domain.models import DomainRecordModel
+from asset.rocket.models import RocketTopicModel
 from business.service.controllers import ecs as ecs_ctl
 from business.service.controllers import server_group as server_group_ctl
 from business.service.controllers import database as database_ctl
 from business.service.controllers import redis as redis_ctl
 from business.service.controllers import mongo as mongo_ctl
 from business.service.controllers import domain as domain_ctl
+from business.service.controllers import rocket_topic as rocket_topic_ctl
 from utils.onlyone import onlyone
 
 
@@ -36,6 +38,8 @@ def is_existed_asset_obj(typ, asset_obj_id):
         return MongoModel.objects.filter(id=asset_obj_id).exists()
     elif typ == ServiceAssetObjModel.TYP_DOMAIN:
         return DomainRecordModel.objects.filter(id=asset_obj_id).exists()
+    elif typ == ServiceAssetObjModel.TYP_ROCKET_TOPIC:
+        return RocketTopicModel.objects.filter(id=asset_obj_id).exists()
     return False
 
 
@@ -150,6 +154,8 @@ def get_service_asset_objs(obj_id, environment_id, typ, page_num=None, page_size
         data = mongo_ctl.get_service_mongos(**query)
     elif typ == ServiceAssetObjModel.TYP_DOMAIN:
         data = domain_ctl.get_service_domains(**query)
+    elif typ == ServiceAssetObjModel.TYP_ROCKET_TOPIC:
+        data = rocket_topic_ctl.get_service_rocket_topics(**query)
 
     return data
 

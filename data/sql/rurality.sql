@@ -11,7 +11,7 @@
  Target Server Version : 50643
  File Encoding         : 65001
 
- Date: 24/12/2020 19:23:08
+ Date: 26/12/2020 12:42:45
 */
 
 SET NAMES utf8mb4;
@@ -54,7 +54,7 @@ CREATE TABLE `asset` (
   `rank` int(11) NOT NULL,
   `remark` longtext NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of asset
@@ -66,8 +66,9 @@ INSERT INTO `asset` VALUES (3, '2020-12-01 03:11:37.112352', '2020-12-23 10:01:3
 INSERT INTO `asset` VALUES (4, '2020-12-01 03:11:46.209042', '2020-12-23 10:01:50.894982', 0, '数据库', 'database', 93, '');
 INSERT INTO `asset` VALUES (5, '2020-12-01 03:11:56.487127', '2020-12-01 03:11:56.487428', 0, 'Redis', 'redis', 89, '');
 INSERT INTO `asset` VALUES (6, '2020-12-01 03:12:09.098221', '2020-12-01 03:12:09.098283', 0, 'Mongo', 'mongo', 85, '');
-INSERT INTO `asset` VALUES (7, '2020-12-19 07:09:19.039171', '2020-12-19 07:09:28.555340', 0, '服务器组', 'slb_server_group', 95, '');
+INSERT INTO `asset` VALUES (7, '2020-12-19 07:09:19.039171', '2020-12-26 04:40:11.300629', 0, 'SLB服务器组', 'slb_server_group', 95, '');
 INSERT INTO `asset` VALUES (8, '2020-12-24 08:10:52.015730', '2020-12-24 08:10:52.015771', 0, '域名', 'domain', 80, '');
+INSERT INTO `asset` VALUES (9, '2020-12-26 04:26:58.785458', '2020-12-26 04:32:29.836541', 0, 'Rocket Topic', 'rocket_topic', 79, '');
 COMMIT;
 
 -- ----------------------------
@@ -162,7 +163,7 @@ CREATE TABLE `django_migrations` (
   `name` varchar(255) NOT NULL,
   `applied` datetime(6) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of django_migrations
@@ -201,6 +202,10 @@ INSERT INTO `django_migrations` VALUES (31, 'domain', '0001_initial', '2020-12-2
 INSERT INTO `django_migrations` VALUES (32, 'domain', '0002_domainrecordrelationmodel', '2020-12-24 10:21:39.176723');
 INSERT INTO `django_migrations` VALUES (33, 'service', '0013_auto_20201224_1821', '2020-12-24 10:21:39.246733');
 INSERT INTO `django_migrations` VALUES (34, 'domain', '0003_auto_20201224_1822', '2020-12-24 10:22:20.462727');
+INSERT INTO `django_migrations` VALUES (35, 'rocket', '0001_initial', '2020-12-25 04:32:58.770845');
+INSERT INTO `django_migrations` VALUES (36, 'rocket', '0002_rocketmodel_region_id', '2020-12-25 04:49:51.500651');
+INSERT INTO `django_migrations` VALUES (37, 'rocket', '0003_auto_20201225_1253', '2020-12-25 04:53:09.060544');
+INSERT INTO `django_migrations` VALUES (38, 'rocket', '0004_remove_rocketgroupmodel_owner', '2020-12-25 04:55:33.182896');
 COMMIT;
 
 -- ----------------------------
@@ -363,7 +368,7 @@ CREATE TABLE `mod` (
   `sign` varchar(32) NOT NULL,
   `rank` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of mod
@@ -382,6 +387,7 @@ INSERT INTO `mod` VALUES (10, '2020-12-22 12:39:45.784173', '2020-12-22 12:39:55
 INSERT INTO `mod` VALUES (11, '2020-12-23 11:40:25.716845', '2020-12-23 11:40:25.716898', 0, 'Redis管理', 'redis', 77);
 INSERT INTO `mod` VALUES (12, '2020-12-24 03:21:29.562453', '2020-12-24 03:21:29.562538', 0, 'Mongo管理', 'mongo', 76);
 INSERT INTO `mod` VALUES (13, '2020-12-24 08:00:33.650735', '2020-12-24 08:00:33.650803', 0, '域名管理', 'domain', 75);
+INSERT INTO `mod` VALUES (14, '2020-12-25 09:46:16.368436', '2020-12-25 09:46:16.368555', 0, 'Rocket管理', 'rocket', 74);
 COMMIT;
 
 -- ----------------------------
@@ -458,7 +464,7 @@ CREATE TABLE `permission` (
   PRIMARY KEY (`id`),
   KEY `permission_mod_id_f75289cc_fk_mod_id` (`mod_id`),
   CONSTRAINT `permission_mod_id_f75289cc_fk_mod_id` FOREIGN KEY (`mod_id`) REFERENCES `mod` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=91 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=93 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of permission
@@ -554,6 +560,8 @@ INSERT INTO `permission` VALUES (87, '2020-12-24 03:22:34.948218', '2020-12-24 0
 INSERT INTO `permission` VALUES (88, '2020-12-24 03:22:53.338506', '2020-12-24 03:22:53.338549', 0, '删除服务关联Mongo', 10, '/api/v1/business/service/mongo/delete/', 19, 6);
 INSERT INTO `permission` VALUES (89, '2020-12-24 08:09:27.608370', '2020-12-24 08:09:27.608465', 0, '创建服务关联域名', 10, '/api/v1/business/service/domain/create/', 17, 6);
 INSERT INTO `permission` VALUES (90, '2020-12-24 08:09:49.756349', '2020-12-24 08:09:49.756388', 0, '删除服务关联域名', 10, '/api/v1/business/service/domain/delete/', 16, 6);
+INSERT INTO `permission` VALUES (91, '2020-12-26 04:25:55.747032', '2020-12-26 04:25:55.747076', 0, '创建服务关联Rocket Topic', 10, '/api/v1/business/service/rocket/topic/create/', 15, 6);
+INSERT INTO `permission` VALUES (92, '2020-12-26 04:26:12.185628', '2020-12-26 04:26:12.185667', 0, '删除服务关联Rocket Topic', 10, '/api/v1/business/service/rocket/topic/delete/', 14, 6);
 COMMIT;
 
 -- ----------------------------
@@ -822,6 +830,103 @@ INSERT INTO `region` VALUES (69, '2020-11-26 12:22:20.686647', '2020-11-26 12:22
 COMMIT;
 
 -- ----------------------------
+-- Table structure for rocket
+-- ----------------------------
+DROP TABLE IF EXISTS `rocket`;
+CREATE TABLE `rocket` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `dt_create` datetime(6) NOT NULL,
+  `dt_update` datetime(6) NOT NULL,
+  `is_deleted` tinyint(1) NOT NULL,
+  `instance_id` varchar(128) NOT NULL,
+  `name` varchar(128) NOT NULL,
+  `is_independent_naming` tinyint(1) NOT NULL,
+  `region_id` varchar(128) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
+
+-- ----------------------------
+-- Records of rocket
+-- ----------------------------
+BEGIN;
+INSERT INTO `rocket` VALUES (1, '2020-12-25 04:44:12.722302', '2020-12-25 04:50:30.498607', 0, 'MQ_INST_1085045244562790_BXYvNnXl', 'ggg', 1, 'cn-zhangjiakou');
+INSERT INTO `rocket` VALUES (2, '2020-12-25 10:26:57.829520', '2020-12-25 10:26:57.829612', 0, 'MQ_INST_1085045244562790_BXbotzGN', 'ttt', 1, 'cn-beijing');
+COMMIT;
+
+-- ----------------------------
+-- Table structure for rocket_group
+-- ----------------------------
+DROP TABLE IF EXISTS `rocket_group`;
+CREATE TABLE `rocket_group` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `dt_create` datetime(6) NOT NULL,
+  `dt_update` datetime(6) NOT NULL,
+  `is_deleted` tinyint(1) NOT NULL,
+  `name` varchar(128) NOT NULL,
+  `typ` varchar(128) NOT NULL,
+  `rocket_id` int(11) NOT NULL,
+  `remark` longtext NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `rocket_group_rocket_id_26113dd2_fk_rocket_id` (`rocket_id`),
+  CONSTRAINT `rocket_group_rocket_id_26113dd2_fk_rocket_id` FOREIGN KEY (`rocket_id`) REFERENCES `rocket` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
+
+-- ----------------------------
+-- Records of rocket_group
+-- ----------------------------
+BEGIN;
+INSERT INTO `rocket_group` VALUES (1, '2020-12-25 05:00:06.394812', '2020-12-25 05:00:06.394864', 0, 'GID_ggg', 'tcp', 1, 'ggg');
+INSERT INTO `rocket_group` VALUES (2, '2020-12-25 10:26:59.021423', '2020-12-25 10:26:59.021466', 0, 'GID_ttt', 'tcp', 2, 'ttt');
+COMMIT;
+
+-- ----------------------------
+-- Table structure for rocket_group_topic
+-- ----------------------------
+DROP TABLE IF EXISTS `rocket_group_topic`;
+CREATE TABLE `rocket_group_topic` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `dt_create` datetime(6) NOT NULL,
+  `dt_update` datetime(6) NOT NULL,
+  `is_deleted` tinyint(1) NOT NULL,
+  `exp` longtext NOT NULL,
+  `group_id` int(11) NOT NULL,
+  `rocket_id` int(11) NOT NULL,
+  `topic_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `rocket_group_topic_group_id_4fab79bd_fk_rocket_group_id` (`group_id`),
+  KEY `rocket_group_topic_rocket_id_c9d07304_fk_rocket_id` (`rocket_id`),
+  KEY `rocket_group_topic_topic_id_49323a68_fk_rocket_topic_id` (`topic_id`),
+  CONSTRAINT `rocket_group_topic_group_id_4fab79bd_fk_rocket_group_id` FOREIGN KEY (`group_id`) REFERENCES `rocket_group` (`id`),
+  CONSTRAINT `rocket_group_topic_rocket_id_c9d07304_fk_rocket_id` FOREIGN KEY (`rocket_id`) REFERENCES `rocket` (`id`),
+  CONSTRAINT `rocket_group_topic_topic_id_49323a68_fk_rocket_topic_id` FOREIGN KEY (`topic_id`) REFERENCES `rocket_topic` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- ----------------------------
+-- Table structure for rocket_topic
+-- ----------------------------
+DROP TABLE IF EXISTS `rocket_topic`;
+CREATE TABLE `rocket_topic` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `dt_create` datetime(6) NOT NULL,
+  `dt_update` datetime(6) NOT NULL,
+  `is_deleted` tinyint(1) NOT NULL,
+  `name` varchar(128) NOT NULL,
+  `rocket_id` int(11) NOT NULL,
+  `remark` longtext NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `rocket_topic_rocket_id_9b68cdb9_fk_rocket_id` (`rocket_id`),
+  CONSTRAINT `rocket_topic_rocket_id_9b68cdb9_fk_rocket_id` FOREIGN KEY (`rocket_id`) REFERENCES `rocket` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
+
+-- ----------------------------
+-- Records of rocket_topic
+-- ----------------------------
+BEGIN;
+INSERT INTO `rocket_topic` VALUES (1, '2020-12-25 10:26:58.393583', '2020-12-25 10:26:58.393651', 0, 'ggg', 1, 'ggg');
+INSERT INTO `rocket_topic` VALUES (2, '2020-12-25 10:26:58.393735', '2020-12-25 10:26:58.393803', 0, 'ttt', 2, 'ttt');
+COMMIT;
+
+-- ----------------------------
 -- Table structure for role
 -- ----------------------------
 DROP TABLE IF EXISTS `role`;
@@ -860,7 +965,7 @@ CREATE TABLE `role_mod` (
   KEY `role_mod_role_id_827d1e5a_fk_role_id` (`role_id`),
   CONSTRAINT `role_mod_mod_id_053ffcd7_fk_mod_id` FOREIGN KEY (`mod_id`) REFERENCES `mod` (`id`),
   CONSTRAINT `role_mod_role_id_827d1e5a_fk_role_id` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of role_mod
@@ -885,6 +990,7 @@ INSERT INTO `role_mod` VALUES (16, '2020-12-22 12:40:02.963325', '2020-12-22 12:
 INSERT INTO `role_mod` VALUES (17, '2020-12-23 11:40:32.721287', '2020-12-23 11:40:32.721341', 0, 11, 2);
 INSERT INTO `role_mod` VALUES (18, '2020-12-24 03:22:02.531004', '2020-12-24 03:22:02.531045', 0, 12, 2);
 INSERT INTO `role_mod` VALUES (19, '2020-12-24 08:00:41.978758', '2020-12-24 08:00:41.978800', 0, 13, 2);
+INSERT INTO `role_mod` VALUES (20, '2020-12-25 09:46:23.423685', '2020-12-25 09:46:23.423746', 0, 14, 2);
 COMMIT;
 
 -- ----------------------------
@@ -903,7 +1009,7 @@ CREATE TABLE `role_permission` (
   KEY `role_permission_role_id_877a80a4_fk_role_id` (`role_id`),
   CONSTRAINT `role_permission_permission_id_ee9c5982_fk_permission_id` FOREIGN KEY (`permission_id`) REFERENCES `permission` (`id`),
   CONSTRAINT `role_permission_role_id_877a80a4_fk_role_id` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=78 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=80 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of role_permission
@@ -986,6 +1092,8 @@ INSERT INTO `role_permission` VALUES (74, '2020-12-24 03:23:02.820440', '2020-12
 INSERT INTO `role_permission` VALUES (75, '2020-12-24 03:23:03.472884', '2020-12-24 03:23:03.472929', 0, 88, 2);
 INSERT INTO `role_permission` VALUES (76, '2020-12-24 08:09:57.818592', '2020-12-24 08:09:57.818632', 0, 89, 2);
 INSERT INTO `role_permission` VALUES (77, '2020-12-24 08:09:59.456147', '2020-12-24 08:09:59.456187', 0, 90, 2);
+INSERT INTO `role_permission` VALUES (78, '2020-12-26 04:26:17.416930', '2020-12-26 04:26:17.416975', 0, 91, 2);
+INSERT INTO `role_permission` VALUES (79, '2020-12-26 04:26:18.318600', '2020-12-26 04:26:18.318641', 0, 92, 2);
 COMMIT;
 
 -- ----------------------------
@@ -1056,7 +1164,7 @@ CREATE TABLE `service_asset` (
   KEY `service_asset_service_id_2805134d_fk_service_id` (`service_id`),
   CONSTRAINT `service_asset_asset_id_a00b7f13_fk_asset_id` FOREIGN KEY (`asset_id`) REFERENCES `asset` (`id`),
   CONSTRAINT `service_asset_service_id_2805134d_fk_service_id` FOREIGN KEY (`service_id`) REFERENCES `service` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of service_asset
@@ -1073,6 +1181,7 @@ INSERT INTO `service_asset` VALUES (8, '2020-12-19 07:10:04.257433', '2020-12-19
 INSERT INTO `service_asset` VALUES (9, '2020-12-23 12:06:11.816951', '2020-12-23 12:06:11.817064', 0, 5, 2);
 INSERT INTO `service_asset` VALUES (10, '2020-12-24 03:23:49.880693', '2020-12-24 03:23:49.880737', 0, 6, 2);
 INSERT INTO `service_asset` VALUES (11, '2020-12-24 08:11:22.194983', '2020-12-24 08:11:22.195029', 0, 8, 2);
+INSERT INTO `service_asset` VALUES (12, '2020-12-26 04:27:39.070692', '2020-12-26 04:27:39.070733', 0, 9, 2);
 COMMIT;
 
 -- ----------------------------
@@ -1095,7 +1204,7 @@ CREATE TABLE `service_asset_obj` (
   KEY `service_asset_obj_asset_obj_id_33f9c96f` (`asset_obj_id`),
   CONSTRAINT `service_asset_obj_environment_id_b3021b21_fk_environment_id` FOREIGN KEY (`environment_id`) REFERENCES `environment` (`id`),
   CONSTRAINT `service_asset_obj_service_id_074819e0_fk_service_id` FOREIGN KEY (`service_id`) REFERENCES `service` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of service_asset_obj
@@ -1112,6 +1221,7 @@ INSERT INTO `service_asset_obj` VALUES (8, '2020-12-24 03:24:42.969589', '2020-1
 INSERT INTO `service_asset_obj` VALUES (9, '2020-12-24 03:25:27.810162', '2020-12-24 03:25:27.810203', 0, 1, 3, 2, 'mongo', 10);
 INSERT INTO `service_asset_obj` VALUES (10, '2020-12-24 08:49:56.004229', '2020-12-24 08:49:56.004308', 0, 2, 2, 2, 'domain', 10);
 INSERT INTO `service_asset_obj` VALUES (11, '2020-12-24 08:50:03.621611', '2020-12-24 08:55:48.593932', 0, 3, 2, 2, 'domain', 40);
+INSERT INTO `service_asset_obj` VALUES (12, '2020-12-26 04:34:30.777946', '2020-12-26 04:38:18.246573', 0, 2, 2, 2, 'rocket_topic', 40);
 COMMIT;
 
 -- ----------------------------
