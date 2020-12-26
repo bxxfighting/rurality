@@ -32,6 +32,9 @@
 
 > 友情提示: 最好使用右击新标签页打开以下链接  
 
+#### 安装文档
+[安装文档](https://github.com/bxxfighting/rurality/blob/master/INSTALL.md)  
+
 <details>
 <summary>第一章 美好生活的开启</summary>
 <pre><code>
@@ -104,6 +107,7 @@
 <a target="_blank" href="https://github.com/bxxfighting/rurality/blob/master/how/to/do/5/12.md">第十二节 干Redis</a>
 <a target="_blank" href="https://github.com/bxxfighting/rurality/blob/master/how/to/do/5/13.md">第十三节 干Mongo</a>
 <a target="_blank" href="https://github.com/bxxfighting/rurality/blob/master/how/to/do/5/14.md">第十四节 域名也得管理上</a>
+<a target="_blank" href="https://github.com/bxxfighting/rurality/blob/master/how/to/do/5/15.md">第十五节 MQ中选一个写写(RocketMQ)</a>
 </code></pre>
 </details>
 
