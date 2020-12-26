@@ -2,6 +2,8 @@ from aliyunsdkrds.request.v20140815.DescribeDBInstancesRequest import DescribeDB
 from aliyunsdkrds.request.v20140815.DescribeDatabasesRequest import DescribeDatabasesRequest
 from aliyunsdkrds.request.v20140815.DescribeDBInstanceAttributeRequest import DescribeDBInstanceAttributeRequest
 from aliyunsdkrds.request.v20140815.DescribeAccountsRequest import DescribeAccountsRequest
+from aliyunsdkrds.request.v20140815.CreateDatabaseRequest import CreateDatabaseRequest
+from aliyunsdkrds.request.v20140815.GrantAccountPrivilegeRequest import GrantAccountPrivilegeRequest
 
 from .base import AliyunCli
 
@@ -70,4 +72,34 @@ class AliyunRDS(AliyunCli):
         data = data.get('DBInstanceAttribute')
         if data:
             data = data[0]
+        return data
+
+    def create_database(self, instance_id, name, charset='utf8mb4'):
+        request = CreateDatabaseRequest()
+        request.set_accept_format('json')
+        request.set_DBInstanceId(instance_id)
+        request.set_DBName(name)
+        request.set_CharacterSetName(charset)
+        data = self._request(request)
+        return data
+
+    def create_account(self, instance_id, username, password, remark='', typ='Normal'):
+        request = CreateAccountRequest()
+        request.set_accept_format('json')
+        request.set_DBInstanceId(instance_id)
+        request.set_AccountName(username)
+        request.set_AccountPassword(password)
+        request.set_AccountDescription(remark)
+        request.set_AccountType(typ)
+        data = self._request(request)
+        return data
+
+    def grant_account_privilege(self, instance_id, account_name, db_name, privilege):
+        request = GrantAccountPrivilegeRequest()
+        request.set_accept_format('json')
+        request.set_DBInstanceId(instance_id)
+        request.set_AccountName(account_name)
+        request.set_DBName(db_name)
+        request.set_AccountPrivilege(privilege)
+        data = self._request(request)
         return data

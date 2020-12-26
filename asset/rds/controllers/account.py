@@ -1,10 +1,15 @@
+from random import randint
 from django.db import transaction
 from django.db.models import Q
 
+from asset.rds.models import RdsModel
 from asset.rds.models import RdsAccountModel
 from asset.rds.models import RdsDatabaseAccountModel
 from base import controllers as base_ctl
+from asset.manager.controllers import aliyun_key as aliyun_key_ctl
+from utils.aliyun import AliyunRDS
 from utils.onlyone import onlyone
+from utils.mix import gen_password
 
 
 def get_accounts(rds_id, keyword=None, page_num=None, page_size=None, operator=None):
@@ -67,3 +72,14 @@ def get_account_databases(obj_id, page_num=None, page_size=None, operator=None):
         'data_list': data_list,
     }
     return data
+
+
+def create_account(rds_id, username, remark=''):
+    '''
+    创建RDS账号
+    '''
+    rds_obj = base_ctl.get_obj(RdsModel, rds_id)
+    key, secret = aliyun_key_ctl.get_enabled_aliyun_key()
+    ali_cli = AliyunRDS(key, secret, rds_obj.region_id)
+    password = gen_password(level=3, length=randint(8, 32))
+    ali_cli.create_account(rds_obj.instance_id, username, password, remark)
