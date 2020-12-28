@@ -31,6 +31,17 @@ class RdsModel(BaseModel):
     class Meta:
         db_table = 'rds'
 
+    @property
+    def web_url(self):
+        host = 'https://rdsnext.console.aliyun.com'
+        url = f'{host}/detail/{self.instance_id}/basicInfo'
+        return url
+
+    def to_dict(self):
+        data = super().to_dict()
+        data['web_url'] = self.web_url
+        return data
+
 
 class RdsAccountModel(BaseModel):
     '''

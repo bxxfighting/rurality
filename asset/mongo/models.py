@@ -24,6 +24,17 @@ class MongoModel(BaseModel):
     class Meta:
         db_table = 'mongo'
 
+    @property
+    def web_url(self):
+        host = 'https://mongodb.console.aliyun.com'
+        url = f'{host}/replicate/{self.region_id}/instances/{self.instance_id}/basicInfo'
+        return url
+
+    def to_dict(self):
+        data = super().to_dict()
+        data['web_url'] = self.web_url
+        return data
+
 
 class MongoAccountModel(BaseModel):
     '''

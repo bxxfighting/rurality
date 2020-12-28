@@ -108,6 +108,7 @@
 <a target="_blank" href="https://github.com/bxxfighting/rurality/blob/master/how/to/do/5/13.md">第十三节 干Mongo</a>
 <a target="_blank" href="https://github.com/bxxfighting/rurality/blob/master/how/to/do/5/14.md">第十四节 域名也得管理上</a>
 <a target="_blank" href="https://github.com/bxxfighting/rurality/blob/master/how/to/do/5/15.md">第十五节 MQ中选一个写写(RocketMQ)</a>
+<a target="_blank" href="https://github.com/bxxfighting/rurality/blob/master/how/to/do/5/16.md">第十六节 便捷万岁</a>
 </code></pre>
 </details>
 

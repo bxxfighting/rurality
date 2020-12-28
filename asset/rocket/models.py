@@ -17,6 +17,17 @@ class RocketModel(BaseModel):
     class Meta:
         db_table = 'rocket'
 
+    @property
+    def web_url(self):
+        host = 'https://ons.console.aliyun.com'
+        url = f'{host}/region/{self.region_id}/instance/{self.instance_id}/detail'
+        return url
+
+    def to_dict(self):
+        data = super().to_dict()
+        data['web_url'] = self.web_url
+        return data
+
 
 class RocketTopicModel(BaseModel):
     '''
@@ -32,8 +43,15 @@ class RocketTopicModel(BaseModel):
     class Meta:
         db_table = 'rocket_topic'
 
+    @property
+    def web_url(self):
+        prefix = self.rocket.web_url.split('detail')[0]
+        url = f'{prefix}topic/TOPIC_ketang_goim_mids/detail'
+        return url
+
     def to_dict(self, is_base=True):
         data = super().to_dict()
+        data['web_url'] = self.web_url
         if not is_base:
             data['rocket'] = self.rocket.to_dict()
         return data

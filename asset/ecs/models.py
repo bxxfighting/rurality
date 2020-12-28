@@ -31,3 +31,14 @@ class EcsModel(BaseModel):
 
     class Meta:
         db_table = 'ecs'
+
+    @property
+    def web_url(self):
+        host = 'https://ecs.console.aliyun.com'
+        url = f'{host}/#/server/{self.instance_id}/detail?regionId={self.region_id}'
+        return url
+
+    def to_dict(self):
+        data = super().to_dict()
+        data['web_url'] = self.web_url
+        return data

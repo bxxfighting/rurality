@@ -34,6 +34,17 @@ class RedisModel(BaseModel):
     class Meta:
         db_table = 'redis'
 
+    @property
+    def web_url(self):
+        host = 'https://kvstore.console.aliyun.com'
+        url = f'https://kvstore.console.aliyun.com/#/home/{self.region_id}'
+        return url
+
+    def to_dict(self):
+        data = super().to_dict()
+        data['web_url'] = self.web_url
+        return data
+
 
 class RedisAccountModel(BaseModel):
     '''

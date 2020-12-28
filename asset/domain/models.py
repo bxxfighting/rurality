@@ -16,6 +16,17 @@ class DomainModel(BaseModel):
     class Meta:
         db_table = 'domain'
 
+    @property
+    def web_url(self):
+        host = 'https://dns.console.aliyun.com'
+        url = f'{host}/#/dns/setting/{self.name}'
+        return url
+
+    def to_dict(self):
+        data = super().to_dict()
+        data['web_url'] = self.web_url
+        return data
+
 
 class DomainRecordModel(BaseModel):
     '''
@@ -35,6 +46,17 @@ class DomainRecordModel(BaseModel):
 
     class Meta:
         db_table = 'domain_record'
+
+    @property
+    def web_url(self):
+        host = 'https://dns.console.aliyun.com'
+        url = f'{host}/#/dns/setting/{self.name}'
+        return url
+
+    def to_dict(self):
+        data = super().to_dict()
+        data['web_url'] = self.web_url
+        return data
 
 
 class DomainRecordAssetModel(BaseModel):

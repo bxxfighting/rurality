@@ -29,6 +29,17 @@ class SlbModel(BaseModel):
     class Meta:
         db_table = 'slb'
 
+    @property
+    def web_url(self):
+        host = 'https://slb.console.aliyun.com'
+        url = f'{host}/slb/{self.region_id}/slbs/{self.instance_id}/'
+        return url
+
+    def to_dict(self):
+        data = super().to_dict()
+        data['web_url'] = self.web_url
+        return data
+
 
 class SlbServerGroupModel(BaseModel):
     '''
