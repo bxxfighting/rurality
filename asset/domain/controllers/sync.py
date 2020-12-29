@@ -113,7 +113,7 @@ def sync_domain_records():
                     data['rr'] = rr
                     data['typ'] = typ
                     # 这里name和fullname就是冗余存储，为了方便查询
-                    data['name'] = domain_obj.name,
+                    data['name'] = domain_obj.name
                     data['fullname'] = rr + '.' + domain_obj.name
                     data['enabled'] = enabled
                     if not obj:
