@@ -4,6 +4,8 @@ from django.db.models import Q
 from asset.mongo.models import MongoModel
 from business.service.models import ServiceAssetObjModel
 from business.service.controllers import asset_obj as asset_obj_ctl
+from asset.manager.controllers import aliyun_key as aliyun_key_ctl
+from scheduler.controllers import berry as berry_ctl
 from base import controllers as base_ctl
 
 
@@ -49,3 +51,18 @@ def get_mongo_services(obj_id, page_num=None, page_size=None, operator=None):
         'page_size': page_size,
     }
     return asset_obj_ctl.get_asset_obj_services(**query)
+
+
+def sync_mongos(operator=None):
+    '''
+    同步Mongo
+    '''
+    aliyun_key_ctl.get_enabled_aliyun_key()
+
+    params = {}
+    data = {
+        'name': '同步Mongo',
+        'typ': 'sync_mongo',
+        'params': params,
+    }
+    berry_ctl.create_berry(**data)

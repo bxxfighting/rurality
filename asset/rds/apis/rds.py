@@ -24,3 +24,12 @@ class ListRdsApi(BaseApi):
     def post(self, request, params):
         data = rds_ctl.get_rdses(**params)
         return data
+
+
+class SyncRdsApi(BaseApi):
+
+    need_params = {
+    }
+    def post(self, request, params):
+        data = rds_ctl.sync_rdses(**params)
+        return data

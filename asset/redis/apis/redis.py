@@ -37,3 +37,12 @@ class ListRedisServiceApi(BaseApi):
     def post(self, request, params):
         data = redis_ctl.get_redis_services(**params)
         return data
+
+
+class SyncRedisApi(BaseApi):
+
+    need_params = {
+    }
+    def post(self, request, params):
+        data = redis_ctl.sync_redises(**params)
+        return data

@@ -37,3 +37,12 @@ class ListMongoServiceApi(BaseApi):
     def post(self, request, params):
         data = mongo_ctl.get_mongo_services(**params)
         return data
+
+
+class SyncMongoApi(BaseApi):
+
+    need_params = {
+    }
+    def post(self, request, params):
+        data = mongo_ctl.sync_mongos(**params)
+        return data

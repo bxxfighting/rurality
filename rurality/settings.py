@@ -32,6 +32,7 @@ INSTALLED_APPS = [
     'asset.mongo',
     'asset.domain',
     'asset.rocket',
+    'scheduler',
 ]
 
 MIDDLEWARE = [

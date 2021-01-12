@@ -2,6 +2,8 @@ from django.db import transaction
 from django.db.models import Q
 
 from asset.rds.models import RdsModel
+from scheduler.controllers import berry as berry_ctl
+from asset.manager.controllers import aliyun_key as aliyun_key_ctl
 from base import controllers as base_ctl
 
 
@@ -34,3 +36,18 @@ def get_rds(obj_id, operator=None):
     obj = base_ctl.get_obj(RdsModel, obj_id)
     data = obj.to_dict()
     return data
+
+
+def sync_rdses(operator=None):
+    '''
+    同步RDS
+    '''
+    aliyun_key_ctl.get_enabled_aliyun_key()
+
+    params = {}
+    data = {
+        'name': '同步RDS',
+        'typ': 'sync_rds',
+        'params': params,
+    }
+    berry_ctl.create_berry(**data)

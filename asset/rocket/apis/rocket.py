@@ -24,3 +24,12 @@ class ListRocketApi(BaseApi):
     def post(self, request, params):
         data = rocket_ctl.get_rockets(**params)
         return data
+
+
+class SyncRocketApi(BaseApi):
+
+    need_params = {
+    }
+    def post(self, request, params):
+        data = rocket_ctl.sync_rockets(**params)
+        return data

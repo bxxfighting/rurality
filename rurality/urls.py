@@ -9,6 +9,7 @@ urlpatterns = [
         path('account/', include('account.urls')),
         path('business/', include('business.urls')),
         path('asset/', include('asset.urls')),
+        path('scheduler/', include('scheduler.urls')),
     })),
     path('health/', HealthApi.as_view()),
 ]

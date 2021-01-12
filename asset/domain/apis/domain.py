@@ -24,3 +24,12 @@ class ListDomainApi(BaseApi):
     def post(self, request, params):
         data = domain_ctl.get_domains(**params)
         return data
+
+
+class SyncDomainApi(BaseApi):
+
+    need_params = {
+    }
+    def post(self, request, params):
+        data = domain_ctl.sync_domains(**params)
+        return data

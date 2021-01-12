@@ -106,6 +106,12 @@
 <a target="_blank" href="https://github.com/bxxfighting/rurality/blob/master/how/to/do/5/16.md">第十六节 便捷万岁</a>
 </code></pre>
 </details>
+<details>
+<summary>第六章 来点正经的</summary>
+<pre><code>
+<a target="_blank" href="https://github.com/bxxfighting/rurality/blob/master/how/to/do/6/1.md">第一节 统一任务管理</a>
+</code></pre>
+</details>
 
 哈哈，支付宝收款码在此，一分不嫌少，一元不嫌多，就是图一个乐子  
 <img src="https://github.com/bxxfighting/rurality/blob/master/data/sponsor/images/支付宝收款码.jpeg" width="300" hegiht="300" />

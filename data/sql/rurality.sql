@@ -11,7 +11,7 @@
  Target Server Version : 50643
  File Encoding         : 65001
 
- Date: 26/12/2020 12:42:45
+ Date: 12/01/2021 20:12:28
 */
 
 SET NAMES utf8mb4;
@@ -69,6 +69,71 @@ INSERT INTO `asset` VALUES (6, '2020-12-01 03:12:09.098221', '2020-12-01 03:12:0
 INSERT INTO `asset` VALUES (7, '2020-12-19 07:09:19.039171', '2020-12-26 04:40:11.300629', 0, 'SLB服务器组', 'slb_server_group', 95, '');
 INSERT INTO `asset` VALUES (8, '2020-12-24 08:10:52.015730', '2020-12-24 08:10:52.015771', 0, '域名', 'domain', 80, '');
 INSERT INTO `asset` VALUES (9, '2020-12-26 04:26:58.785458', '2020-12-26 04:32:29.836541', 0, 'Rocket Topic', 'rocket_topic', 79, '');
+COMMIT;
+
+-- ----------------------------
+-- Table structure for berry
+-- ----------------------------
+DROP TABLE IF EXISTS `berry`;
+CREATE TABLE `berry` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `dt_create` datetime(6) NOT NULL,
+  `dt_update` datetime(6) NOT NULL,
+  `is_deleted` tinyint(1) NOT NULL,
+  `name` varchar(128) NOT NULL,
+  `task_id` varchar(128) NOT NULL,
+  `status` smallint(6) NOT NULL,
+  `time_mode` smallint(6) NOT NULL,
+  `input_params` longtext,
+  `output_params` longtext,
+  `typ_id` int(11) NOT NULL,
+  `dt_end` datetime(6) DEFAULT NULL,
+  `dt_start` datetime(6) DEFAULT NULL,
+  `duration` int(11) DEFAULT NULL,
+  `error_log` longtext,
+  `parent_id` int(11) DEFAULT NULL,
+  `run_mode` smallint(6) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `berry_typ_id_bb6f0288_fk_berry_type_id` (`typ_id`),
+  CONSTRAINT `berry_typ_id_bb6f0288_fk_berry_type_id` FOREIGN KEY (`typ_id`) REFERENCES `berry_type` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4;
+
+-- ----------------------------
+-- Records of berry
+-- ----------------------------
+BEGIN;
+INSERT INTO `berry` VALUES (1, '2020-12-30 10:52:20.220398', '2020-12-30 10:52:20.220467', 0, '同步ECS', '', 10, 10, '{}', NULL, 2, NULL, NULL, NULL, NULL, NULL, 0);
+INSERT INTO `berry` VALUES (2, '2021-01-12 03:52:19.579078', '2021-01-12 03:53:21.594369', 0, '同步ECS', 'b88c2875-2698-4b9c-b3f9-3f5b7314b8af', 30, 10, '{}', NULL, 2, NULL, '2021-01-12 03:52:19.573438', NULL, NULL, NULL, 10);
+INSERT INTO `berry` VALUES (3, '2021-01-12 05:44:21.535746', '2021-01-12 05:44:23.043060', 0, '同步ECS', 'b4cf0696-d5c9-47d3-aeb9-b8400e9a6ee2', 30, 10, '{}', NULL, 2, NULL, '2021-01-12 05:44:21.533234', NULL, NULL, NULL, 10);
+INSERT INTO `berry` VALUES (4, '2021-01-12 05:45:29.449114', '2021-01-12 05:45:30.283181', 0, '同步ECS', 'ce7b1d8e-deb0-4759-a1b3-40ff122023af', 30, 10, '{}', NULL, 2, '2021-01-12 05:45:30.278805', '2021-01-12 05:45:29.446215', 0, NULL, NULL, 10);
+INSERT INTO `berry` VALUES (5, '2021-01-12 05:48:20.340560', '2021-01-12 05:48:31.630000', 0, '同步ECS', 'f8018dee-423f-44fd-9b97-d08eab444b96', 30, 10, '{}', NULL, 2, '2021-01-12 05:48:31.624803', '2021-01-12 05:48:20.334096', 11, NULL, NULL, 10);
+COMMIT;
+
+-- ----------------------------
+-- Table structure for berry_type
+-- ----------------------------
+DROP TABLE IF EXISTS `berry_type`;
+CREATE TABLE `berry_type` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `dt_create` datetime(6) NOT NULL,
+  `dt_update` datetime(6) NOT NULL,
+  `is_deleted` tinyint(1) NOT NULL,
+  `name` varchar(128) NOT NULL,
+  `parent_id` int(11) DEFAULT NULL,
+  `sign` varchar(128) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4;
+
+-- ----------------------------
+-- Records of berry_type
+-- ----------------------------
+BEGIN;
+INSERT INTO `berry_type` VALUES (1, '2020-12-30 10:50:03.000909', '2021-01-12 11:51:36.360401', 0, 'ECS任务', NULL, 'ecs');
+INSERT INTO `berry_type` VALUES (2, '2020-12-30 10:50:15.546104', '2021-01-12 12:08:11.114717', 0, '同步ECS', 1, 'sync_ecs');
+INSERT INTO `berry_type` VALUES (3, '2021-01-12 11:51:28.277388', '2021-01-12 11:51:41.115987', 0, 'SLB任务', NULL, 'slb');
+INSERT INTO `berry_type` VALUES (4, '2021-01-12 11:55:26.239787', '2021-01-12 11:56:45.254262', 1, '同步SLB', NULL, 'slb_sync');
+INSERT INTO `berry_type` VALUES (5, '2021-01-12 11:56:55.525627', '2021-01-12 12:08:18.831991', 0, '同步SLB', 3, 'sync_slb');
+INSERT INTO `berry_type` VALUES (6, '2021-01-12 12:08:30.078541', '2021-01-12 12:11:49.840078', 1, '创建SLB', 3, 'create_slb');
 COMMIT;
 
 -- ----------------------------
@@ -163,7 +228,7 @@ CREATE TABLE `django_migrations` (
   `name` varchar(255) NOT NULL,
   `applied` datetime(6) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=48 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of django_migrations
@@ -206,6 +271,15 @@ INSERT INTO `django_migrations` VALUES (35, 'rocket', '0001_initial', '2020-12-2
 INSERT INTO `django_migrations` VALUES (36, 'rocket', '0002_rocketmodel_region_id', '2020-12-25 04:49:51.500651');
 INSERT INTO `django_migrations` VALUES (37, 'rocket', '0003_auto_20201225_1253', '2020-12-25 04:53:09.060544');
 INSERT INTO `django_migrations` VALUES (38, 'rocket', '0004_remove_rocketgroupmodel_owner', '2020-12-25 04:55:33.182896');
+INSERT INTO `django_migrations` VALUES (39, 'scheduler', '0001_initial', '2020-12-29 03:50:42.330366');
+INSERT INTO `django_migrations` VALUES (40, 'service', '0014_auto_20201229_1150', '2020-12-29 03:50:42.403476');
+INSERT INTO `django_migrations` VALUES (41, 'scheduler', '0002_berrytypemodel_sign', '2020-12-29 06:11:14.473004');
+INSERT INTO `django_migrations` VALUES (42, 'scheduler', '0003_auto_20201230_1413', '2020-12-30 06:13:14.265585');
+INSERT INTO `django_migrations` VALUES (43, 'scheduler', '0004_auto_20201230_1830', '2020-12-30 10:30:51.126175');
+INSERT INTO `django_migrations` VALUES (44, 'scheduler', '0005_auto_20201230_1849', '2020-12-30 10:49:56.408237');
+INSERT INTO `django_migrations` VALUES (45, 'scheduler', '0006_auto_20210108_1649', '2021-01-08 08:50:00.998360');
+INSERT INTO `django_migrations` VALUES (46, 'scheduler', '0007_berrymodel_parent_id', '2021-01-08 08:51:45.519930');
+INSERT INTO `django_migrations` VALUES (47, 'scheduler', '0008_berrymodel_run_mode', '2021-01-08 09:17:41.300424');
 COMMIT;
 
 -- ----------------------------
@@ -326,8 +400,8 @@ CREATE TABLE `ecs` (
 -- Records of ecs
 -- ----------------------------
 BEGIN;
-INSERT INTO `ecs` VALUES (1, '2020-11-27 12:27:10.525321', '2020-11-27 12:27:10.525373', 0, 'cn-zhangjiakou', 'cn-zhangjiakou-a', '量量', 'i-8vb19kumx22v0hxpzqni', 'iZ8vb19kumx22v0hxpzqniZ', '172.26.106.158', '47.92.71.110', 1, 'Ubuntu  16.04 64位', 1024, '2017-03-27 00:15:00.000000', '');
-INSERT INTO `ecs` VALUES (2, '2020-11-27 12:30:44.048351', '2020-11-27 12:30:44.048397', 0, 'cn-beijing', 'cn-beijing-a', 'yike', 'i-2zedsuhv55oquitw5pqw', 'yike', '172.17.16.167', '39.105.71.60', 1, 'Ubuntu  16.04 64位', 1024, '2018-10-10 17:56:00.000000', '');
+INSERT INTO `ecs` VALUES (1, '2020-11-27 12:27:10.525321', '2021-01-12 03:53:21.582967', 0, 'cn-zhangjiakou', 'cn-zhangjiakou-a', '量量', 'i-8vb19kumx22v0hxpzqni', 'iZ8vb19kumx22v0hxpzqniZ', '172.26.106.158', '47.92.71.110', 1, 'Ubuntu  16.04 64位', 1024, '2017-03-27 00:15:00.000000', 'PrePaid');
+INSERT INTO `ecs` VALUES (2, '2020-11-27 12:30:44.048351', '2021-01-12 03:53:21.131589', 0, 'cn-beijing', 'cn-beijing-a', 'yike', 'i-2zedsuhv55oquitw5pqw', 'yike', '172.17.16.167', '39.105.71.60', 1, 'Ubuntu  16.04 64位', 1024, '2018-10-10 17:56:00.000000', 'PrePaid');
 COMMIT;
 
 -- ----------------------------
@@ -368,7 +442,7 @@ CREATE TABLE `mod` (
   `sign` varchar(32) NOT NULL,
   `rank` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of mod
@@ -388,6 +462,8 @@ INSERT INTO `mod` VALUES (11, '2020-12-23 11:40:25.716845', '2020-12-23 11:40:25
 INSERT INTO `mod` VALUES (12, '2020-12-24 03:21:29.562453', '2020-12-24 03:21:29.562538', 0, 'Mongo管理', 'mongo', 76);
 INSERT INTO `mod` VALUES (13, '2020-12-24 08:00:33.650735', '2020-12-24 08:00:33.650803', 0, '域名管理', 'domain', 75);
 INSERT INTO `mod` VALUES (14, '2020-12-25 09:46:16.368436', '2020-12-25 09:46:16.368555', 0, 'Rocket管理', 'rocket', 74);
+INSERT INTO `mod` VALUES (15, '2021-01-08 10:47:42.893227', '2021-01-08 10:47:42.893269', 0, '阿里云Key管理', 'aliyun_key', 35);
+INSERT INTO `mod` VALUES (16, '2021-01-08 10:51:21.894338', '2021-01-08 10:51:21.894380', 0, '地域管理', 'region', 34);
 COMMIT;
 
 -- ----------------------------
@@ -464,7 +540,7 @@ CREATE TABLE `permission` (
   PRIMARY KEY (`id`),
   KEY `permission_mod_id_f75289cc_fk_mod_id` (`mod_id`),
   CONSTRAINT `permission_mod_id_f75289cc_fk_mod_id` FOREIGN KEY (`mod_id`) REFERENCES `mod` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=93 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=105 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of permission
@@ -562,6 +638,18 @@ INSERT INTO `permission` VALUES (89, '2020-12-24 08:09:27.608370', '2020-12-24 0
 INSERT INTO `permission` VALUES (90, '2020-12-24 08:09:49.756349', '2020-12-24 08:09:49.756388', 0, '删除服务关联域名', 10, '/api/v1/business/service/domain/delete/', 16, 6);
 INSERT INTO `permission` VALUES (91, '2020-12-26 04:25:55.747032', '2020-12-26 04:25:55.747076', 0, '创建服务关联Rocket Topic', 10, '/api/v1/business/service/rocket/topic/create/', 15, 6);
 INSERT INTO `permission` VALUES (92, '2020-12-26 04:26:12.185628', '2020-12-26 04:26:12.185667', 0, '删除服务关联Rocket Topic', 10, '/api/v1/business/service/rocket/topic/delete/', 14, 6);
+INSERT INTO `permission` VALUES (93, '2021-01-08 10:48:57.576944', '2021-01-08 10:48:57.576986', 0, '创建阿里云key', 10, '/api/v1/asset/aliyun_key/create/', 100, 15);
+INSERT INTO `permission` VALUES (94, '2021-01-08 10:49:11.723038', '2021-01-08 10:49:11.723078', 0, '编辑阿里云key', 10, '/api/v1/asset/aliyun_key/update/', 99, 15);
+INSERT INTO `permission` VALUES (95, '2021-01-08 10:49:34.134400', '2021-01-08 10:49:34.134443', 0, '删除阿里云Key', 10, '/api/v1/asset/aliyun_key/delete/', 98, 15);
+INSERT INTO `permission` VALUES (96, '2021-01-08 10:50:00.030493', '2021-01-08 10:50:00.030539', 0, '设置阿里云Key状态', 10, '/api/v1/asset/aliyun_key/status/set/', 97, 15);
+INSERT INTO `permission` VALUES (97, '2021-01-08 10:52:07.712519', '2021-01-08 10:52:07.712560', 0, '设置阿里云地域状态', 10, '/api/v1/asset/region/status/set/', 100, 16);
+INSERT INTO `permission` VALUES (98, '2021-01-12 10:00:18.771516', '2021-01-12 10:00:18.771632', 0, '同步ECS', 10, '/api/v1/asset/ecs/sync/', 100, 8);
+INSERT INTO `permission` VALUES (99, '2021-01-12 10:00:37.156822', '2021-01-12 10:00:37.156860', 0, '同步SLB', 10, '/api/v1/asset/slb/sync/', 100, 9);
+INSERT INTO `permission` VALUES (100, '2021-01-12 10:00:57.378248', '2021-01-12 10:00:57.378295', 0, '同步RDS', 10, '/api/v1/asset/rds/sync/', 100, 10);
+INSERT INTO `permission` VALUES (101, '2021-01-12 10:01:16.773706', '2021-01-12 10:01:16.773752', 0, '同步Redis', 10, '/api/v1/asset/redis/sync/', 100, 11);
+INSERT INTO `permission` VALUES (102, '2021-01-12 10:01:34.662038', '2021-01-12 10:01:34.662125', 0, '同步Mongo', 10, '/api/v1/asset/mongo/sync/', 100, 12);
+INSERT INTO `permission` VALUES (103, '2021-01-12 10:01:54.324775', '2021-01-12 10:01:54.324819', 0, '同步域名', 10, '/api/v1/asset/domain/sync/', 100, 13);
+INSERT INTO `permission` VALUES (104, '2021-01-12 10:02:13.450622', '2021-01-12 10:02:13.450669', 0, '同步Rocket', 10, '/api/v1/asset/rocket/sync/', 100, 14);
 COMMIT;
 
 -- ----------------------------
@@ -965,7 +1053,7 @@ CREATE TABLE `role_mod` (
   KEY `role_mod_role_id_827d1e5a_fk_role_id` (`role_id`),
   CONSTRAINT `role_mod_mod_id_053ffcd7_fk_mod_id` FOREIGN KEY (`mod_id`) REFERENCES `mod` (`id`),
   CONSTRAINT `role_mod_role_id_827d1e5a_fk_role_id` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of role_mod
@@ -991,6 +1079,8 @@ INSERT INTO `role_mod` VALUES (17, '2020-12-23 11:40:32.721287', '2020-12-23 11:
 INSERT INTO `role_mod` VALUES (18, '2020-12-24 03:22:02.531004', '2020-12-24 03:22:02.531045', 0, 12, 2);
 INSERT INTO `role_mod` VALUES (19, '2020-12-24 08:00:41.978758', '2020-12-24 08:00:41.978800', 0, 13, 2);
 INSERT INTO `role_mod` VALUES (20, '2020-12-25 09:46:23.423685', '2020-12-25 09:46:23.423746', 0, 14, 2);
+INSERT INTO `role_mod` VALUES (21, '2021-01-08 10:50:09.227574', '2021-01-08 10:50:09.227612', 0, 15, 2);
+INSERT INTO `role_mod` VALUES (22, '2021-01-08 10:52:16.273741', '2021-01-08 10:52:16.273780', 0, 16, 2);
 COMMIT;
 
 -- ----------------------------
@@ -1009,7 +1099,7 @@ CREATE TABLE `role_permission` (
   KEY `role_permission_role_id_877a80a4_fk_role_id` (`role_id`),
   CONSTRAINT `role_permission_permission_id_ee9c5982_fk_permission_id` FOREIGN KEY (`permission_id`) REFERENCES `permission` (`id`),
   CONSTRAINT `role_permission_role_id_877a80a4_fk_role_id` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=80 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=94 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of role_permission
@@ -1094,6 +1184,20 @@ INSERT INTO `role_permission` VALUES (76, '2020-12-24 08:09:57.818592', '2020-12
 INSERT INTO `role_permission` VALUES (77, '2020-12-24 08:09:59.456147', '2020-12-24 08:09:59.456187', 0, 90, 2);
 INSERT INTO `role_permission` VALUES (78, '2020-12-26 04:26:17.416930', '2020-12-26 04:26:17.416975', 0, 91, 2);
 INSERT INTO `role_permission` VALUES (79, '2020-12-26 04:26:18.318600', '2020-12-26 04:26:18.318641', 0, 92, 2);
+INSERT INTO `role_permission` VALUES (80, '2021-01-08 10:50:09.214178', '2021-01-08 10:50:09.214219', 0, 93, 2);
+INSERT INTO `role_permission` VALUES (81, '2021-01-08 10:50:09.983310', '2021-01-08 10:50:09.983349', 0, 94, 2);
+INSERT INTO `role_permission` VALUES (82, '2021-01-08 10:50:10.734253', '2021-01-08 10:50:10.734323', 0, 95, 2);
+INSERT INTO `role_permission` VALUES (83, '2021-01-08 10:50:11.487404', '2021-01-08 10:50:11.487445', 0, 96, 2);
+INSERT INTO `role_permission` VALUES (84, '2021-01-08 10:52:16.261655', '2021-01-08 10:52:16.261762', 0, 97, 2);
+INSERT INTO `role_permission` VALUES (85, '2021-01-08 10:52:26.427341', '2021-01-08 10:52:26.427380', 0, 72, 2);
+INSERT INTO `role_permission` VALUES (86, '2021-01-08 10:52:27.098131', '2021-01-08 10:52:27.098243', 0, 73, 2);
+INSERT INTO `role_permission` VALUES (87, '2021-01-12 10:02:18.660493', '2021-01-12 10:02:18.660574', 0, 98, 2);
+INSERT INTO `role_permission` VALUES (88, '2021-01-12 10:02:19.325772', '2021-01-12 10:02:19.325816', 0, 99, 2);
+INSERT INTO `role_permission` VALUES (89, '2021-01-12 10:02:20.124925', '2021-01-12 10:02:20.124968', 0, 100, 2);
+INSERT INTO `role_permission` VALUES (90, '2021-01-12 10:02:20.845228', '2021-01-12 10:02:20.845281', 0, 101, 2);
+INSERT INTO `role_permission` VALUES (91, '2021-01-12 10:02:21.650341', '2021-01-12 10:02:21.650403', 0, 102, 2);
+INSERT INTO `role_permission` VALUES (92, '2021-01-12 10:02:22.261073', '2021-01-12 10:02:22.261128', 0, 103, 2);
+INSERT INTO `role_permission` VALUES (93, '2021-01-12 10:02:22.981727', '2021-01-12 10:02:22.981777', 0, 104, 2);
 COMMIT;
 
 -- ----------------------------
