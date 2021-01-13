@@ -110,6 +110,7 @@
 <summary>第六章 来点正经的</summary>
 <pre><code>
 <a target="_blank" href="https://github.com/bxxfighting/rurality/blob/master/how/to/do/6/1.md">第一节 统一任务管理</a>
+<a target="_blank" href="https://github.com/bxxfighting/rurality/blob/master/how/to/do/6/2.md">第二节 引用代码库管理</a>
 </code></pre>
 </details>
 

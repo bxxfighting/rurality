@@ -10,6 +10,7 @@ urlpatterns = [
         path('business/', include('business.urls')),
         path('asset/', include('asset.urls')),
         path('scheduler/', include('scheduler.urls')),
+        path('component/', include('component.urls')),
     })),
     path('health/', HealthApi.as_view()),
 ]

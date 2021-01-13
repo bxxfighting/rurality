@@ -11,7 +11,7 @@
  Target Server Version : 50643
  File Encoding         : 65001
 
- Date: 12/01/2021 20:12:28
+ Date: 13/01/2021 20:15:53
 */
 
 SET NAMES utf8mb4;
@@ -96,7 +96,7 @@ CREATE TABLE `berry` (
   PRIMARY KEY (`id`),
   KEY `berry_typ_id_bb6f0288_fk_berry_type_id` (`typ_id`),
   CONSTRAINT `berry_typ_id_bb6f0288_fk_berry_type_id` FOREIGN KEY (`typ_id`) REFERENCES `berry_type` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of berry
@@ -107,6 +107,9 @@ INSERT INTO `berry` VALUES (2, '2021-01-12 03:52:19.579078', '2021-01-12 03:53:2
 INSERT INTO `berry` VALUES (3, '2021-01-12 05:44:21.535746', '2021-01-12 05:44:23.043060', 0, '同步ECS', 'b4cf0696-d5c9-47d3-aeb9-b8400e9a6ee2', 30, 10, '{}', NULL, 2, NULL, '2021-01-12 05:44:21.533234', NULL, NULL, NULL, 10);
 INSERT INTO `berry` VALUES (4, '2021-01-12 05:45:29.449114', '2021-01-12 05:45:30.283181', 0, '同步ECS', 'ce7b1d8e-deb0-4759-a1b3-40ff122023af', 30, 10, '{}', NULL, 2, '2021-01-12 05:45:30.278805', '2021-01-12 05:45:29.446215', 0, NULL, NULL, 10);
 INSERT INTO `berry` VALUES (5, '2021-01-12 05:48:20.340560', '2021-01-12 05:48:31.630000', 0, '同步ECS', 'f8018dee-423f-44fd-9b97-d08eab444b96', 30, 10, '{}', NULL, 2, '2021-01-12 05:48:31.624803', '2021-01-12 05:48:20.334096', 11, NULL, NULL, 10);
+INSERT INTO `berry` VALUES (8, '2021-01-13 12:09:45.221599', '2021-01-13 12:09:45.639656', 0, '同步代码库', '55b4f547-0197-4dd1-886e-467258bdf760', 20, 10, '{}', NULL, 8, NULL, '2021-01-13 12:09:45.216224', NULL, NULL, NULL, 10);
+INSERT INTO `berry` VALUES (9, '2021-01-13 12:10:09.053872', '2021-01-13 12:10:36.669966', 0, '同步代码库', '4f28b9fc-cc15-44b0-8b92-3226c0fe530b', 40, 10, '{}', NULL, 8, '2021-01-13 12:10:36.665844', '2021-01-13 12:10:09.046452', 27, 'Traceback (most recent call last):\n  File \"/Users/xx/workspace/rurality/scheduler/tasks/berry.py\", line 32, in apply_task\n    sync_task_route(berry_obj)\n  File \"/Users/xx/workspace/rurality/scheduler/tasks/berry.py\", line 80, in sync_task_route\n    base_ctl.update_obj(BerryModel, berry_id, data)\nNameError: name \'berry_id\' is not defined\n', NULL, 10);
+INSERT INTO `berry` VALUES (10, '2021-01-13 12:13:46.011653', '2021-01-13 12:14:11.676643', 0, '同步代码库', '01945945-4aa3-40ec-a380-960cc4fcbb77', 30, 10, '{}', NULL, 8, '2021-01-13 12:14:11.672140', '2021-01-13 12:13:46.009596', 25, NULL, NULL, 10);
 COMMIT;
 
 -- ----------------------------
@@ -122,7 +125,7 @@ CREATE TABLE `berry_type` (
   `parent_id` int(11) DEFAULT NULL,
   `sign` varchar(128) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of berry_type
@@ -134,6 +137,8 @@ INSERT INTO `berry_type` VALUES (3, '2021-01-12 11:51:28.277388', '2021-01-12 11
 INSERT INTO `berry_type` VALUES (4, '2021-01-12 11:55:26.239787', '2021-01-12 11:56:45.254262', 1, '同步SLB', NULL, 'slb_sync');
 INSERT INTO `berry_type` VALUES (5, '2021-01-12 11:56:55.525627', '2021-01-12 12:08:18.831991', 0, '同步SLB', 3, 'sync_slb');
 INSERT INTO `berry_type` VALUES (6, '2021-01-12 12:08:30.078541', '2021-01-12 12:11:49.840078', 1, '创建SLB', 3, 'create_slb');
+INSERT INTO `berry_type` VALUES (7, '2021-01-13 11:58:00.981592', '2021-01-13 11:58:00.981677', 0, 'Gitlab任务', NULL, 'gitlab');
+INSERT INTO `berry_type` VALUES (8, '2021-01-13 11:58:13.751871', '2021-01-13 11:58:13.751936', 0, '同步代码库', 7, 'sync_gitlab');
 COMMIT;
 
 -- ----------------------------
@@ -228,7 +233,7 @@ CREATE TABLE `django_migrations` (
   `name` varchar(255) NOT NULL,
   `applied` datetime(6) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=48 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of django_migrations
@@ -280,6 +285,8 @@ INSERT INTO `django_migrations` VALUES (44, 'scheduler', '0005_auto_20201230_184
 INSERT INTO `django_migrations` VALUES (45, 'scheduler', '0006_auto_20210108_1649', '2021-01-08 08:50:00.998360');
 INSERT INTO `django_migrations` VALUES (46, 'scheduler', '0007_berrymodel_parent_id', '2021-01-08 08:51:45.519930');
 INSERT INTO `django_migrations` VALUES (47, 'scheduler', '0008_berrymodel_run_mode', '2021-01-08 09:17:41.300424');
+INSERT INTO `django_migrations` VALUES (48, 'gitlab', '0001_initial', '2021-01-13 08:57:15.950567');
+INSERT INTO `django_migrations` VALUES (49, 'scheduler', '0009_auto_20210113_1656', '2021-01-13 08:57:16.002486');
 COMMIT;
 
 -- ----------------------------
@@ -430,6 +437,42 @@ INSERT INTO `environment` VALUES (3, '2020-12-04 07:46:42.350105', '2020-12-04 0
 COMMIT;
 
 -- ----------------------------
+-- Table structure for gitlab_project
+-- ----------------------------
+DROP TABLE IF EXISTS `gitlab_project`;
+CREATE TABLE `gitlab_project` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `dt_create` datetime(6) NOT NULL,
+  `dt_update` datetime(6) NOT NULL,
+  `is_deleted` tinyint(1) NOT NULL,
+  `name` varchar(128) NOT NULL,
+  `project_id` int(11) NOT NULL,
+  `web_url` longtext NOT NULL,
+  `ssh_url` longtext NOT NULL,
+  `server_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `gitlab_project_server_id_cecf0674_fk_gitlab_server_id` (`server_id`),
+  CONSTRAINT `gitlab_project_server_id_cecf0674_fk_gitlab_server_id` FOREIGN KEY (`server_id`) REFERENCES `gitlab_server` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1028 DEFAULT CHARSET=utf8mb4;
+
+-- ----------------------------
+-- Table structure for gitlab_server
+-- ----------------------------
+DROP TABLE IF EXISTS `gitlab_server`;
+CREATE TABLE `gitlab_server` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `dt_create` datetime(6) NOT NULL,
+  `dt_update` datetime(6) NOT NULL,
+  `is_deleted` tinyint(1) NOT NULL,
+  `name` varchar(128) NOT NULL,
+  `host` varchar(128) NOT NULL,
+  `username` varchar(128) NOT NULL,
+  `password` varchar(128) NOT NULL,
+  `token` varchar(128) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+
+-- ----------------------------
 -- Table structure for mod
 -- ----------------------------
 DROP TABLE IF EXISTS `mod`;
@@ -442,7 +485,7 @@ CREATE TABLE `mod` (
   `sign` varchar(32) NOT NULL,
   `rank` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of mod
@@ -464,6 +507,7 @@ INSERT INTO `mod` VALUES (13, '2020-12-24 08:00:33.650735', '2020-12-24 08:00:33
 INSERT INTO `mod` VALUES (14, '2020-12-25 09:46:16.368436', '2020-12-25 09:46:16.368555', 0, 'Rocket管理', 'rocket', 74);
 INSERT INTO `mod` VALUES (15, '2021-01-08 10:47:42.893227', '2021-01-08 10:47:42.893269', 0, '阿里云Key管理', 'aliyun_key', 35);
 INSERT INTO `mod` VALUES (16, '2021-01-08 10:51:21.894338', '2021-01-08 10:51:21.894380', 0, '地域管理', 'region', 34);
+INSERT INTO `mod` VALUES (17, '2021-01-13 12:10:51.656633', '2021-01-13 12:11:05.621560', 0, '代码库管理', 'gitlab', 90);
 COMMIT;
 
 -- ----------------------------
@@ -540,7 +584,7 @@ CREATE TABLE `permission` (
   PRIMARY KEY (`id`),
   KEY `permission_mod_id_f75289cc_fk_mod_id` (`mod_id`),
   CONSTRAINT `permission_mod_id_f75289cc_fk_mod_id` FOREIGN KEY (`mod_id`) REFERENCES `mod` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=105 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=106 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of permission
@@ -650,6 +694,7 @@ INSERT INTO `permission` VALUES (101, '2021-01-12 10:01:16.773706', '2021-01-12 
 INSERT INTO `permission` VALUES (102, '2021-01-12 10:01:34.662038', '2021-01-12 10:01:34.662125', 0, '同步Mongo', 10, '/api/v1/asset/mongo/sync/', 100, 12);
 INSERT INTO `permission` VALUES (103, '2021-01-12 10:01:54.324775', '2021-01-12 10:01:54.324819', 0, '同步域名', 10, '/api/v1/asset/domain/sync/', 100, 13);
 INSERT INTO `permission` VALUES (104, '2021-01-12 10:02:13.450622', '2021-01-12 10:02:13.450669', 0, '同步Rocket', 10, '/api/v1/asset/rocket/sync/', 100, 14);
+INSERT INTO `permission` VALUES (105, '2021-01-13 12:11:43.239126', '2021-01-13 12:11:43.239182', 0, '同步代码库', 10, '/api/v1/component/gitlab/project/sync/', 100, 17);
 COMMIT;
 
 -- ----------------------------
@@ -1053,7 +1098,7 @@ CREATE TABLE `role_mod` (
   KEY `role_mod_role_id_827d1e5a_fk_role_id` (`role_id`),
   CONSTRAINT `role_mod_mod_id_053ffcd7_fk_mod_id` FOREIGN KEY (`mod_id`) REFERENCES `mod` (`id`),
   CONSTRAINT `role_mod_role_id_827d1e5a_fk_role_id` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of role_mod
@@ -1081,6 +1126,7 @@ INSERT INTO `role_mod` VALUES (19, '2020-12-24 08:00:41.978758', '2020-12-24 08:
 INSERT INTO `role_mod` VALUES (20, '2020-12-25 09:46:23.423685', '2020-12-25 09:46:23.423746', 0, 14, 2);
 INSERT INTO `role_mod` VALUES (21, '2021-01-08 10:50:09.227574', '2021-01-08 10:50:09.227612', 0, 15, 2);
 INSERT INTO `role_mod` VALUES (22, '2021-01-08 10:52:16.273741', '2021-01-08 10:52:16.273780', 0, 16, 2);
+INSERT INTO `role_mod` VALUES (23, '2021-01-13 12:11:50.563170', '2021-01-13 12:11:50.563213', 0, 17, 2);
 COMMIT;
 
 -- ----------------------------
@@ -1099,7 +1145,7 @@ CREATE TABLE `role_permission` (
   KEY `role_permission_role_id_877a80a4_fk_role_id` (`role_id`),
   CONSTRAINT `role_permission_permission_id_ee9c5982_fk_permission_id` FOREIGN KEY (`permission_id`) REFERENCES `permission` (`id`),
   CONSTRAINT `role_permission_role_id_877a80a4_fk_role_id` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=94 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=96 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of role_permission
@@ -1198,6 +1244,8 @@ INSERT INTO `role_permission` VALUES (90, '2021-01-12 10:02:20.845228', '2021-01
 INSERT INTO `role_permission` VALUES (91, '2021-01-12 10:02:21.650341', '2021-01-12 10:02:21.650403', 0, 102, 2);
 INSERT INTO `role_permission` VALUES (92, '2021-01-12 10:02:22.261073', '2021-01-12 10:02:22.261128', 0, 103, 2);
 INSERT INTO `role_permission` VALUES (93, '2021-01-12 10:02:22.981727', '2021-01-12 10:02:22.981777', 0, 104, 2);
+INSERT INTO `role_permission` VALUES (94, '2021-01-13 12:11:50.546918', '2021-01-13 12:11:51.521112', 1, 105, 2);
+INSERT INTO `role_permission` VALUES (95, '2021-01-13 12:12:15.520192', '2021-01-13 12:12:15.520231', 0, 105, 2);
 COMMIT;
 
 -- ----------------------------
