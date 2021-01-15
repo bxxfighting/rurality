@@ -17,6 +17,8 @@
 > 使用python版本: 3.8.5  
 > 这绝不是零基础教程  
 
+[一些有关使用Django的教程](https://github.com/bxxfighting/big-talk-django)  
+
 [后端代码库](https://github.com/bxxfighting/rurality)  
 [前端代码库](https://github.com/bxxfighting/enjoy)  
 
