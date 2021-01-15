@@ -4,6 +4,7 @@ from business.project.models import ProjectModel
 from asset.manager.models import AssetModel
 from account.models import DepartmentModel
 from account.models import UserModel
+from component.gitlab.models import GitlabProjectModel
 
 
 class EnvironmentModel(BaseModel):
@@ -23,6 +24,35 @@ class EnvironmentModel(BaseModel):
         db_table = 'environment'
 
 
+class LanguageModel(BaseModel):
+    '''
+    编程语言
+    '''
+    model_name = '编程语言'
+    model_sign = 'language'
+
+    name = models.CharField('名称', max_length=128)
+    sign = models.CharField('标识', max_length=128)
+
+    class Meta:
+        db_table = 'language'
+
+
+class FrameModel(BaseModel):
+    '''
+    框架
+    '''
+    model_name = '框架'
+    model_sign = 'frame'
+
+    language = models.ForeignKey(LanguageModel, on_delete=models.CASCADE)
+    name = models.CharField('名称', max_length=128)
+    sign = models.CharField('标识', max_length=128)
+
+    class Meta:
+        db_table = 'frame'
+
+
 class ServiceModel(BaseModel):
     '''
     服务
@@ -32,7 +62,10 @@ class ServiceModel(BaseModel):
 
     name = models.CharField('名称', max_length=128)
     sign = models.CharField('标识', max_length=128)
-    project = models.ForeignKey(ProjectModel, on_delete=models.CASCADE)
+    project = models.ForeignKey(ProjectModel, on_delete=models.CASCADE, verbose_name='项目')
+    language = models.ForeignKey(LanguageModel, on_delete=models.CASCADE, verbose_name='编程语言', null=True)
+    frame = models.ForeignKey(FrameModel, on_delete=models.CASCADE, verbose_name='框架', null=True)
+    gitlab = models.ForeignKey(GitlabProjectModel, on_delete=models.CASCADE, verbose_name='框架', null=True)
     remark = models.TextField('备注', null=True)
 
     class Meta:

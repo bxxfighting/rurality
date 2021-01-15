@@ -8,6 +8,9 @@ class CreateServiceApi(BaseApi):
         'name': ('名称', 'required str 128'),
         'sign': ('标识', 'required str 128'),
         'project_id': ('项目ID', 'required int'),
+        'language_id': ('编程语言ID', 'required int'),
+        'frame_id': ('框架ID', 'required int'),
+        'gitlab_id': ('代码库ID', 'required int'),
         'remark': ('备注', 'optional str 1024'),
     }
     def post(self, request, params):
@@ -22,6 +25,9 @@ class UpdateServiceApi(BaseApi):
         'name': ('名称', 'required str 128'),
         'sign': ('标识', 'required str 128'),
         'project_id': ('项目ID', 'required int'),
+        'language_id': ('编程语言ID', 'required int'),
+        'frame_id': ('框架ID', 'required int'),
+        'gitlab_id': ('代码库ID', 'required int'),
         'remark': ('备注', 'optional str 1024'),
     }
     def post(self, request, params):

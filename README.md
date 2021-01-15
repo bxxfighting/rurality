@@ -111,6 +111,7 @@
 <pre><code>
 <a target="_blank" href="https://github.com/bxxfighting/rurality/blob/master/how/to/do/6/1.md">第一节 统一任务管理</a>
 <a target="_blank" href="https://github.com/bxxfighting/rurality/blob/master/how/to/do/6/2.md">第二节 引用代码库管理</a>
+<a target="_blank" href="https://github.com/bxxfighting/rurality/blob/master/how/to/do/6/3.md">第三节 服务增加编程语言、框架、代码库属性</a>
 </code></pre>
 </details>
 

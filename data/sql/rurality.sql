@@ -11,7 +11,7 @@
  Target Server Version : 50643
  File Encoding         : 65001
 
- Date: 13/01/2021 20:15:53
+ Date: 14/01/2021 21:05:58
 */
 
 SET NAMES utf8mb4;
@@ -96,7 +96,7 @@ CREATE TABLE `berry` (
   PRIMARY KEY (`id`),
   KEY `berry_typ_id_bb6f0288_fk_berry_type_id` (`typ_id`),
   CONSTRAINT `berry_typ_id_bb6f0288_fk_berry_type_id` FOREIGN KEY (`typ_id`) REFERENCES `berry_type` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of berry
@@ -110,6 +110,7 @@ INSERT INTO `berry` VALUES (5, '2021-01-12 05:48:20.340560', '2021-01-12 05:48:3
 INSERT INTO `berry` VALUES (8, '2021-01-13 12:09:45.221599', '2021-01-13 12:09:45.639656', 0, '同步代码库', '55b4f547-0197-4dd1-886e-467258bdf760', 20, 10, '{}', NULL, 8, NULL, '2021-01-13 12:09:45.216224', NULL, NULL, NULL, 10);
 INSERT INTO `berry` VALUES (9, '2021-01-13 12:10:09.053872', '2021-01-13 12:10:36.669966', 0, '同步代码库', '4f28b9fc-cc15-44b0-8b92-3226c0fe530b', 40, 10, '{}', NULL, 8, '2021-01-13 12:10:36.665844', '2021-01-13 12:10:09.046452', 27, 'Traceback (most recent call last):\n  File \"/Users/xx/workspace/rurality/scheduler/tasks/berry.py\", line 32, in apply_task\n    sync_task_route(berry_obj)\n  File \"/Users/xx/workspace/rurality/scheduler/tasks/berry.py\", line 80, in sync_task_route\n    base_ctl.update_obj(BerryModel, berry_id, data)\nNameError: name \'berry_id\' is not defined\n', NULL, 10);
 INSERT INTO `berry` VALUES (10, '2021-01-13 12:13:46.011653', '2021-01-13 12:14:11.676643', 0, '同步代码库', '01945945-4aa3-40ec-a380-960cc4fcbb77', 30, 10, '{}', NULL, 8, '2021-01-13 12:14:11.672140', '2021-01-13 12:13:46.009596', 25, NULL, NULL, 10);
+INSERT INTO `berry` VALUES (11, '2021-01-14 12:41:31.588840', '2021-01-14 12:41:49.697836', 0, '同步代码库', 'a2e7a9e6-35e7-4737-9dd6-c17737e1e6d1', 30, 10, '{}', NULL, 8, '2021-01-14 12:41:49.693042', '2021-01-14 12:41:31.586086', 18, NULL, NULL, 10);
 COMMIT;
 
 -- ----------------------------
@@ -233,7 +234,7 @@ CREATE TABLE `django_migrations` (
   `name` varchar(255) NOT NULL,
   `applied` datetime(6) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of django_migrations
@@ -287,6 +288,7 @@ INSERT INTO `django_migrations` VALUES (46, 'scheduler', '0007_berrymodel_parent
 INSERT INTO `django_migrations` VALUES (47, 'scheduler', '0008_berrymodel_run_mode', '2021-01-08 09:17:41.300424');
 INSERT INTO `django_migrations` VALUES (48, 'gitlab', '0001_initial', '2021-01-13 08:57:15.950567');
 INSERT INTO `django_migrations` VALUES (49, 'scheduler', '0009_auto_20210113_1656', '2021-01-13 08:57:16.002486');
+INSERT INTO `django_migrations` VALUES (50, 'service', '0015_auto_20210114_1358', '2021-01-14 05:58:25.386776');
 COMMIT;
 
 -- ----------------------------
@@ -437,6 +439,36 @@ INSERT INTO `environment` VALUES (3, '2020-12-04 07:46:42.350105', '2020-12-04 0
 COMMIT;
 
 -- ----------------------------
+-- Table structure for frame
+-- ----------------------------
+DROP TABLE IF EXISTS `frame`;
+CREATE TABLE `frame` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `dt_create` datetime(6) NOT NULL,
+  `dt_update` datetime(6) NOT NULL,
+  `is_deleted` tinyint(1) NOT NULL,
+  `name` varchar(128) NOT NULL,
+  `sign` varchar(128) NOT NULL,
+  `language_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `frame_language_id_3fdb2c91_fk_language_id` (`language_id`),
+  CONSTRAINT `frame_language_id_3fdb2c91_fk_language_id` FOREIGN KEY (`language_id`) REFERENCES `language` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4;
+
+-- ----------------------------
+-- Records of frame
+-- ----------------------------
+BEGIN;
+INSERT INTO `frame` VALUES (1, '2021-01-14 11:37:08.465157', '2021-01-14 11:37:08.465309', 0, 'Django', 'django', 1);
+INSERT INTO `frame` VALUES (2, '2021-01-14 11:37:15.315591', '2021-01-14 11:37:46.666187', 1, 'Flask', 'flask', 1);
+INSERT INTO `frame` VALUES (3, '2021-01-14 11:38:55.548100', '2021-01-14 11:38:55.548161', 0, 'Yii', 'yii', 2);
+INSERT INTO `frame` VALUES (4, '2021-01-14 11:39:09.936064', '2021-01-14 11:39:09.936133', 0, 'BeeGo', 'beego', 5);
+INSERT INTO `frame` VALUES (5, '2021-01-14 11:44:14.343043', '2021-01-14 11:44:22.816280', 1, 'Flask', 'flask', 1);
+INSERT INTO `frame` VALUES (6, '2021-01-14 12:14:03.156811', '2021-01-14 12:14:03.156867', 0, 'VUE', 'vue', 6);
+INSERT INTO `frame` VALUES (7, '2021-01-14 12:14:20.120859', '2021-01-14 12:14:20.120901', 0, 'Spring Cloud', 'spring_cloud', 4);
+COMMIT;
+
+-- ----------------------------
 -- Table structure for gitlab_project
 -- ----------------------------
 DROP TABLE IF EXISTS `gitlab_project`;
@@ -453,7 +485,15 @@ CREATE TABLE `gitlab_project` (
   PRIMARY KEY (`id`),
   KEY `gitlab_project_server_id_cecf0674_fk_gitlab_server_id` (`server_id`),
   CONSTRAINT `gitlab_project_server_id_cecf0674_fk_gitlab_server_id` FOREIGN KEY (`server_id`) REFERENCES `gitlab_server` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1028 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=1030 DEFAULT CHARSET=utf8mb4;
+
+-- ----------------------------
+-- Records of gitlab_project
+-- ----------------------------
+BEGIN;
+INSERT INTO `gitlab_project` VALUES (1, '2021-01-14 12:41:49.479696', '2021-01-14 12:41:49.479737', 0, 'devops/enjoy', 1406, 'http://gitlab.buxingxing.com/devops/enjoy', 'ssh://git@gitlab.buxingxing.com:/devops/enjoy.git', 1);
+INSERT INTO `gitlab_project` VALUES (2, '2021-01-14 12:41:49.479788', '2021-01-14 12:41:49.479803', 0, 'devops/rurality', 1405, 'http://gitlab.buxingxing.com/devops/rurality', 'ssh://git@gitlab.buxingxing.com:/devops/rurality.git', 1);
+COMMIT;
 
 -- ----------------------------
 -- Table structure for gitlab_server
@@ -471,6 +511,39 @@ CREATE TABLE `gitlab_server` (
   `token` varchar(128) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+
+-- ----------------------------
+-- Records of gitlab_server
+-- ----------------------------
+BEGIN;
+INSERT INTO `gitlab_server` VALUES (1, '2021-01-13 11:40:46.435628', '2021-01-13 11:41:01.015610', 0, '代码库', 'http://gitlab.buxingxing.com', 'devops', 'devops', 'dfkdfdfkdsfdsf');
+COMMIT;
+
+-- ----------------------------
+-- Table structure for language
+-- ----------------------------
+DROP TABLE IF EXISTS `language`;
+CREATE TABLE `language` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `dt_create` datetime(6) NOT NULL,
+  `dt_update` datetime(6) NOT NULL,
+  `is_deleted` tinyint(1) NOT NULL,
+  `name` varchar(128) NOT NULL,
+  `sign` varchar(128) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4;
+
+-- ----------------------------
+-- Records of language
+-- ----------------------------
+BEGIN;
+INSERT INTO `language` VALUES (1, '2021-01-14 11:20:13.845398', '2021-01-14 11:20:13.845501', 0, 'Python', 'python');
+INSERT INTO `language` VALUES (2, '2021-01-14 11:20:20.202598', '2021-01-14 11:20:20.202652', 0, 'PHP', 'php');
+INSERT INTO `language` VALUES (3, '2021-01-14 11:20:26.725766', '2021-01-14 11:20:55.708359', 1, 'JS', 'js');
+INSERT INTO `language` VALUES (4, '2021-01-14 11:20:34.079675', '2021-01-14 11:20:34.079716', 0, 'Java', 'java');
+INSERT INTO `language` VALUES (5, '2021-01-14 11:20:40.900059', '2021-01-14 11:20:51.087121', 0, 'Go', 'go');
+INSERT INTO `language` VALUES (6, '2021-01-14 12:13:55.858421', '2021-01-14 12:13:55.858484', 0, 'JS', 'js');
+COMMIT;
 
 -- ----------------------------
 -- Table structure for mod
@@ -1287,8 +1360,17 @@ CREATE TABLE `service` (
   `sign` varchar(128) NOT NULL,
   `remark` longtext,
   `project_id` int(11) NOT NULL,
+  `gitlab_id` int(11) DEFAULT NULL,
+  `frame_id` int(11) DEFAULT NULL,
+  `language_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
+  KEY `service_gitlab_id_012c4871_fk_gitlab_project_id` (`gitlab_id`),
   KEY `service_project_id_6e6d0821_fk_project_id` (`project_id`),
+  KEY `service_frame_id_d183fbba_fk_frame_id` (`frame_id`),
+  KEY `service_language_id_802e9a69_fk_language_id` (`language_id`),
+  CONSTRAINT `service_frame_id_d183fbba_fk_frame_id` FOREIGN KEY (`frame_id`) REFERENCES `frame` (`id`),
+  CONSTRAINT `service_gitlab_id_012c4871_fk_gitlab_project_id` FOREIGN KEY (`gitlab_id`) REFERENCES `gitlab_project` (`id`),
+  CONSTRAINT `service_language_id_802e9a69_fk_language_id` FOREIGN KEY (`language_id`) REFERENCES `language` (`id`),
   CONSTRAINT `service_project_id_6e6d0821_fk_project_id` FOREIGN KEY (`project_id`) REFERENCES `project` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
 
@@ -1296,8 +1378,8 @@ CREATE TABLE `service` (
 -- Records of service
 -- ----------------------------
 BEGIN;
-INSERT INTO `service` VALUES (1, '2020-11-07 10:17:30.413472', '2020-11-07 10:52:11.582977', 0, '运维系统前端', 'enjoy', NULL, 1);
-INSERT INTO `service` VALUES (2, '2020-11-07 10:45:01.293950', '2020-12-10 07:04:35.029954', 0, '运维系统后端', 'rurality', NULL, 2);
+INSERT INTO `service` VALUES (1, '2020-11-07 10:17:30.413472', '2021-01-14 12:50:56.153919', 0, '运维系统前端', 'enjoy', NULL, 1, 2, 6, 6);
+INSERT INTO `service` VALUES (2, '2020-11-07 10:45:01.293950', '2021-01-14 12:42:06.406946', 0, '运维系统后端', 'rurality', NULL, 1, 1, 1, 1);
 COMMIT;
 
 -- ----------------------------

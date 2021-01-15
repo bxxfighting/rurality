@@ -1,4 +1,5 @@
 from django.db import transaction
+from django.db.models import Q
 
 from component.gitlab.models import GitlabProjectModel
 from scheduler.controllers import berry as berry_ctl

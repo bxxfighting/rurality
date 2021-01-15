@@ -1,3 +1,5 @@
+from business.service.urls import language
+from business.service.urls import frame
 from business.service.urls import service
 from business.service.urls import environment
 from business.service.urls import asset
@@ -11,6 +13,8 @@ from business.service.urls import rocket_topic
 
 
 urlpatterns = service.urlpatterns + \
+              language.urlpatterns + \
+              frame.urlpatterns + \
               environment.urlpatterns + \
               asset.urlpatterns + \
               ecs.urlpatterns + \

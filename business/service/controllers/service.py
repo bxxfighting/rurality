@@ -13,7 +13,7 @@ from utils.onlyone import onlyone
 
 @onlyone.lock(ServiceModel.model_sign, 'name:sign', 'sign', 30)
 @onlyone.lock(ServiceModel.model_sign, 'name', 'name', 30)
-def create_service(name, sign, project_id, remark=None, operator=None):
+def create_service(name, sign, project_id, language_id, frame_id, gitlab_id, remark=None, operator=None):
     '''
     创建服务
     '''
@@ -25,6 +25,9 @@ def create_service(name, sign, project_id, remark=None, operator=None):
         'name': name,
         'sign': sign,
         'project_id': project_id,
+        'language_id': language_id,
+        'frame_id': frame_id,
+        'gitlab_id': gitlab_id,
         'remark': remark,
     }
     obj = base_ctl.create_obj(ServiceModel, data, operator)
@@ -35,7 +38,7 @@ def create_service(name, sign, project_id, remark=None, operator=None):
 @onlyone.lock(ServiceModel.model_sign, 'obj_id:name:sign', 'sign', 30)
 @onlyone.lock(ServiceModel.model_sign, 'obj_id:name', 'name', 30)
 @onlyone.lock(ServiceModel.model_sign, 'obj_id', 'obj_id', 30)
-def update_service(obj_id, name, sign, project_id, remark=None, operator=None):
+def update_service(obj_id, name, sign, project_id, language_id, frame_id, gitlab_id, remark=None, operator=None):
     '''
     编辑服务
     '''
@@ -47,6 +50,9 @@ def update_service(obj_id, name, sign, project_id, remark=None, operator=None):
         'name': name,
         'sign': sign,
         'project_id': project_id,
+        'language_id': language_id,
+        'frame_id': frame_id,
+        'gitlab_id': gitlab_id,
         'remark': remark,
     }
     obj = base_ctl.update_obj(ServiceModel, obj_id, data, operator)
@@ -83,6 +89,8 @@ def get_services(keyword=None, project_id=None, department_id=None, page_num=Non
     for obj in objs:
         data = obj.to_dict()
         data['project'] = obj.project.to_dict()
+        data['language'] = obj.language.to_dict()
+        data['frame'] = obj.frame.to_dict()
         data_list.append(data)
     data = {
         'total': total,
@@ -98,6 +106,9 @@ def get_service(obj_id, operator=None):
     obj = base_ctl.get_obj(ServiceModel, obj_id)
     data = obj.to_dict()
     data['project'] = obj.project.to_dict()
+    data['gitlab'] = obj.gitlab.to_dict()
+    data['language'] = obj.language.to_dict()
+    data['frame'] = obj.frame.to_dict()
     return data
 
 
