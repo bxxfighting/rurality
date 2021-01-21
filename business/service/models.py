@@ -194,3 +194,81 @@ class ServiceAssetObjModel(BaseModel):
 
     class Meta:
         db_table = 'service_asset_obj'
+
+
+class ServiceConfigModel(BaseModel):
+    '''
+    服务配置
+    '''
+    model_name = '服务配置'
+    model_sign = 'service_config'
+
+    # 无解析：不需要添加域名解析
+    DNS_TYP_NONE = 'none'
+    # 解析至ECS：原则是不推荐域名直接解析到ECS的，
+    # 因为这样没办法配置负载均衡和高可用，当然测试环境这么弄是可以的
+    DNS_TYP_ECS = 'ecs'
+    # 解析至SLB：正常情况下所有域名都应该解析至SLB上，同时配置虚拟服务器组
+    # 当前了，还是看实际使用，以后的其它操作都取决于这个决定
+    # 比如，如果所有都统一使用虚拟服务器组，那么就只用写一套管理流程
+    # 扩容、缩容、服务部署时上下流量等
+    DNS_TYP_SLB = 'slb'
+    DNS_TYP_CHOICES = (
+        (DNS_TYP_NONE, '无解析'),
+        (DNS_TYP_ECS, '解析至ECS'),
+        (DNS_TYP_SLB, '解析至SLB'),
+    )
+
+    # git类型，就是在目标服务器上直接通过git clone/git pull的方式拉取代码部署
+    # 比如python和php可以直接部署源码，那么可以直接在目标机器上git pull部署
+    ARTIFACT_TYP_GIT = 'git'
+    # 压缩包类型：将代码删除无用内容后，打成压缩包，存放到制品库，通过拉取压缩包的形式部署
+    # 比如vue项目，通过build后，将dist目录打成压缩包，以后通过压缩包部署
+    # 再或者java项目生成jar包后，也可以再打成压缩包来部署
+    ARTIFACT_TYP_ARCHIVE = 'archive'
+    # docker类型：通过生成docker镜像，推送到docker # hub.
+    # 之后使用docker镜像部署(可以是部署在ECS，也可以是K8s)
+    # 通过提供Dockerfile模板，生成docker镜像
+    ARTIFACT_TYP_DOCKER = 'docker'
+    ARTIFACT_TYP_CHOICES = (
+        (ARTIFACT_TYP_GIT, 'git源码'),
+        (ARTIFACT_TYP_ARCHIVE, '压缩包'),
+        (ARTIFACT_TYP_DOCKER, 'Docker镜像'),
+    )
+
+    DEPLOY_TYP_ECS = 'ecs'
+    DEPLOY_TYP_K8S = 'k8s'
+    DEPLOY_TYP_CHOICES = (
+        (DEPLOY_TYP_ECS, 'ECS部署'),
+        (DEPLOY_TYP_K8S, 'K8s部署'),
+    )
+
+    service = models.ForeignKey(ServiceModel, on_delete=models.CASCADE, verbose_name='服务')
+    environment = models.ForeignKey(EnvironmentModel, on_delete=models.CASCADE, verbose_name='环境')
+    port = models.IntegerField('端口号', null=True)
+    # 解析类型：代码服务使用的域名解析到哪里
+    dns_typ = models.CharField('解析类型', max_length=128, choices=DNS_TYP_CHOICES)
+    # 制品类型：制品就是我们部署什么东西，可以是直接git拉取源码、可以是一个压缩包、可以是docker镜像
+    artifact_typ = models.CharField('制品类型', max_length=128, choices=ARTIFACT_TYP_CHOICES)
+    # 部署类型：用来区分服务是直接部署在ECS上，还是部署到K8s上，或者通过docker部署
+    # 可以根据自己的实际情况来增加类型
+    deploy_typ = models.CharField('部署类型', max_length=128, choices=DEPLOY_TYP_CHOICES)
+
+    class Meta:
+        db_table = 'service_config'
+
+    @classmethod
+    def none_to_dict(cls):
+        '''
+        不存在时，返回内容
+        '''
+        data = {
+            'port': None,
+            'dns_typ': '',
+            'dns_typ_desc': '',
+            'artifact_typ': '',
+            'artifact_typ_desc': '',
+            'deploy_typ': '',
+            'deploy_typ_desc': '',
+        }
+        return data

@@ -29,7 +29,7 @@ def query_objs_by_page(base_query, page_num=None, page_size=None):
     return objs
 
 
-@transaction.atomic()
+@transaction.atomic
 def create_obj(obj_model, data, operator=None):
     '''
     创建对象
@@ -38,7 +38,7 @@ def create_obj(obj_model, data, operator=None):
     return obj
 
 
-@transaction.atomic()
+@transaction.atomic
 def create_objs(obj_model, data_list, operator=None):
     '''
     批量创建对象
@@ -53,7 +53,7 @@ def create_objs(obj_model, data_list, operator=None):
         obj_model.objects.bulk_create(obj_list)
 
 
-@transaction.atomic()
+@transaction.atomic
 def update_obj(obj_model, obj_id, data, operator=None):
     '''
     更新对象
@@ -78,7 +78,7 @@ def update_obj(obj_model, obj_id, data, operator=None):
     return obj
 
 
-@transaction.atomic()
+@transaction.atomic
 def update_objs(obj_model, obj_ids, data, operator=None):
     '''
     批量更新
@@ -87,7 +87,7 @@ def update_objs(obj_model, obj_ids, data, operator=None):
     obj_model.objects.filter(id__in=list(obj_ids)).update(**data)
 
 
-@transaction.atomic()
+@transaction.atomic
 def delete_obj(obj_model, obj_id, operator=None):
     '''
     删除对象

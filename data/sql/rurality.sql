@@ -11,7 +11,7 @@
  Target Server Version : 50643
  File Encoding         : 65001
 
- Date: 14/01/2021 21:05:58
+ Date: 21/01/2021 19:44:54
 */
 
 SET NAMES utf8mb4;
@@ -234,7 +234,7 @@ CREATE TABLE `django_migrations` (
   `name` varchar(255) NOT NULL,
   `applied` datetime(6) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of django_migrations
@@ -289,6 +289,7 @@ INSERT INTO `django_migrations` VALUES (47, 'scheduler', '0008_berrymodel_run_mo
 INSERT INTO `django_migrations` VALUES (48, 'gitlab', '0001_initial', '2021-01-13 08:57:15.950567');
 INSERT INTO `django_migrations` VALUES (49, 'scheduler', '0009_auto_20210113_1656', '2021-01-13 08:57:16.002486');
 INSERT INTO `django_migrations` VALUES (50, 'service', '0015_auto_20210114_1358', '2021-01-14 05:58:25.386776');
+INSERT INTO `django_migrations` VALUES (51, 'service', '0016_serviceconfigmodel', '2021-01-16 10:16:17.800040');
 COMMIT;
 
 -- ----------------------------
@@ -657,7 +658,7 @@ CREATE TABLE `permission` (
   PRIMARY KEY (`id`),
   KEY `permission_mod_id_f75289cc_fk_mod_id` (`mod_id`),
   CONSTRAINT `permission_mod_id_f75289cc_fk_mod_id` FOREIGN KEY (`mod_id`) REFERENCES `mod` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=106 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=107 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of permission
@@ -768,6 +769,7 @@ INSERT INTO `permission` VALUES (102, '2021-01-12 10:01:34.662038', '2021-01-12 
 INSERT INTO `permission` VALUES (103, '2021-01-12 10:01:54.324775', '2021-01-12 10:01:54.324819', 0, '同步域名', 10, '/api/v1/asset/domain/sync/', 100, 13);
 INSERT INTO `permission` VALUES (104, '2021-01-12 10:02:13.450622', '2021-01-12 10:02:13.450669', 0, '同步Rocket', 10, '/api/v1/asset/rocket/sync/', 100, 14);
 INSERT INTO `permission` VALUES (105, '2021-01-13 12:11:43.239126', '2021-01-13 12:11:43.239182', 0, '同步代码库', 10, '/api/v1/component/gitlab/project/sync/', 100, 17);
+INSERT INTO `permission` VALUES (106, '2021-01-21 11:36:53.298488', '2021-01-21 11:36:53.298559', 0, '编辑服务部署配置', 10, '/api/v1/business/service/config/update/', 29, 6);
 COMMIT;
 
 -- ----------------------------
@@ -1218,7 +1220,7 @@ CREATE TABLE `role_permission` (
   KEY `role_permission_role_id_877a80a4_fk_role_id` (`role_id`),
   CONSTRAINT `role_permission_permission_id_ee9c5982_fk_permission_id` FOREIGN KEY (`permission_id`) REFERENCES `permission` (`id`),
   CONSTRAINT `role_permission_role_id_877a80a4_fk_role_id` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=96 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=97 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of role_permission
@@ -1319,6 +1321,7 @@ INSERT INTO `role_permission` VALUES (92, '2021-01-12 10:02:22.261073', '2021-01
 INSERT INTO `role_permission` VALUES (93, '2021-01-12 10:02:22.981727', '2021-01-12 10:02:22.981777', 0, 104, 2);
 INSERT INTO `role_permission` VALUES (94, '2021-01-13 12:11:50.546918', '2021-01-13 12:11:51.521112', 1, 105, 2);
 INSERT INTO `role_permission` VALUES (95, '2021-01-13 12:12:15.520192', '2021-01-13 12:12:15.520231', 0, 105, 2);
+INSERT INTO `role_permission` VALUES (96, '2021-01-21 11:37:02.248181', '2021-01-21 11:37:02.248226', 0, 106, 2);
 COMMIT;
 
 -- ----------------------------
@@ -1456,6 +1459,36 @@ INSERT INTO `service_asset_obj` VALUES (9, '2020-12-24 03:25:27.810162', '2020-1
 INSERT INTO `service_asset_obj` VALUES (10, '2020-12-24 08:49:56.004229', '2020-12-24 08:49:56.004308', 0, 2, 2, 2, 'domain', 10);
 INSERT INTO `service_asset_obj` VALUES (11, '2020-12-24 08:50:03.621611', '2020-12-24 08:55:48.593932', 0, 3, 2, 2, 'domain', 40);
 INSERT INTO `service_asset_obj` VALUES (12, '2020-12-26 04:34:30.777946', '2020-12-26 04:38:18.246573', 0, 2, 2, 2, 'rocket_topic', 40);
+COMMIT;
+
+-- ----------------------------
+-- Table structure for service_config
+-- ----------------------------
+DROP TABLE IF EXISTS `service_config`;
+CREATE TABLE `service_config` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `dt_create` datetime(6) NOT NULL,
+  `dt_update` datetime(6) NOT NULL,
+  `is_deleted` tinyint(1) NOT NULL,
+  `port` int(11) DEFAULT NULL,
+  `dns_typ` varchar(128) NOT NULL,
+  `artifact_typ` varchar(128) NOT NULL,
+  `deploy_typ` varchar(128) NOT NULL,
+  `environment_id` int(11) NOT NULL,
+  `service_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `service_config_environment_id_235915f2_fk_environment_id` (`environment_id`),
+  KEY `service_config_service_id_53f47496_fk_service_id` (`service_id`),
+  CONSTRAINT `service_config_environment_id_235915f2_fk_environment_id` FOREIGN KEY (`environment_id`) REFERENCES `environment` (`id`),
+  CONSTRAINT `service_config_service_id_53f47496_fk_service_id` FOREIGN KEY (`service_id`) REFERENCES `service` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
+
+-- ----------------------------
+-- Records of service_config
+-- ----------------------------
+BEGIN;
+INSERT INTO `service_config` VALUES (1, '2021-01-21 11:16:20.339193', '2021-01-21 11:39:14.889490', 0, 10000, 'slb', 'archive', 'k8s', 2, 2);
+INSERT INTO `service_config` VALUES (2, '2021-01-21 11:24:26.875779', '2021-01-21 11:32:25.520990', 0, 9000, 'slb', 'archive', 'k8s', 3, 2);
 COMMIT;
 
 -- ----------------------------

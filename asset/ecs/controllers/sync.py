@@ -56,7 +56,7 @@ def format_data(data):
     return result
 
 
-@transaction.atomic()
+@transaction.atomic
 def sync_ecses():
     '''
     同步ECS

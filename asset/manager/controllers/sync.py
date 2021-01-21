@@ -8,7 +8,7 @@ from base import errors
 from utils.aliyun import AliyunManager
 
 
-@transaction.atomic()
+@transaction.atomic
 def sync_regions():
     '''
     同步地域
@@ -33,7 +33,7 @@ def sync_regions():
     base_ctl.create_objs(RegionModel, data_list)
 
 
-@transaction.atomic()
+@transaction.atomic
 def sync_zones():
     '''
     同步可用区
