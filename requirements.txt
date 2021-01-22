@@ -31,8 +31,10 @@ ipython-genutils==0.2.0
 jedi==0.17.2
 jmespath==0.10.0
 kombu==5.0.2
+multi-key-dict==2.0.3
 mysqlclient==2.0.1
 parso==0.7.1
+pbr==5.5.1
 pexpect==4.8.0
 pickleshare==0.7.5
 prompt-toolkit==3.0.8
@@ -40,6 +42,7 @@ ptyprocess==0.6.0
 pycparser==2.20
 Pygments==2.7.2
 python-gitlab==2.5.0
+python-jenkins==1.7.0
 pytz==2020.1
 redis==3.5.3
 requests==2.25.0

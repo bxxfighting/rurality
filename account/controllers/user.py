@@ -134,7 +134,7 @@ def get_user_info(obj_id, operator=None):
     user_data = get_user(obj_id)
     if user_data.get('username') == 'admin':
         mods = ['mod', 'department', 'role', 'user', 'aliyun_key', 'asset', 'region', 'environment',
-                'berry_type', 'gitlab_server', 'language']
+                'berry_type', 'gitlab_server', 'language', 'jenkins_server']
         permissions = ['admin']
     else:
         mod_objs = role_ctl.get_mods_by_user_id(obj_id)

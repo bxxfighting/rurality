@@ -11,7 +11,7 @@
  Target Server Version : 50643
  File Encoding         : 65001
 
- Date: 21/01/2021 19:44:54
+ Date: 22/01/2021 12:54:00
 */
 
 SET NAMES utf8mb4;
@@ -96,7 +96,7 @@ CREATE TABLE `berry` (
   PRIMARY KEY (`id`),
   KEY `berry_typ_id_bb6f0288_fk_berry_type_id` (`typ_id`),
   CONSTRAINT `berry_typ_id_bb6f0288_fk_berry_type_id` FOREIGN KEY (`typ_id`) REFERENCES `berry_type` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of berry
@@ -126,7 +126,7 @@ CREATE TABLE `berry_type` (
   `parent_id` int(11) DEFAULT NULL,
   `sign` varchar(128) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of berry_type
@@ -140,6 +140,8 @@ INSERT INTO `berry_type` VALUES (5, '2021-01-12 11:56:55.525627', '2021-01-12 12
 INSERT INTO `berry_type` VALUES (6, '2021-01-12 12:08:30.078541', '2021-01-12 12:11:49.840078', 1, '创建SLB', 3, 'create_slb');
 INSERT INTO `berry_type` VALUES (7, '2021-01-13 11:58:00.981592', '2021-01-13 11:58:00.981677', 0, 'Gitlab任务', NULL, 'gitlab');
 INSERT INTO `berry_type` VALUES (8, '2021-01-13 11:58:13.751871', '2021-01-13 11:58:13.751936', 0, '同步代码库', 7, 'sync_gitlab');
+INSERT INTO `berry_type` VALUES (9, '2021-01-22 04:43:42.457765', '2021-01-22 04:43:42.457878', 0, 'Jenkins任务', NULL, 'jenkins');
+INSERT INTO `berry_type` VALUES (10, '2021-01-22 04:43:58.442854', '2021-01-22 04:43:58.442899', 0, '同步Jenkins Job', 9, 'sync_jenkins');
 COMMIT;
 
 -- ----------------------------
@@ -234,7 +236,7 @@ CREATE TABLE `django_migrations` (
   `name` varchar(255) NOT NULL,
   `applied` datetime(6) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=57 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of django_migrations
@@ -290,6 +292,11 @@ INSERT INTO `django_migrations` VALUES (48, 'gitlab', '0001_initial', '2021-01-1
 INSERT INTO `django_migrations` VALUES (49, 'scheduler', '0009_auto_20210113_1656', '2021-01-13 08:57:16.002486');
 INSERT INTO `django_migrations` VALUES (50, 'service', '0015_auto_20210114_1358', '2021-01-14 05:58:25.386776');
 INSERT INTO `django_migrations` VALUES (51, 'service', '0016_serviceconfigmodel', '2021-01-16 10:16:17.800040');
+INSERT INTO `django_migrations` VALUES (52, 'jenkins', '0001_initial', '2021-01-22 02:33:31.144682');
+INSERT INTO `django_migrations` VALUES (53, 'jenkins', '0002_auto_20210122_1040', '2021-01-22 02:40:46.006424');
+INSERT INTO `django_migrations` VALUES (54, 'service', '0017_auto_20210122_1040', '2021-01-22 02:40:46.026521');
+INSERT INTO `django_migrations` VALUES (55, 'jenkins', '0003_auto_20210122_1057', '2021-01-22 02:57:37.393929');
+INSERT INTO `django_migrations` VALUES (56, 'jenkins', '0004_jenkinsservermodel_token', '2021-01-22 04:51:04.976480');
 COMMIT;
 
 -- ----------------------------
@@ -521,6 +528,63 @@ INSERT INTO `gitlab_server` VALUES (1, '2021-01-13 11:40:46.435628', '2021-01-13
 COMMIT;
 
 -- ----------------------------
+-- Table structure for jenkins_job
+-- ----------------------------
+DROP TABLE IF EXISTS `jenkins_job`;
+CREATE TABLE `jenkins_job` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `dt_create` datetime(6) NOT NULL,
+  `dt_update` datetime(6) NOT NULL,
+  `is_deleted` tinyint(1) NOT NULL,
+  `name` varchar(128) NOT NULL,
+  `url` varchar(256) NOT NULL,
+  `server_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `jenkins_job_server_id_cf4e1895_fk_jenkins_server_id` (`server_id`),
+  CONSTRAINT `jenkins_job_server_id_cf4e1895_fk_jenkins_server_id` FOREIGN KEY (`server_id`) REFERENCES `jenkins_server` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- ----------------------------
+-- Table structure for jenkins_job_build
+-- ----------------------------
+DROP TABLE IF EXISTS `jenkins_job_build`;
+CREATE TABLE `jenkins_job_build` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `dt_create` datetime(6) NOT NULL,
+  `dt_update` datetime(6) NOT NULL,
+  `is_deleted` tinyint(1) NOT NULL,
+  `status` int(11) NOT NULL,
+  `queue_number` int(11) NOT NULL,
+  `build_number` int(11) DEFAULT NULL,
+  `build_url` longtext,
+  `build_output` longtext,
+  `job_id` int(11) NOT NULL,
+  `server_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `jenkins_job_build_job_id_1bec2de3_fk_jenkins_job_id` (`job_id`),
+  KEY `jenkins_job_build_server_id_0436c1a0_fk_jenkins_server_id` (`server_id`),
+  CONSTRAINT `jenkins_job_build_job_id_1bec2de3_fk_jenkins_job_id` FOREIGN KEY (`job_id`) REFERENCES `jenkins_job` (`id`),
+  CONSTRAINT `jenkins_job_build_server_id_0436c1a0_fk_jenkins_server_id` FOREIGN KEY (`server_id`) REFERENCES `jenkins_server` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- ----------------------------
+-- Table structure for jenkins_server
+-- ----------------------------
+DROP TABLE IF EXISTS `jenkins_server`;
+CREATE TABLE `jenkins_server` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `dt_create` datetime(6) NOT NULL,
+  `dt_update` datetime(6) NOT NULL,
+  `is_deleted` tinyint(1) NOT NULL,
+  `name` varchar(128) NOT NULL,
+  `host` varchar(256) NOT NULL,
+  `username` varchar(128) NOT NULL,
+  `password` varchar(128) NOT NULL,
+  `token` varchar(128) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- ----------------------------
 -- Table structure for language
 -- ----------------------------
 DROP TABLE IF EXISTS `language`;
@@ -559,7 +623,7 @@ CREATE TABLE `mod` (
   `sign` varchar(32) NOT NULL,
   `rank` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of mod
@@ -582,6 +646,7 @@ INSERT INTO `mod` VALUES (14, '2020-12-25 09:46:16.368436', '2020-12-25 09:46:16
 INSERT INTO `mod` VALUES (15, '2021-01-08 10:47:42.893227', '2021-01-08 10:47:42.893269', 0, '阿里云Key管理', 'aliyun_key', 35);
 INSERT INTO `mod` VALUES (16, '2021-01-08 10:51:21.894338', '2021-01-08 10:51:21.894380', 0, '地域管理', 'region', 34);
 INSERT INTO `mod` VALUES (17, '2021-01-13 12:10:51.656633', '2021-01-13 12:11:05.621560', 0, '代码库管理', 'gitlab', 90);
+INSERT INTO `mod` VALUES (18, '2021-01-22 04:41:18.477440', '2021-01-22 04:41:18.477574', 0, 'Jenkins管理', 'jenkins', 89);
 COMMIT;
 
 -- ----------------------------
@@ -658,7 +723,7 @@ CREATE TABLE `permission` (
   PRIMARY KEY (`id`),
   KEY `permission_mod_id_f75289cc_fk_mod_id` (`mod_id`),
   CONSTRAINT `permission_mod_id_f75289cc_fk_mod_id` FOREIGN KEY (`mod_id`) REFERENCES `mod` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=107 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=108 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of permission
@@ -770,6 +835,7 @@ INSERT INTO `permission` VALUES (103, '2021-01-12 10:01:54.324775', '2021-01-12 
 INSERT INTO `permission` VALUES (104, '2021-01-12 10:02:13.450622', '2021-01-12 10:02:13.450669', 0, '同步Rocket', 10, '/api/v1/asset/rocket/sync/', 100, 14);
 INSERT INTO `permission` VALUES (105, '2021-01-13 12:11:43.239126', '2021-01-13 12:11:43.239182', 0, '同步代码库', 10, '/api/v1/component/gitlab/project/sync/', 100, 17);
 INSERT INTO `permission` VALUES (106, '2021-01-21 11:36:53.298488', '2021-01-21 11:36:53.298559', 0, '编辑服务部署配置', 10, '/api/v1/business/service/config/update/', 29, 6);
+INSERT INTO `permission` VALUES (107, '2021-01-22 04:41:49.408703', '2021-01-22 04:41:49.408765', 0, '同步Jenkins Job', 10, '/api/v1/component/jenkins/job/sync/', 100, 18);
 COMMIT;
 
 -- ----------------------------
@@ -1173,7 +1239,7 @@ CREATE TABLE `role_mod` (
   KEY `role_mod_role_id_827d1e5a_fk_role_id` (`role_id`),
   CONSTRAINT `role_mod_mod_id_053ffcd7_fk_mod_id` FOREIGN KEY (`mod_id`) REFERENCES `mod` (`id`),
   CONSTRAINT `role_mod_role_id_827d1e5a_fk_role_id` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of role_mod
@@ -1202,6 +1268,7 @@ INSERT INTO `role_mod` VALUES (20, '2020-12-25 09:46:23.423685', '2020-12-25 09:
 INSERT INTO `role_mod` VALUES (21, '2021-01-08 10:50:09.227574', '2021-01-08 10:50:09.227612', 0, 15, 2);
 INSERT INTO `role_mod` VALUES (22, '2021-01-08 10:52:16.273741', '2021-01-08 10:52:16.273780', 0, 16, 2);
 INSERT INTO `role_mod` VALUES (23, '2021-01-13 12:11:50.563170', '2021-01-13 12:11:50.563213', 0, 17, 2);
+INSERT INTO `role_mod` VALUES (24, '2021-01-22 04:41:54.144523', '2021-01-22 04:41:54.144570', 0, 18, 2);
 COMMIT;
 
 -- ----------------------------
@@ -1220,7 +1287,7 @@ CREATE TABLE `role_permission` (
   KEY `role_permission_role_id_877a80a4_fk_role_id` (`role_id`),
   CONSTRAINT `role_permission_permission_id_ee9c5982_fk_permission_id` FOREIGN KEY (`permission_id`) REFERENCES `permission` (`id`),
   CONSTRAINT `role_permission_role_id_877a80a4_fk_role_id` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=97 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=98 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of role_permission
@@ -1322,6 +1389,7 @@ INSERT INTO `role_permission` VALUES (93, '2021-01-12 10:02:22.981727', '2021-01
 INSERT INTO `role_permission` VALUES (94, '2021-01-13 12:11:50.546918', '2021-01-13 12:11:51.521112', 1, 105, 2);
 INSERT INTO `role_permission` VALUES (95, '2021-01-13 12:12:15.520192', '2021-01-13 12:12:15.520231', 0, 105, 2);
 INSERT INTO `role_permission` VALUES (96, '2021-01-21 11:37:02.248181', '2021-01-21 11:37:02.248226', 0, 106, 2);
+INSERT INTO `role_permission` VALUES (97, '2021-01-22 04:41:54.130492', '2021-01-22 04:41:54.130577', 0, 107, 2);
 COMMIT;
 
 -- ----------------------------

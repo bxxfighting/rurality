@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'asset.rocket',
     'scheduler',
     'component.gitlab',
+    'component.jenkins',
 ]
 
 MIDDLEWARE = [
