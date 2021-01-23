@@ -26,8 +26,8 @@ class UserModel(BaseModel):
         (ST_FORBIDDEN, '禁用'),
     )
 
-    username = models.CharField('账户', max_length=128)
-    password = models.CharField('密码', max_length=256)
+    username = models.CharField('账户', max_length=128, db_index=True)
+    password = models.CharField('密码', max_length=256, null=True, default=None)
     name = models.CharField('姓名', max_length=128, default='')
     email = models.CharField('邮箱', max_length=128, null=True, default='')
     phone = models.CharField('联系方式', max_length=64, null=True, default='')
@@ -204,3 +204,35 @@ class RolePermissionModel(BaseModel):
 
     class Meta:
         db_table = 'role_permission'
+
+
+class LdapConfigModel(BaseModel):
+    '''
+    LDAP配置
+    '''
+    model_name = 'LDAP服务配置'
+    model_sign = 'ldap_config'
+
+    # 类似这样格式：ldap://ldap.oldb.top:389
+    host = models.CharField('地址', max_length=128)
+    # ldap管理员账号DN：类似这样cn=admin,dc=oldb,dc=top
+    admin_dn = models.CharField('管理员DN', max_length=128)
+    admin_password = models.CharField('管理员密码', max_length=128)
+    # 所有用户在此节点下
+    member_base_dn = models.CharField('用户基础DN', max_length=128)
+
+    class Meta:
+        db_table = 'ldap_config'
+
+    @classmethod
+    def none_to_dict(cls):
+        '''
+        不存在时，返回内容
+        '''
+        data = {
+            'host': '',
+            'admin_dn': '',
+            'admin_password': '',
+            'member_base_dn': '',
+        }
+        return data

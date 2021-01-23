@@ -19,8 +19,8 @@ class Onlyone:
     def gen_key(cls, prifix, params_str, key_str, args, kwargs):
         param_dict = {}
         key_dict = {}
-        params = params_str.split(':')
-        keys = key_str.split(':')
+        params = [i for i in params_str.split(':') if i]
+        keys = [i for i in key_str.split(':') if i]
         for k, v in zip(params, args):
             param_dict[k] = v
         kvs = params[len(args):]

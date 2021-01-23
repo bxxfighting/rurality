@@ -11,6 +11,7 @@ from asset.rocket.controllers import sync as rocket_sync
 from asset.domain.controllers import sync as domain_sync
 from component.gitlab.controllers import sync as gitlab_sync
 from component.jenkins.controllers import sync as jenkins_sync
+from account.controllers import sync as account_sync
 from base import controllers as base_ctl
 from base import errors
 from utils import time_utils
@@ -28,7 +29,7 @@ def apply_task(berry_id):
 
         sync_list = ['sync_ecs', 'sync_slb', 'sync_rds', 'sync_redis',
                      'sync_mongo', 'sync_rocket', 'sync_domain', 'sync_gitlab',
-                     'sync_jenkins']
+                     'sync_jenkins', 'sync_ldap_user']
         # 如果是同步任务，则走此处理方式
         if berry_obj.typ.sign in sync_list:
             sync_task_route(berry_obj)
@@ -70,6 +71,8 @@ def sync_task_route(berry_obj):
         gitlab_sync.sync_gitlabs()
     elif berry_obj.typ.sign == 'sync_jenkins':
         jenkins_sync.sync_jenkins()
+    elif berry_obj.typ.sign == 'sync_ldap_user':
+        account_sync.sync_ldap_user()
     else:
         raise errors.CommonError(f'任务{berry_obj.id}: 不存在的任务类型{berry_obj.typ.sign}')
     # 执行成功

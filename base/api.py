@@ -43,7 +43,7 @@ class BaseApi(View):
 
     def _check_user(self, user_id):
         from account.models import UserModel
-        user = UserModel.objects.filter(id=user_id, is_deleted=False, status=UserModel.ST_NORMAL).first()
+        user = UserModel.objects.filter(id=user_id, status=UserModel.ST_NORMAL).first()
         if not user:
             raise errors.LoginExpireError
         return user

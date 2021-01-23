@@ -6,8 +6,10 @@ from base import controllers as base_ctl
 from account.models import UserModel
 from account.models import RoleUserModel
 from account.models import DepartmentUserModel
+from account.models import LdapConfigModel
 from account.controllers import role as role_ctl
 from utils.onlyone import onlyone
+from utils.ldap_cli import LdapCli
 
 
 def login(username, password, is_ldap=False):
@@ -17,10 +19,12 @@ def login(username, password, is_ldap=False):
     base_query = UserModel.objects.filter(username=username)
     if is_ldap:
         base_query = base_query.filter(typ=UserModel.TYP_LDAP)
+    else:
+        base_query = base_query.filter(typ=UserModel.TYP_NORMAL)
     obj = base_query.first()
     if not obj:
         raise errors.CommonError('用户名或密码错误')
-    if not obj.check_password(password):
+    if not check_password(obj, password):
         raise errors.CommonError('用户名或密码错误')
     if obj.status == UserModel.ST_FORBIDDEN:
         raise errors.CommonError('用户已被禁止登录')
@@ -28,6 +32,27 @@ def login(username, password, is_ldap=False):
         'token': obj.gen_token(),
     }
     return data
+
+
+def check_password(user_obj, password):
+    '''
+    校验密码
+    '''
+    print(password)
+    if user_obj.typ == UserModel.TYP_LDAP:
+        config_obj = LdapConfigModel.objects.first()
+        if not config_obj:
+            raise errors.CommonError('请先配置LDAP参数')
+        data = {
+            'host': config_obj.host,
+            'member_base_dn': config_obj.member_base_dn,
+            'admin_dn': config_obj.admin_dn,
+            'admin_password': config_obj.admin_password,
+        }
+        ldap_cli = LdapCli(**data)
+        return ldap_cli.check_password(user_obj.username, password)
+    else:
+        return user_obj.check_password(password)
 
 
 @onlyone.lock(UserModel.model_sign, 'username', 'username', 30)
@@ -41,6 +66,7 @@ def create_user(username, password, name=None, phone=None, email=None, operator=
     data = {
         'username': username,
         'name': name,
+        'typ': UserModel.TYP_NORMAL,
         'phone': phone,
         'email': email,
     }
@@ -134,7 +160,7 @@ def get_user_info(obj_id, operator=None):
     user_data = get_user(obj_id)
     if user_data.get('username') == 'admin':
         mods = ['mod', 'department', 'role', 'user', 'aliyun_key', 'asset', 'region', 'environment',
-                'berry_type', 'gitlab_server', 'language', 'jenkins_server']
+                'berry_type', 'gitlab_server', 'language', 'jenkins_server', 'ldap']
         permissions = ['admin']
     else:
         mod_objs = role_ctl.get_mods_by_user_id(obj_id)

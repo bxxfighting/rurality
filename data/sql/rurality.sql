@@ -11,7 +11,7 @@
  Target Server Version : 50643
  File Encoding         : 65001
 
- Date: 22/01/2021 12:54:00
+ Date: 23/01/2021 18:44:06
 */
 
 SET NAMES utf8mb4;
@@ -96,7 +96,7 @@ CREATE TABLE `berry` (
   PRIMARY KEY (`id`),
   KEY `berry_typ_id_bb6f0288_fk_berry_type_id` (`typ_id`),
   CONSTRAINT `berry_typ_id_bb6f0288_fk_berry_type_id` FOREIGN KEY (`typ_id`) REFERENCES `berry_type` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of berry
@@ -126,7 +126,7 @@ CREATE TABLE `berry_type` (
   `parent_id` int(11) DEFAULT NULL,
   `sign` varchar(128) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of berry_type
@@ -142,6 +142,8 @@ INSERT INTO `berry_type` VALUES (7, '2021-01-13 11:58:00.981592', '2021-01-13 11
 INSERT INTO `berry_type` VALUES (8, '2021-01-13 11:58:13.751871', '2021-01-13 11:58:13.751936', 0, '同步代码库', 7, 'sync_gitlab');
 INSERT INTO `berry_type` VALUES (9, '2021-01-22 04:43:42.457765', '2021-01-22 04:43:42.457878', 0, 'Jenkins任务', NULL, 'jenkins');
 INSERT INTO `berry_type` VALUES (10, '2021-01-22 04:43:58.442854', '2021-01-22 04:43:58.442899', 0, '同步Jenkins Job', 9, 'sync_jenkins');
+INSERT INTO `berry_type` VALUES (11, '2021-01-23 10:26:05.153670', '2021-01-23 10:26:05.153775', 0, '用户任务', NULL, 'user');
+INSERT INTO `berry_type` VALUES (12, '2021-01-23 10:26:20.582878', '2021-01-23 10:26:20.582930', 0, '同步LDAP用户', 11, 'sync_ldap_user');
 COMMIT;
 
 -- ----------------------------
@@ -236,7 +238,7 @@ CREATE TABLE `django_migrations` (
   `name` varchar(255) NOT NULL,
   `applied` datetime(6) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=57 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=60 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of django_migrations
@@ -297,6 +299,9 @@ INSERT INTO `django_migrations` VALUES (53, 'jenkins', '0002_auto_20210122_1040'
 INSERT INTO `django_migrations` VALUES (54, 'service', '0017_auto_20210122_1040', '2021-01-22 02:40:46.026521');
 INSERT INTO `django_migrations` VALUES (55, 'jenkins', '0003_auto_20210122_1057', '2021-01-22 02:57:37.393929');
 INSERT INTO `django_migrations` VALUES (56, 'jenkins', '0004_jenkinsservermodel_token', '2021-01-22 04:51:04.976480');
+INSERT INTO `django_migrations` VALUES (57, 'account', '0003_ldapconfigmodel', '2021-01-23 06:26:16.857494');
+INSERT INTO `django_migrations` VALUES (58, 'account', '0004_auto_20210123_1436', '2021-01-23 06:36:32.212230');
+INSERT INTO `django_migrations` VALUES (59, 'account', '0005_auto_20210123_1442', '2021-01-23 06:42:48.536227');
 COMMIT;
 
 -- ----------------------------
@@ -608,6 +613,29 @@ INSERT INTO `language` VALUES (3, '2021-01-14 11:20:26.725766', '2021-01-14 11:2
 INSERT INTO `language` VALUES (4, '2021-01-14 11:20:34.079675', '2021-01-14 11:20:34.079716', 0, 'Java', 'java');
 INSERT INTO `language` VALUES (5, '2021-01-14 11:20:40.900059', '2021-01-14 11:20:51.087121', 0, 'Go', 'go');
 INSERT INTO `language` VALUES (6, '2021-01-14 12:13:55.858421', '2021-01-14 12:13:55.858484', 0, 'JS', 'js');
+COMMIT;
+
+-- ----------------------------
+-- Table structure for ldap_config
+-- ----------------------------
+DROP TABLE IF EXISTS `ldap_config`;
+CREATE TABLE `ldap_config` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `dt_create` datetime(6) NOT NULL,
+  `dt_update` datetime(6) NOT NULL,
+  `is_deleted` tinyint(1) NOT NULL,
+  `host` varchar(128) NOT NULL,
+  `admin_dn` varchar(128) NOT NULL,
+  `admin_password` varchar(128) NOT NULL,
+  `member_base_dn` varchar(128) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+
+-- ----------------------------
+-- Records of ldap_config
+-- ----------------------------
+BEGIN;
+INSERT INTO `ldap_config` VALUES (1, '2020-11-25 10:40:28.479968', '2021-01-23 09:48:05.910417', 0, 'ldap://ldap.oldb.top:389', 'cn=admin,dc=oldb,dc=top', 'ldap123', 'cn=member,dc=oldb,dc=top');
 COMMIT;
 
 -- ----------------------------
@@ -1726,22 +1754,25 @@ CREATE TABLE `user` (
   `dt_update` datetime(6) NOT NULL,
   `is_deleted` tinyint(1) NOT NULL,
   `username` varchar(128) NOT NULL,
-  `password` varchar(256) NOT NULL,
+  `password` varchar(256) DEFAULT NULL,
   `name` varchar(128) NOT NULL,
   `email` varchar(128) DEFAULT NULL,
   `phone` varchar(64) DEFAULT NULL,
   `status` int(11) NOT NULL,
   `typ` smallint(6) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
+  PRIMARY KEY (`id`),
+  KEY `user_username_cf016618` (`username`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of user
 -- ----------------------------
 BEGIN;
 INSERT INTO `user` VALUES (1, '2020-11-05 06:04:04.732877', '2020-11-05 06:04:04.958336', 0, 'admin', 'pbkdf2_sha256$216000$V5XG3BZQLTgW$Tfh/WgIj0slbyElYnZNAiLht9GInAlulqalTrTrDVzs=', '超级管理员', NULL, NULL, 10, 10);
-INSERT INTO `user` VALUES (2, '2020-11-06 07:17:47.936792', '2020-11-06 07:17:48.206010', 0, 'buxingxing', 'pbkdf2_sha256$216000$Vk8DCMr9YoSi$jftHttrQOfc5LwUsN0LvFYKubJ3sl8FlM8F9ak4fRHI=', '卜星星', '', '', 10, 10);
-INSERT INTO `user` VALUES (3, '2020-11-07 10:21:53.576676', '2020-11-07 10:21:53.865161', 0, 'wanger', 'pbkdf2_sha256$216000$K2nt1VoivRWL$0rFCNADRwwnsjJzE/PPLmP8MXoT9bqaVEqLFgFFQTsY=', '王二', '', '', 10, 10);
+INSERT INTO `user` VALUES (2, '2020-11-06 07:17:47.936792', '2020-11-06 07:17:48.206010', 0, 'buxingxing', '', '卜星星', '', '', 10, 20);
+INSERT INTO `user` VALUES (3, '2020-11-07 10:21:53.576676', '2020-11-07 10:21:53.865161', 0, 'wanger', '', '王二', '', '', 10, 20);
+INSERT INTO `user` VALUES (5, '2021-01-23 06:48:27.782944', '2021-01-23 06:48:27.782960', 0, 'lisi', NULL, '李四', '', '', 20, 20);
+INSERT INTO `user` VALUES (7, '2021-01-23 10:38:47.945311', '2021-01-23 10:38:47.945360', 0, ' zhaosi', NULL, '赵四', '', '', 10, 20);
 COMMIT;
 
 -- ----------------------------
