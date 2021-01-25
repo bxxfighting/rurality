@@ -96,13 +96,14 @@ class BaseApi(View):
             'msg': msg,
             'data': data,
         }
-        log_data = {
-            'url': request.get_full_path(),
-            'params': request.body,
-            'user_id': getattr(request, 'user_id', None),
-            'result': result,
-        }
-        access_logger.info(log_data)
+        if request.method.lower() != 'get':
+            log_data = {
+                'url': request.get_full_path(),
+                'params': request.body,
+                'user_id': getattr(request, 'user_id', None),
+                'result': result,
+            }
+            access_logger.info(log_data)
         return HttpResponse(json.dumps(result), content_type='application/json')
 
     def check_params(self, request):
