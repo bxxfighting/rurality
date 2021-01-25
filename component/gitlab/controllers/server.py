@@ -1,6 +1,7 @@
 from django.db import transaction
 
 from component.gitlab.models import GitlabServerModel
+from account.controllers import user as user_ctl
 from base import controllers as base_ctl
 from base import errors
 from utils.onlyone import onlyone
@@ -66,9 +67,12 @@ def get_gitlab_servers(page_num=None, page_size=None, operator=None):
     base_query = GitlabServerModel.objects
     total = base_query.count()
     objs = base_ctl.query_objs_by_page(base_query, page_num, page_size)
+    has_password = False
+    if operator and user_ctl.has_permission(operator.id, GitlabServerModel.PASSWORD_PERMISSION):
+        has_password = True
     data_list = []
     for obj in objs:
-        data = obj.to_dict()
+        data = obj.to_dict(has_password=has_password)
         data_list.append(data)
     data = {
         'total': total,
@@ -82,5 +86,8 @@ def get_gitlab_server(obj_id, operator=None):
     获取Gitlab服务
     '''
     obj = base_ctl.get_obj(GitlabServerModel, obj_id)
-    data = obj.to_dict()
+    has_password = False
+    if operator and user_ctl.has_permission(operator.id, GitlabServerModel.PASSWORD_PERMISSION):
+        has_password = True
+    data = obj.to_dict(has_password=has_password)
     return data

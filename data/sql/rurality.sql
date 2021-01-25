@@ -11,7 +11,7 @@
  Target Server Version : 50643
  File Encoding         : 65001
 
- Date: 23/01/2021 18:44:06
+ Date: 25/01/2021 11:38:00
 */
 
 SET NAMES utf8mb4;
@@ -238,7 +238,7 @@ CREATE TABLE `django_migrations` (
   `name` varchar(255) NOT NULL,
   `applied` datetime(6) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=60 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=61 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of django_migrations
@@ -302,6 +302,7 @@ INSERT INTO `django_migrations` VALUES (56, 'jenkins', '0004_jenkinsservermodel_
 INSERT INTO `django_migrations` VALUES (57, 'account', '0003_ldapconfigmodel', '2021-01-23 06:26:16.857494');
 INSERT INTO `django_migrations` VALUES (58, 'account', '0004_auto_20210123_1436', '2021-01-23 06:36:32.212230');
 INSERT INTO `django_migrations` VALUES (59, 'account', '0005_auto_20210123_1442', '2021-01-23 06:42:48.536227');
+INSERT INTO `django_migrations` VALUES (60, 'account', '0006_auto_20210125_1117', '2021-01-25 03:17:14.399108');
 COMMIT;
 
 -- ----------------------------
@@ -750,8 +751,9 @@ CREATE TABLE `permission` (
   `mod_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `permission_mod_id_f75289cc_fk_mod_id` (`mod_id`),
+  KEY `permission_sign_4cadf20e` (`sign`),
   CONSTRAINT `permission_mod_id_f75289cc_fk_mod_id` FOREIGN KEY (`mod_id`) REFERENCES `mod` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=108 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=118 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of permission
@@ -864,6 +866,14 @@ INSERT INTO `permission` VALUES (104, '2021-01-12 10:02:13.450622', '2021-01-12 
 INSERT INTO `permission` VALUES (105, '2021-01-13 12:11:43.239126', '2021-01-13 12:11:43.239182', 0, '同步代码库', 10, '/api/v1/component/gitlab/project/sync/', 100, 17);
 INSERT INTO `permission` VALUES (106, '2021-01-21 11:36:53.298488', '2021-01-21 11:36:53.298559', 0, '编辑服务部署配置', 10, '/api/v1/business/service/config/update/', 29, 6);
 INSERT INTO `permission` VALUES (107, '2021-01-22 04:41:49.408703', '2021-01-22 04:41:49.408765', 0, '同步Jenkins Job', 10, '/api/v1/component/jenkins/job/sync/', 100, 18);
+INSERT INTO `permission` VALUES (108, '2021-01-25 03:24:24.760123', '2021-01-25 03:25:22.737468', 1, '查看密码权限', 20, 'gitlab-account-password', 90, 17);
+INSERT INTO `permission` VALUES (109, '2021-01-25 03:25:05.705654', '2021-01-25 03:29:07.586745', 1, '查看Jenkins密码权限', 10, 'jenkins-account-password', 90, 18);
+INSERT INTO `permission` VALUES (110, '2021-01-25 03:25:40.475476', '2021-01-25 03:36:51.412234', 1, '查看Gitlab密码权限', 20, 'gitlab-account-password', 90, 17);
+INSERT INTO `permission` VALUES (113, '2021-01-25 03:31:12.225967', '2021-01-25 03:37:02.616213', 1, '查看Jenkins密码权限', 10, 'jenkins-account-password', 90, 18);
+INSERT INTO `permission` VALUES (114, '2021-01-25 03:32:49.315208', '2021-01-25 03:32:55.520545', 1, '查看RDS账号密码权限', 10, 'rds-account-password', 80, 10);
+INSERT INTO `permission` VALUES (115, '2021-01-25 03:33:09.187791', '2021-01-25 03:33:09.187830', 0, '查看RDS密码权限', 20, 'rds-account-password', 80, 10);
+INSERT INTO `permission` VALUES (116, '2021-01-25 03:33:36.133849', '2021-01-25 03:33:36.133890', 0, '查看Redis密码权限', 20, 'redis-account-password', 80, 11);
+INSERT INTO `permission` VALUES (117, '2021-01-25 03:34:00.970936', '2021-01-25 03:34:00.970981', 0, '查看Mongo密码权限', 20, 'mongo-account-password', 80, 12);
 COMMIT;
 
 -- ----------------------------
@@ -1081,7 +1091,7 @@ CREATE TABLE `redis_account` (
 -- Records of redis_account
 -- ----------------------------
 BEGIN;
-INSERT INTO `redis_account` VALUES (48, '2020-12-23 12:20:15.608964', '2020-12-23 12:28:27.033846', 0, 'r-8vbwldcjdcu3e0mcwg', '', 'Normal', 'Available', 'RoleReadWrite', 43);
+INSERT INTO `redis_account` VALUES (48, '2020-12-23 12:20:15.608964', '2021-01-25 03:35:23.613917', 0, 'r-8vbwldcjdcu3e0mcwg', '344', 'Normal', 'Available', 'RoleReadWrite', 43);
 INSERT INTO `redis_account` VALUES (49, '2020-12-23 12:28:27.041311', '2020-12-23 12:28:27.041355', 0, 'r_gg', '', 'Normal', 'Available', 'RoleReadOnly', 43);
 INSERT INTO `redis_account` VALUES (50, '2020-12-23 12:28:27.041417', '2020-12-23 12:28:27.041435', 0, 'rw_gg', '', 'Normal', 'Unavailable', 'RoleReadWrite', 43);
 COMMIT;
@@ -1315,7 +1325,7 @@ CREATE TABLE `role_permission` (
   KEY `role_permission_role_id_877a80a4_fk_role_id` (`role_id`),
   CONSTRAINT `role_permission_permission_id_ee9c5982_fk_permission_id` FOREIGN KEY (`permission_id`) REFERENCES `permission` (`id`),
   CONSTRAINT `role_permission_role_id_877a80a4_fk_role_id` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=98 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=105 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of role_permission
@@ -1418,6 +1428,13 @@ INSERT INTO `role_permission` VALUES (94, '2021-01-13 12:11:50.546918', '2021-01
 INSERT INTO `role_permission` VALUES (95, '2021-01-13 12:12:15.520192', '2021-01-13 12:12:15.520231', 0, 105, 2);
 INSERT INTO `role_permission` VALUES (96, '2021-01-21 11:37:02.248181', '2021-01-21 11:37:02.248226', 0, 106, 2);
 INSERT INTO `role_permission` VALUES (97, '2021-01-22 04:41:54.130492', '2021-01-22 04:41:54.130577', 0, 107, 2);
+INSERT INTO `role_permission` VALUES (98, '2021-01-25 03:34:44.750400', '2021-01-25 03:36:15.575843', 1, 110, 2);
+INSERT INTO `role_permission` VALUES (99, '2021-01-25 03:34:50.242783', '2021-01-25 03:34:50.242841', 0, 116, 2);
+INSERT INTO `role_permission` VALUES (100, '2021-01-25 03:36:06.261398', '2021-01-25 03:36:16.815184', 1, 113, 2);
+INSERT INTO `role_permission` VALUES (101, '2021-01-25 03:36:11.487234', '2021-01-25 03:36:11.487304', 0, 115, 2);
+INSERT INTO `role_permission` VALUES (102, '2021-01-25 03:36:12.500538', '2021-01-25 03:36:12.500588', 0, 117, 2);
+INSERT INTO `role_permission` VALUES (103, '2021-01-25 03:36:18.312994', '2021-01-25 03:36:31.821725', 1, 113, 2);
+INSERT INTO `role_permission` VALUES (104, '2021-01-25 03:36:19.508350', '2021-01-25 03:36:30.917489', 1, 110, 2);
 COMMIT;
 
 -- ----------------------------

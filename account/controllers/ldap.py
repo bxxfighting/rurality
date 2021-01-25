@@ -5,6 +5,7 @@ from base import errors
 from base import controllers as base_ctl
 from account.models import LdapConfigModel
 from scheduler.controllers import berry as berry_ctl
+from account.controllers import user as user_ctl
 from utils.onlyone import onlyone
 
 
@@ -13,8 +14,11 @@ def get_ldap_config(operator=None):
     获取LDAP配置信息
     '''
     obj = LdapConfigModel.objects.first()
+    has_password = False
+    if operator and user_ctl.has_permission(operator.id, LdapConfigModel.PASSWORD_PERMISSION):
+        has_password = True
     if obj:
-        data = obj.to_dict()
+        data = obj.to_dict(has_password=has_password)
     else:
         data = LdapConfigModel.none_to_dict()
     return data

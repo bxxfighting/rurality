@@ -75,6 +75,10 @@ class RedisAccountModel(BaseModel):
         (PRIVILEGE_ROLE_REPL, '复制'),
     )
 
+    # 是否可以查看数据库密码权限
+    # 如果拥有编辑权限，则必须给查看密码权限
+    PASSWORD_PERMISSION = 'redis-account-password'
+
     redis = models.ForeignKey(RedisModel, on_delete=models.CASCADE)
     username = models.CharField('用户名', max_length=128)
     password = models.CharField('密码', max_length=128)
@@ -84,3 +88,9 @@ class RedisAccountModel(BaseModel):
 
     class Meta:
         db_table = 'redis_account'
+
+    def to_dict(self, has_password=False):
+        data = super().to_dict()
+        if not has_password:
+            data['password'] = '******'
+        return data

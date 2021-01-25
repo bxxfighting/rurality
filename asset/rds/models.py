@@ -50,12 +50,22 @@ class RdsAccountModel(BaseModel):
     model_name = 'RDS账号'
     model_sign = 'rds_account'
 
+    # 是否可以查看数据库密码权限
+    # 如果拥有编辑权限，则必须给查看密码权限
+    PASSWORD_PERMISSION = 'rds-account-password'
+
     rds = models.ForeignKey(RdsModel, on_delete=models.CASCADE)
     username = models.CharField('用户名', max_length=128)
     password = models.CharField('密码', max_length=128)
 
     class Meta:
         db_table = 'rds_account'
+
+    def to_dict(self, has_password=False):
+        data = super().to_dict()
+        if not has_password:
+            data['password'] = '******'
+        return data
 
 
 class RdsDatabaseModel(BaseModel):

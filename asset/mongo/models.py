@@ -57,6 +57,10 @@ class MongoAccountModel(BaseModel):
         (TYP_SHARD, 'shard'),
     )
 
+    # 是否可以查看数据库密码权限
+    # 如果拥有编辑权限，则必须给查看密码权限
+    PASSWORD_PERMISSION = 'mongo-account-password'
+
     mongo = models.ForeignKey(MongoModel, on_delete=models.CASCADE)
     username = models.CharField('用户名', max_length=128)
     password = models.CharField('密码', max_length=128)
@@ -66,3 +70,9 @@ class MongoAccountModel(BaseModel):
 
     class Meta:
         db_table = 'mongo_account'
+
+    def to_dict(self, has_password=False):
+        data = super().to_dict()
+        if not has_password:
+            data['password'] = '******'
+        return data

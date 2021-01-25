@@ -16,6 +16,10 @@ class JenkinsServerModel(BaseModel):
     model_name = 'Jenkins服务'
     model_sign = 'jenkins_server'
 
+    # 是否可以查看密码权限
+    # 如果拥有编辑权限，则必须给查看密码权限
+    PASSWORD_PERMISSION = 'jenkins-account-password'
+
     name = models.CharField('名称', max_length=128)
     host = models.CharField('访问地址', max_length=256)
     username = models.CharField('用户名', max_length=128)
@@ -25,6 +29,13 @@ class JenkinsServerModel(BaseModel):
 
     class Meta:
         db_table = 'jenkins_server'
+
+    def to_dict(self, has_password=False):
+        data = super().to_dict()
+        if not has_password:
+            data['password'] = '******'
+            data['to_dict'] = '******'
+        return data
 
 
 class JenkinsJobModel(BaseModel):

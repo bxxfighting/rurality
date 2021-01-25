@@ -171,7 +171,7 @@ class PermissionModel(BaseModel):
     mod = models.ForeignKey(ModModel, on_delete=models.CASCADE, null=True)
     name = models.CharField('权限名', max_length=128)
     typ = models.SmallIntegerField('类型', choices=TYP_CHOICES)
-    sign = models.CharField('唯一标识', max_length=128)
+    sign = models.CharField('唯一标识', max_length=128, db_index=True)
     rank = models.IntegerField('排序')
 
     class Meta:
@@ -213,6 +213,10 @@ class LdapConfigModel(BaseModel):
     model_name = 'LDAP服务配置'
     model_sign = 'ldap_config'
 
+    # 是否可以查看密码权限
+    # 如果拥有编辑权限，则必须给查看密码权限
+    PASSWORD_PERMISSION = 'ldap-account-password'
+
     # 类似这样格式：ldap://ldap.oldb.top:389
     host = models.CharField('地址', max_length=128)
     # ldap管理员账号DN：类似这样cn=admin,dc=oldb,dc=top
@@ -235,4 +239,10 @@ class LdapConfigModel(BaseModel):
             'admin_password': '',
             'member_base_dn': '',
         }
+        return data
+
+    def to_dict(self, has_password=False):
+        data = super().to_dict()
+        if not has_password:
+            data['admin_password'] = '******'
         return data

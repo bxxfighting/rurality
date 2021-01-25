@@ -4,6 +4,7 @@ from django.db.models import Q
 from asset.rds.models import RdsAccountModel
 from asset.rds.models import RdsDatabaseAccountModel
 from base import controllers as base_ctl
+from account.controllers import user as user_ctl
 from utils.onlyone import onlyone
 
 
@@ -16,9 +17,12 @@ def get_accounts(rds_id, keyword=None, page_num=None, page_size=None, operator=N
         base_query = base_query.filter(username__icontains=keyword)
     total = base_query.count()
     objs = base_ctl.query_objs_by_page(base_query, page_num, page_size)
+    has_password = False
+    if operator and user_ctl.has_permission(operator.id, RdsAccountModel.PASSWORD_PERMISSION):
+        has_password = True
     data_list = []
     for obj in objs:
-        data = obj.to_dict()
+        data = obj.to_dict(has_password=has_password)
         data_list.append(data)
     data = {
         'total': total,
@@ -32,7 +36,10 @@ def get_account(obj_id, operator=None):
     获取Account详情
     '''
     obj = base_ctl.get_obj(RdsAccountModel, obj_id)
-    data = obj.to_dict()
+    has_password = False
+    if operator and user_ctl.has_permission(operator.id, RdsAccountModel.PASSWORD_PERMISSION):
+        has_password = True
+    data = obj.to_dict(has_password=has_password)
     data['rds'] = obj.rds.to_dict()
     return data
 

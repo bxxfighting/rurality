@@ -1,10 +1,12 @@
 from django.db import transaction
 from django.db.models import Q
 
+from asset.rds.models import RdsAccountModel
 from asset.rds.models import RdsDatabaseModel
 from asset.rds.models import RdsDatabaseAccountModel
 from business.service.models import ServiceAssetObjModel
 from business.service.controllers import asset_obj as asset_obj_ctl
+from account.controllers import user as user_ctl
 from base import controllers as base_ctl
 from base import errors
 
@@ -52,10 +54,13 @@ def get_database_accounts(obj_id, page_num=None, page_size=None, operator=None):
     base_query = RdsDatabaseAccountModel.objects.filter(database_id=obj_id)
     total = base_query.count()
     objs = base_ctl.query_objs_by_page(base_query, page_num, page_size)
+    has_password = False
+    if operator and user_ctl.has_permission(operator.id, RdsAccountModel.PASSWORD_PERMISSION):
+        has_password = True
     data_list = []
     for obj in objs:
         data = obj.to_dict()
-        data['account'] = obj.account.to_dict()
+        data['account'] = obj.account.to_dict(has_password=has_password)
         data_list.append(data)
     data = {
         'total': total,
