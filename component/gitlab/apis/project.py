@@ -10,7 +10,7 @@ class ListGitlabProjectApi(BaseApi):
         'page_num': ('页码', 'optional int'),
         'page_size': ('页容量', 'optional int'),
     }
-    def post(self, request, params):
+    def get(self, request, params):
         data = project_ctl.get_gitlab_projects(**params)
         return data
 

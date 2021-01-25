@@ -8,7 +8,7 @@ class ServerGroupApi(BaseApi):
     need_params = {
         'obj_id': ('SLB服务器组ID', 'required int'),
     }
-    def post(self, request, params):
+    def get(self, request, params):
         data = server_group_ctl.get_server_group(**params)
         return data
 
@@ -23,7 +23,7 @@ class ListServerGroupApi(BaseApi):
         'page_num': ('页码', 'optional int'),
         'page_size': ('页容量', 'optional int'),
     }
-    def post(self, request, params):
+    def get(self, request, params):
         data = server_group_ctl.get_server_groups(**params)
         return data
 
@@ -37,7 +37,7 @@ class ListServerGroupEcsApi(BaseApi):
         'page_num': ('页码', 'optional int'),
         'page_size': ('页容量', 'optional int'),
     }
-    def post(self, request, params):
+    def get(self, request, params):
         data = server_group_ctl.get_server_group_ecses(**params)
         return data
 
@@ -50,6 +50,6 @@ class ListServerGroupServiceApi(BaseApi):
         'page_num': ('页码', 'optional int'),
         'page_size': ('页容量', 'optional int'),
     }
-    def post(self, request, params):
+    def get(self, request, params):
         data = server_group_ctl.get_server_group_services(**params)
         return data

@@ -43,7 +43,7 @@ class ListModApi(BaseApi):
         'page_num': ('页码', 'optional int'),
         'page_size': ('页容量', 'optional int'),
     }
-    def post(self, request, params):
+    def get(self, request, params):
         data = mod_ctl.get_mods(**params)
         return data
 
@@ -55,6 +55,6 @@ class ModApi(BaseApi):
         'obj_id': ('模块ID', 'required int'),
     }
 
-    def post(self, request, params):
+    def get(self, request, params):
         data = mod_ctl.get_mod(**params)
         return data

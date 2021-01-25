@@ -8,7 +8,7 @@ class EcsApi(BaseApi):
     need_params = {
         'obj_id': ('ECS ID', 'required int'),
     }
-    def post(self, request, params):
+    def get(self, request, params):
         data = ecs_ctl.get_ecs(**params)
         return data
 
@@ -21,7 +21,7 @@ class ListEcsApi(BaseApi):
         'page_num': ('页码', 'optional int'),
         'page_size': ('页容量', 'optional int'),
     }
-    def post(self, request, params):
+    def get(self, request, params):
         data = ecs_ctl.get_ecses(**params)
         return data
 
@@ -34,7 +34,7 @@ class ListEcsServiceApi(BaseApi):
         'page_num': ('页码', 'optional int'),
         'page_size': ('页容量', 'optional int'),
     }
-    def post(self, request, params):
+    def get(self, request, params):
         data = ecs_ctl.get_ecs_services(**params)
         return data
 

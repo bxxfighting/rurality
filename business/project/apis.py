@@ -40,7 +40,7 @@ class ListProjectApi(BaseApi):
         'page_num': ('页码', 'optional int'),
         'page_size': ('页容量', 'optional int'),
     }
-    def post(self, request, params):
+    def get(self, request, params):
         data = project_ctl.get_projects(**params)
         return data
 
@@ -52,7 +52,7 @@ class ProjectApi(BaseApi):
         'obj_id': ('项目ID', 'required int'),
     }
 
-    def post(self, request, params):
+    def get(self, request, params):
         data = project_ctl.get_project(**params)
         return data
 
@@ -98,7 +98,7 @@ class ListProjectUserApi(BaseApi):
         'page_num': ('页码', 'optional int'),
         'page_size': ('页容量', 'optional int'),
     }
-    def post(self, request, params):
+    def get(self, request, params):
         data = project_ctl.get_project_users(**params)
         return data
 
@@ -112,6 +112,6 @@ class ListProjectServiceApi(BaseApi):
         'page_num': ('页码', 'optional int'),
         'page_size': ('页容量', 'optional int'),
     }
-    def post(self, request, params):
+    def get(self, request, params):
         data = project_ctl.get_project_services(**params)
         return data

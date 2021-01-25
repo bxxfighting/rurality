@@ -38,7 +38,7 @@ class AliyunKeyApi(BaseApi):
     need_params = {
         'obj_id': ('阿里云key ID', 'required int'),
     }
-    def post(self, request, params):
+    def get(self, request, params):
         data = aliyun_key_ctl.get_aliyun_key(**params)
         return data
 
@@ -50,7 +50,7 @@ class ListAliyunKeyApi(BaseApi):
         'page_num': ('页码', 'optional int'),
         'page_size': ('页容量', 'optional int'),
     }
-    def post(self, request, params):
+    def get(self, request, params):
         data = aliyun_key_ctl.get_aliyun_keys(**params)
         return data
 

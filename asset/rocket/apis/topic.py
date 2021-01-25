@@ -8,7 +8,7 @@ class RocketTopicApi(BaseApi):
     need_params = {
         'obj_id': ('Topic ID', 'required int'),
     }
-    def post(self, request, params):
+    def get(self, request, params):
         data = topic_ctl.get_topic(**params)
         return data
 
@@ -23,6 +23,6 @@ class ListRocketTopicApi(BaseApi):
         'page_num': ('页码', 'optional int'),
         'page_size': ('页容量', 'optional int'),
     }
-    def post(self, request, params):
+    def get(self, request, params):
         data = topic_ctl.get_topics(**params)
         return data

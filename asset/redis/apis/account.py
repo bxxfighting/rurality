@@ -8,7 +8,7 @@ class RedisAccountApi(BaseApi):
     need_params = {
         'obj_id': ('账号ID', 'required int'),
     }
-    def post(self, request, params):
+    def get(self, request, params):
         data = account_ctl.get_account(**params)
         return data
 
@@ -22,7 +22,7 @@ class ListRedisAccountApi(BaseApi):
         'page_num': ('页码', 'optional int'),
         'page_size': ('页容量', 'optional int'),
     }
-    def post(self, request, params):
+    def get(self, request, params):
         data = account_ctl.get_accounts(**params)
         return data
 

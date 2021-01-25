@@ -42,7 +42,7 @@ class AssetApi(BaseApi):
     need_params = {
         'obj_id': ('资产模块ID', 'required int'),
     }
-    def post(self, request, params):
+    def get(self, request, params):
         data = asset_ctl.get_asset(**params)
         return data
 
@@ -54,6 +54,6 @@ class ListAssetApi(BaseApi):
         'page_num': ('页码', 'optional int'),
         'page_size': ('页容量', 'optional int'),
     }
-    def post(self, request, params):
+    def get(self, request, params):
         data = asset_ctl.get_assets(**params)
         return data

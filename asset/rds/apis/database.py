@@ -8,7 +8,7 @@ class RdsDatabaseApi(BaseApi):
     need_params = {
         'obj_id': ('Database ID', 'required int'),
     }
-    def post(self, request, params):
+    def get(self, request, params):
         data = database_ctl.get_database(**params)
         return data
 
@@ -23,7 +23,7 @@ class ListRdsDatabaseApi(BaseApi):
         'page_num': ('页码', 'optional int'),
         'page_size': ('页容量', 'optional int'),
     }
-    def post(self, request, params):
+    def get(self, request, params):
         data = database_ctl.get_databases(**params)
         return data
 
@@ -36,7 +36,7 @@ class ListRdsDatabaseAccountApi(BaseApi):
         'page_num': ('页码', 'optional int'),
         'page_size': ('页容量', 'optional int'),
     }
-    def post(self, request, params):
+    def get(self, request, params):
         data = database_ctl.get_database_accounts(**params)
         return data
 
@@ -49,6 +49,6 @@ class ListRdsDatabaseServiceApi(BaseApi):
         'page_num': ('页码', 'optional int'),
         'page_size': ('页容量', 'optional int'),
     }
-    def post(self, request, params):
+    def get(self, request, params):
         data = database_ctl.get_database_services(**params)
         return data

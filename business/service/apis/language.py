@@ -39,7 +39,7 @@ class ListLanguageApi(BaseApi):
         'page_num': ('页码', 'optional int'),
         'page_size': ('页容量', 'optional int'),
     }
-    def post(self, request, params):
+    def get(self, request, params):
         data = language_ctl.get_languages(**params)
         return data
 
@@ -51,6 +51,6 @@ class LanguageApi(BaseApi):
         'obj_id': ('编程语言ID', 'required int'),
     }
 
-    def post(self, request, params):
+    def get(self, request, params):
         data = language_ctl.get_language(**params)
         return data

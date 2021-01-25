@@ -42,7 +42,7 @@ class ListFrameApi(BaseApi):
         'page_num': ('页码', 'optional int'),
         'page_size': ('页容量', 'optional int'),
     }
-    def post(self, request, params):
+    def get(self, request, params):
         data = frame_ctl.get_frames(**params)
         return data
 
@@ -54,6 +54,6 @@ class FrameApi(BaseApi):
         'obj_id': ('框架ID', 'required int'),
     }
 
-    def post(self, request, params):
+    def get(self, request, params):
         data = frame_ctl.get_frame(**params)
         return data

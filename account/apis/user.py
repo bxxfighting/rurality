@@ -32,7 +32,7 @@ class UserApi(BaseApi):
         'obj_id': ('用户ID', 'required int'),
     }
 
-    def post(self, request, params):
+    def get(self, request, params):
         data = user_ctl.get_user(**params)
         return data
 
@@ -80,7 +80,7 @@ class ListUserApi(BaseApi):
         'page_num': ('页码', 'optional int'),
         'page_size': ('页容量', 'optional int'),
     }
-    def post(self, request, params):
+    def get(self, request, params):
         data = user_ctl.get_users(**params)
         return data
 
@@ -90,7 +90,7 @@ class CurrentUserApi(BaseApi):
 
     need_params = {
     }
-    def post(self, request, params):
+    def get(self, request, params):
         params['obj_id'] = request.user_id
         data = user_ctl.get_user_info(**params)
         return data
@@ -102,7 +102,7 @@ class ListUserRoleApi(BaseApi):
     need_params = {
         'obj_id': ('用户ID', 'required int'),
     }
-    def post(self, request, params):
+    def get(self, request, params):
         data = user_ctl.get_roles_by_user_id(**params)
         return data
 
@@ -113,6 +113,6 @@ class ListUserDepartmentApi(BaseApi):
     need_params = {
         'obj_id': ('用户ID', 'required int'),
     }
-    def post(self, request, params):
+    def get(self, request, params):
         data = user_ctl.get_departments_by_user_id(**params)
         return data

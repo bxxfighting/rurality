@@ -8,7 +8,7 @@ class RegionApi(BaseApi):
     need_params = {
         'obj_id': ('地域ID', 'required int'),
     }
-    def post(self, request, params):
+    def get(self, request, params):
         data = region_ctl.get_region(**params)
         return data
 
@@ -21,7 +21,7 @@ class ListRegionApi(BaseApi):
         'page_num': ('页码', 'optional int'),
         'page_size': ('页容量', 'optional int'),
     }
-    def post(self, request, params):
+    def get(self, request, params):
         data = region_ctl.get_regions(**params)
         return data
 
@@ -42,7 +42,7 @@ class ZoneApi(BaseApi):
     need_params = {
         'obj_id': ('可用区ID', 'required int'),
     }
-    def post(self, request, params):
+    def get(self, request, params):
         data = region_ctl.get_zone(**params)
         return data
 
@@ -55,6 +55,6 @@ class ListZoneApi(BaseApi):
         'page_num': ('页码', 'optional int'),
         'page_size': ('页容量', 'optional int'),
     }
-    def post(self, request, params):
+    def get(self, request, params):
         data = region_ctl.get_zones(**params)
         return data

@@ -10,7 +10,7 @@ class ServiceConfigApi(BaseApi):
         'environment_id': ('环境ID', 'required int'),
     }
 
-    def post(self, request, params):
+    def get(self, request, params):
         data = config_ctl.get_service_config(**params)
         return data
 

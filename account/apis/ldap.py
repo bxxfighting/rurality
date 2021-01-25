@@ -8,7 +8,7 @@ class LdapConfigApi(BaseApi):
     need_params = {
     }
 
-    def post(self, request, params):
+    def get(self, request, params):
         data = ldap_ctl.get_ldap_config(**params)
         return data
 

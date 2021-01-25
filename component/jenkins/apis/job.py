@@ -11,7 +11,7 @@ class ListJenkinsJobApi(BaseApi):
         'page_num': ('页码', 'optional int'),
         'page_size': ('页容量', 'optional int'),
     }
-    def post(self, request, params):
+    def get(self, request, params):
         data = job_ctl.get_jenkins_jobs(**params)
         return data
 

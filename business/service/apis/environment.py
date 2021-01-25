@@ -43,7 +43,7 @@ class ListEnvironmentApi(BaseApi):
         'page_num': ('页码', 'optional int'),
         'page_size': ('页容量', 'optional int'),
     }
-    def post(self, request, params):
+    def get(self, request, params):
         data = environment_ctl.get_environments(**params)
         return data
 
@@ -55,6 +55,6 @@ class EnvironmentApi(BaseApi):
         'obj_id': ('环境ID', 'required int'),
     }
 
-    def post(self, request, params):
+    def get(self, request, params):
         data = environment_ctl.get_environment(**params)
         return data

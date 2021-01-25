@@ -40,7 +40,7 @@ class ListDepartmentApi(BaseApi):
         'page_num': ('页码', 'optional int'),
         'page_size': ('页容量', 'optional int'),
     }
-    def post(self, request, params):
+    def get(self, request, params):
         data = department_ctl.get_departments(**params)
         return data
 
@@ -52,7 +52,7 @@ class DepartmentApi(BaseApi):
         'obj_id': ('部门ID', 'required int'),
     }
 
-    def post(self, request, params):
+    def get(self, request, params):
         data = department_ctl.get_department(**params)
         return data
 
@@ -98,7 +98,7 @@ class ListDepartmentUserApi(BaseApi):
         'page_num': ('页码', 'optional int'),
         'page_size': ('页容量', 'optional int'),
     }
-    def post(self, request, params):
+    def get(self, request, params):
         data = department_ctl.get_department_users(**params)
         return data
 
@@ -112,6 +112,6 @@ class ListDepartmentServiceApi(BaseApi):
         'page_num': ('页码', 'optional int'),
         'page_size': ('页容量', 'optional int'),
     }
-    def post(self, request, params):
+    def get(self, request, params):
         data = department_ctl.get_department_services(**params)
         return data

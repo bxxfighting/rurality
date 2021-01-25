@@ -8,7 +8,7 @@ class RocketGroupApi(BaseApi):
     need_params = {
         'obj_id': ('Group ID', 'required int'),
     }
-    def post(self, request, params):
+    def get(self, request, params):
         data = group_ctl.get_group(**params)
         return data
 
@@ -22,6 +22,6 @@ class ListRocketGroupApi(BaseApi):
         'page_num': ('页码', 'optional int'),
         'page_size': ('页容量', 'optional int'),
     }
-    def post(self, request, params):
+    def get(self, request, params):
         data = group_ctl.get_groups(**params)
         return data

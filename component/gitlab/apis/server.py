@@ -45,7 +45,7 @@ class ListGitlabServerApi(BaseApi):
         'page_num': ('页码', 'optional int'),
         'page_size': ('页容量', 'optional int'),
     }
-    def post(self, request, params):
+    def get(self, request, params):
         data = server_ctl.get_gitlab_servers(**params)
         return data
 
@@ -56,6 +56,6 @@ class GitlabServerApi(BaseApi):
     need_params = {
         'obj_id': ('Gitlab服务ID', 'required int'),
     }
-    def post(self, request, params):
+    def get(self, request, params):
         data = server_ctl.get_gitlab_server(**params)
         return data

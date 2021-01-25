@@ -8,7 +8,7 @@ class MongoApi(BaseApi):
     need_params = {
         'obj_id': ('Mongo ID', 'required int'),
     }
-    def post(self, request, params):
+    def get(self, request, params):
         data = mongo_ctl.get_mongo(**params)
         return data
 
@@ -21,7 +21,7 @@ class ListMongoApi(BaseApi):
         'page_num': ('页码', 'optional int'),
         'page_size': ('页容量', 'optional int'),
     }
-    def post(self, request, params):
+    def get(self, request, params):
         data = mongo_ctl.get_mongos(**params)
         return data
 
@@ -34,7 +34,7 @@ class ListMongoServiceApi(BaseApi):
         'page_num': ('页码', 'optional int'),
         'page_size': ('页容量', 'optional int'),
     }
-    def post(self, request, params):
+    def get(self, request, params):
         data = mongo_ctl.get_mongo_services(**params)
         return data
 

@@ -8,7 +8,7 @@ class RdsApi(BaseApi):
     need_params = {
         'obj_id': ('RDS ID', 'required int'),
     }
-    def post(self, request, params):
+    def get(self, request, params):
         data = rds_ctl.get_rds(**params)
         return data
 
@@ -21,7 +21,7 @@ class ListRdsApi(BaseApi):
         'page_num': ('页码', 'optional int'),
         'page_size': ('页容量', 'optional int'),
     }
-    def post(self, request, params):
+    def get(self, request, params):
         data = rds_ctl.get_rdses(**params)
         return data
 

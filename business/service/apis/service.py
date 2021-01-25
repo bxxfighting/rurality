@@ -50,7 +50,7 @@ class ListServiceApi(BaseApi):
         'page_num': ('页码', 'optional int'),
         'page_size': ('页容量', 'optional int'),
     }
-    def post(self, request, params):
+    def get(self, request, params):
         data = service_ctl.get_services(**params)
         return data
 
@@ -62,7 +62,7 @@ class ServiceApi(BaseApi):
         'obj_id': ('服务ID', 'required int'),
     }
 
-    def post(self, request, params):
+    def get(self, request, params):
         data = service_ctl.get_service(**params)
         return data
 
@@ -95,7 +95,7 @@ class ListServiceDepartmentApi(BaseApi):
         'page_num': ('页码', 'optional int'),
         'page_size': ('页容量', 'optional int'),
     }
-    def post(self, request, params):
+    def get(self, request, params):
         data = service_ctl.get_service_departments(**params)
         return data
 
@@ -141,7 +141,7 @@ class ListServiceUserApi(BaseApi):
         'page_num': ('页码', 'optional int'),
         'page_size': ('页容量', 'optional int'),
     }
-    def post(self, request, params):
+    def get(self, request, params):
         data = service_ctl.get_service_users(**params)
         return data
 
@@ -174,6 +174,6 @@ class ListServiceEnvironmentApi(BaseApi):
         'page_num': ('页码', 'optional int'),
         'page_size': ('页容量', 'optional int'),
     }
-    def post(self, request, params):
+    def get(self, request, params):
         data = service_ctl.get_service_environments(**params)
         return data

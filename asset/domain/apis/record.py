@@ -8,7 +8,7 @@ class DomainRecordApi(BaseApi):
     need_params = {
         'obj_id': ('解析记录ID', 'required int'),
     }
-    def post(self, request, params):
+    def get(self, request, params):
         data = record_ctl.get_domain_record(**params)
         return data
 
@@ -22,7 +22,7 @@ class ListDomainRecordApi(BaseApi):
         'page_num': ('页码', 'optional int'),
         'page_size': ('页容量', 'optional int'),
     }
-    def post(self, request, params):
+    def get(self, request, params):
         data = record_ctl.get_domain_records(**params)
         return data
 
@@ -35,6 +35,6 @@ class ListDomainRecordServiceApi(BaseApi):
         'page_num': ('页码', 'optional int'),
         'page_size': ('页容量', 'optional int'),
     }
-    def post(self, request, params):
+    def get(self, request, params):
         data = record_ctl.get_domain_record_services(**params)
         return data

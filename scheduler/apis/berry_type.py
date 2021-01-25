@@ -42,7 +42,7 @@ class ListBerryTypeApi(BaseApi):
         'page_num': ('页码', 'optional int'),
         'page_size': ('页容量', 'optional int'),
     }
-    def post(self, request, params):
+    def get(self, request, params):
         data = berry_type_ctl.get_berry_types(**params)
         return data
 
@@ -54,6 +54,6 @@ class BerryTypeApi(BaseApi):
         'obj_id': ('任务类型ID', 'required int'),
     }
 
-    def post(self, request, params):
+    def get(self, request, params):
         data = berry_type_ctl.get_berry_type(**params)
         return data

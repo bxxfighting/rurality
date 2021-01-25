@@ -40,7 +40,7 @@ class ListRoleApi(BaseApi):
         'page_num': ('页码', 'optional int'),
         'page_size': ('页容量', 'optional int'),
     }
-    def post(self, request, params):
+    def get(self, request, params):
         data = role_ctl.get_roles(**params)
         return data
 
@@ -52,7 +52,7 @@ class RoleApi(BaseApi):
         'obj_id': ('角色ID', 'required int'),
     }
 
-    def post(self, request, params):
+    def get(self, request, params):
         data = role_ctl.get_role(**params)
         return data
 
@@ -85,7 +85,7 @@ class ListRoleUserApi(BaseApi):
         'page_num': ('页码', 'optional int'),
         'page_size': ('页容量', 'optional int'),
     }
-    def post(self, request, params):
+    def get(self, request, params):
         data = role_ctl.get_role_users(**params)
         return data
 
@@ -112,7 +112,7 @@ class ListRoleModApi(BaseApi):
         'page_num': ('页码', 'optional int'),
         'page_size': ('页容量', 'optional int'),
     }
-    def post(self, request, params):
+    def get(self, request, params):
         data = role_ctl.get_role_mods(**params)
         return data
 
@@ -139,7 +139,7 @@ class ListRolePermissionApi(BaseApi):
         'page_num': ('页码', 'optional int'),
         'page_size': ('页容量', 'optional int'),
     }
-    def post(self, request, params):
+    def get(self, request, params):
         data = role_ctl.get_role_permissions(**params)
         return data
 
@@ -151,6 +151,6 @@ class RoleModPermissionApi(BaseApi):
         'obj_id': ('角色ID', 'required int'),
     }
 
-    def post(self, request, params):
+    def get(self, request, params):
         data = role_ctl.get_role_mod_permission(**params)
         return data

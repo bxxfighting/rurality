@@ -36,6 +36,6 @@ class ListServiceMongoApi(BaseApi):
         'page_num': ('页码', 'optional int'),
         'page_size': ('页容量', 'optional int'),
     }
-    def post(self, request, params):
+    def get(self, request, params):
         data = asset_obj_ctl.get_service_asset_objs(**params)
         return data

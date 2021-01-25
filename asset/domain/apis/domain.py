@@ -8,7 +8,7 @@ class DomainApi(BaseApi):
     need_params = {
         'obj_id': ('Domain ID', 'required int'),
     }
-    def post(self, request, params):
+    def get(self, request, params):
         data = domain_ctl.get_domain(**params)
         return data
 
@@ -21,7 +21,7 @@ class ListDomainApi(BaseApi):
         'page_num': ('页码', 'optional int'),
         'page_size': ('页容量', 'optional int'),
     }
-    def post(self, request, params):
+    def get(self, request, params):
         data = domain_ctl.get_domains(**params)
         return data
 

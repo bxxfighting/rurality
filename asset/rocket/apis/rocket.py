@@ -8,7 +8,7 @@ class RocketApi(BaseApi):
     need_params = {
         'obj_id': ('Rocket ID', 'required int'),
     }
-    def post(self, request, params):
+    def get(self, request, params):
         data = rocket_ctl.get_rocket(**params)
         return data
 
@@ -21,7 +21,7 @@ class ListRocketApi(BaseApi):
         'page_num': ('页码', 'optional int'),
         'page_size': ('页容量', 'optional int'),
     }
-    def post(self, request, params):
+    def get(self, request, params):
         data = rocket_ctl.get_rockets(**params)
         return data
 
