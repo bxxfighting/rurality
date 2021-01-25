@@ -12,8 +12,7 @@ class CreateGitlabServerApi(BaseApi):
         'token': ('Token', 'required str 128'),
     }
     def post(self, request, params):
-        data = server_ctl.create_gitlab_server(**params)
-        return data
+        server_ctl.create_gitlab_server(**params)
 
 
 class UpdateGitlabServerApi(BaseApi):
@@ -27,8 +26,7 @@ class UpdateGitlabServerApi(BaseApi):
         'token': ('Token', 'required str 128'),
     }
     def post(self, request, params):
-        data = server_ctl.update_gitlab_server(**params)
-        return data
+        server_ctl.update_gitlab_server(**params)
 
 
 class DeleteGitlabServerApi(BaseApi):
@@ -37,8 +35,7 @@ class DeleteGitlabServerApi(BaseApi):
         'obj_id': ('Gitlab服务ID', 'required int'),
     }
     def post(self, request, params):
-        data = server_ctl.delete_gitlab_server(**params)
-        return data
+        server_ctl.delete_gitlab_server(**params)
 
 
 class ListGitlabServerApi(BaseApi):

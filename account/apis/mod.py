@@ -10,8 +10,7 @@ class CreateModApi(BaseApi):
         'rank': ('排序值', 'required int'),
     }
     def post(self, request, params):
-        data = mod_ctl.create_mod(**params)
-        return data
+        mod_ctl.create_mod(**params)
 
 
 class UpdateModApi(BaseApi):
@@ -23,8 +22,7 @@ class UpdateModApi(BaseApi):
         'rank': ('排序值', 'required int'),
     }
     def post(self, request, params):
-        data = mod_ctl.update_mod(**params)
-        return data
+        mod_ctl.update_mod(**params)
 
 
 class DeleteModApi(BaseApi):
@@ -33,8 +31,7 @@ class DeleteModApi(BaseApi):
         'obj_id': ('模块ID', 'required int'),
     }
     def post(self, request, params):
-        data = mod_ctl.delete_mod(**params)
-        return data
+        mod_ctl.delete_mod(**params)
 
 
 class ListModApi(BaseApi):

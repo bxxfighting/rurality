@@ -12,8 +12,7 @@ class CreateJenkinsServerApi(BaseApi):
         'token': ('Token', 'required str 128'),
     }
     def post(self, request, params):
-        data = server_ctl.create_jenkins_server(**params)
-        return data
+        server_ctl.create_jenkins_server(**params)
 
 
 class UpdateJenkinsServerApi(BaseApi):
@@ -27,8 +26,7 @@ class UpdateJenkinsServerApi(BaseApi):
         'token': ('Token', 'required str 128'),
     }
     def post(self, request, params):
-        data = server_ctl.update_jenkins_server(**params)
-        return data
+        server_ctl.update_jenkins_server(**params)
 
 
 class DeleteJenkinsServerApi(BaseApi):
@@ -37,8 +35,7 @@ class DeleteJenkinsServerApi(BaseApi):
         'obj_id': ('Jenkins服务ID', 'required int'),
     }
     def post(self, request, params):
-        data = server_ctl.delete_jenkins_server(**params)
-        return data
+        server_ctl.delete_jenkins_server(**params)
 
 
 class ListJenkinsServerApi(BaseApi):

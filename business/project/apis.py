@@ -9,8 +9,7 @@ class CreateProjectApi(BaseApi):
         'remark': ('备注', 'optional str 1024'),
     }
     def post(self, request, params):
-        data = project_ctl.create_project(**params)
-        return data
+        project_ctl.create_project(**params)
 
 
 class UpdateProjectApi(BaseApi):
@@ -21,8 +20,7 @@ class UpdateProjectApi(BaseApi):
         'remark': ('备注', 'optional str 1024'),
     }
     def post(self, request, params):
-        data = project_ctl.update_project(**params)
-        return data
+        project_ctl.update_project(**params)
 
 
 class DeleteProjectApi(BaseApi):
@@ -31,8 +29,7 @@ class DeleteProjectApi(BaseApi):
         'obj_id': ('项目ID', 'required int'),
     }
     def post(self, request, params):
-        data = project_ctl.delete_project(**params)
-        return data
+        project_ctl.delete_project(**params)
 
 
 class ListProjectApi(BaseApi):
@@ -68,8 +65,7 @@ class CreateProjectUserApi(BaseApi):
         'typ': ('类型', 'required int'),
     }
     def post(self, request, params):
-        data = project_ctl.create_project_user(**params)
-        return data
+        project_ctl.create_project_user(**params)
 
 
 class UpdateProjectUserApi(BaseApi):
@@ -80,8 +76,7 @@ class UpdateProjectUserApi(BaseApi):
         'typ': ('类型', 'required int'),
     }
     def post(self, request, params):
-        data = project_ctl.update_project_user(**params)
-        return data
+        project_ctl.update_project_user(**params)
 
 
 class DeleteProjectUserApi(BaseApi):
@@ -91,8 +86,7 @@ class DeleteProjectUserApi(BaseApi):
         'user_id': ('用户ID', 'required int'),
     }
     def post(self, request, params):
-        data = project_ctl.delete_project_user(**params)
-        return data
+        project_ctl.delete_project_user(**params)
 
 
 class ListProjectUserApi(BaseApi):

@@ -31,5 +31,4 @@ class SyncRdsApi(BaseApi):
     need_params = {
     }
     def post(self, request, params):
-        data = rds_ctl.sync_rdses(**params)
-        return data
+        rds_ctl.sync_rdses(**params)

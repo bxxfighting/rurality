@@ -9,8 +9,7 @@ class CreateServiceAssetApi(BaseApi):
         'asset_id': ('资产模块ID', 'required int'),
     }
     def post(self, request, params):
-        data = asset_ctl.create_service_asset(**params)
-        return data
+        asset_ctl.create_service_asset(**params)
 
 
 class DeleteServiceAssetApi(BaseApi):
@@ -20,8 +19,7 @@ class DeleteServiceAssetApi(BaseApi):
         'asset_id': ('资产模块ID', 'required int'),
     }
     def post(self, request, params):
-        data = asset_ctl.delete_service_asset(**params)
-        return data
+        asset_ctl.delete_service_asset(**params)
 
 
 class ListServiceAssetApi(BaseApi):

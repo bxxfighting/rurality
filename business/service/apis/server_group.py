@@ -11,8 +11,7 @@ class CreateServiceServerGroupApi(BaseApi):
         'asset_obj_id': ('服务器组ID', 'required int'),
     }
     def post(self, request, params):
-        data = asset_obj_ctl.create_service_asset_obj(**params)
-        return data
+        asset_obj_ctl.create_service_asset_obj(**params)
 
 
 class DeleteServiceServerGroupApi(BaseApi):
@@ -24,8 +23,7 @@ class DeleteServiceServerGroupApi(BaseApi):
         'asset_obj_id': ('服务器组ID', 'required int'),
     }
     def post(self, request, params):
-        data = asset_obj_ctl.delete_service_asset_obj(**params)
-        return data
+        asset_obj_ctl.delete_service_asset_obj(**params)
 
 
 class ListServiceServerGroupApi(BaseApi):

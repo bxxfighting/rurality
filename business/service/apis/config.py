@@ -26,5 +26,4 @@ class UpdateServiceConfigApi(BaseApi):
         'deploy_typ': ('部署类型', 'required str 128'),
     }
     def post(self, request, params):
-        data = config_ctl.update_service_config(**params)
-        return data
+        config_ctl.update_service_config(**params)

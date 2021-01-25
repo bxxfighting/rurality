@@ -11,8 +11,7 @@ class CreateServiceRocketTopicApi(BaseApi):
         'asset_obj_id': ('RocketTopic ID', 'required int'),
     }
     def post(self, request, params):
-        data = asset_obj_ctl.create_service_asset_obj(**params)
-        return data
+        asset_obj_ctl.create_service_asset_obj(**params)
 
 
 class DeleteServiceRocketTopicApi(BaseApi):
@@ -24,8 +23,7 @@ class DeleteServiceRocketTopicApi(BaseApi):
         'asset_obj_id': ('RocketTopic ID', 'required int'),
     }
     def post(self, request, params):
-        data = asset_obj_ctl.delete_service_asset_obj(**params)
-        return data
+        asset_obj_ctl.delete_service_asset_obj(**params)
 
 
 class ListServiceRocketTopicApi(BaseApi):

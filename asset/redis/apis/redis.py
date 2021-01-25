@@ -44,5 +44,4 @@ class SyncRedisApi(BaseApi):
     need_params = {
     }
     def post(self, request, params):
-        data = redis_ctl.sync_redises(**params)
-        return data
+        redis_ctl.sync_redises(**params)

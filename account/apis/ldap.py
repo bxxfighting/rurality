@@ -22,8 +22,7 @@ class UpdateLdapConfigApi(BaseApi):
         'member_base_dn': ('用户基础DN', 'required str 128'),
     }
     def post(self, request, params):
-        data = ldap_ctl.update_ldap_config(**params)
-        return data
+        ldap_ctl.update_ldap_config(**params)
 
 
 class SyncLdapUserApi(BaseApi):
@@ -31,5 +30,4 @@ class SyncLdapUserApi(BaseApi):
     need_params = {
     }
     def post(self, request, params):
-        data = ldap_ctl.sync_ldap_user(**params)
-        return data
+        ldap_ctl.sync_ldap_user(**params)

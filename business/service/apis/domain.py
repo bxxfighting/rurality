@@ -11,8 +11,7 @@ class CreateServiceDomainApi(BaseApi):
         'asset_obj_id': ('域名ID', 'required int'),
     }
     def post(self, request, params):
-        data = asset_obj_ctl.create_service_asset_obj(**params)
-        return data
+        asset_obj_ctl.create_service_asset_obj(**params)
 
 
 class DeleteServiceDomainApi(BaseApi):
@@ -24,8 +23,7 @@ class DeleteServiceDomainApi(BaseApi):
         'asset_obj_id': ('域名ID', 'required int'),
     }
     def post(self, request, params):
-        data = asset_obj_ctl.delete_service_asset_obj(**params)
-        return data
+        asset_obj_ctl.delete_service_asset_obj(**params)
 
 
 class ListServiceDomainApi(BaseApi):

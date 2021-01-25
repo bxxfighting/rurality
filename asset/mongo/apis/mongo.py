@@ -44,5 +44,4 @@ class SyncMongoApi(BaseApi):
     need_params = {
     }
     def post(self, request, params):
-        data = mongo_ctl.sync_mongos(**params)
-        return data
+        mongo_ctl.sync_mongos(**params)

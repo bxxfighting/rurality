@@ -47,8 +47,7 @@ class CreateUserApi(BaseApi):
         'email': ('邮箱', 'optional str 128'),
     }
     def post(self, request, params):
-        data = user_ctl.create_user(**params)
-        return data
+        user_ctl.create_user(**params)
 
 
 class UpdateUserApi(BaseApi):
@@ -61,8 +60,7 @@ class UpdateUserApi(BaseApi):
         'email': ('邮箱', 'optional str 128'),
     }
     def post(self, request, params):
-        data = user_ctl.update_user(**params)
-        return data
+        user_ctl.update_user(**params)
 
 
 class DeleteUserApi(BaseApi):
@@ -71,8 +69,7 @@ class DeleteUserApi(BaseApi):
         'obj_id': ('用户ID', 'required int'),
     }
     def post(self, request, params):
-        data = user_ctl.delete_user(**params)
-        return data
+        user_ctl.delete_user(**params)
 
 
 class ListUserApi(BaseApi):

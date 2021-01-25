@@ -9,8 +9,7 @@ class CreateRoleApi(BaseApi):
         'sign': ('标识', 'required str 32'),
     }
     def post(self, request, params):
-        data = role_ctl.create_role(**params)
-        return data
+        role_ctl.create_role(**params)
 
 
 class UpdateRoleApi(BaseApi):
@@ -21,8 +20,7 @@ class UpdateRoleApi(BaseApi):
         'sign': ('标识', 'required str 32'),
     }
     def post(self, request, params):
-        data = role_ctl.update_role(**params)
-        return data
+        role_ctl.update_role(**params)
 
 
 class DeleteRoleApi(BaseApi):
@@ -31,8 +29,7 @@ class DeleteRoleApi(BaseApi):
         'obj_id': ('角色ID', 'required int'),
     }
     def post(self, request, params):
-        data = role_ctl.delete_role(**params)
-        return data
+        role_ctl.delete_role(**params)
 
 
 class ListRoleApi(BaseApi):
@@ -67,8 +64,7 @@ class CreateRoleUserApi(BaseApi):
         'role_id': ('角色ID', 'required int'),
     }
     def post(self, request, params):
-        data = role_ctl.create_role_user(**params)
-        return data
+        role_ctl.create_role_user(**params)
 
 
 class DeleteRoleUserApi(BaseApi):
@@ -78,8 +74,7 @@ class DeleteRoleUserApi(BaseApi):
         'role_id': ('角色ID', 'required int'),
     }
     def post(self, request, params):
-        data = role_ctl.delete_role_user(**params)
-        return data
+        role_ctl.delete_role_user(**params)
 
 
 class ListRoleUserApi(BaseApi):
@@ -106,8 +101,7 @@ class SetRoleModApi(BaseApi):
         'status': ('状态', 'required str'),
     }
     def post(self, request, params):
-        data = role_ctl.set_role_mod(**params)
-        return data
+        role_ctl.set_role_mod(**params)
 
 
 class ListRoleModApi(BaseApi):
@@ -134,8 +128,7 @@ class SetRolePermissionApi(BaseApi):
         'status': ('状态', 'required str'),
     }
     def post(self, request, params):
-        data = role_ctl.set_role_permission(**params)
-        return data
+        role_ctl.set_role_permission(**params)
 
 
 class ListRolePermissionApi(BaseApi):

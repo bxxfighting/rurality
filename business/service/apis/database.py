@@ -11,8 +11,7 @@ class CreateServiceDatabaseApi(BaseApi):
         'asset_obj_id': ('数据库ID', 'required int'),
     }
     def post(self, request, params):
-        data = asset_obj_ctl.create_service_asset_obj(**params)
-        return data
+        asset_obj_ctl.create_service_asset_obj(**params)
 
 
 class DeleteServiceDatabaseApi(BaseApi):
@@ -24,8 +23,7 @@ class DeleteServiceDatabaseApi(BaseApi):
         'asset_obj_id': ('数据库ID', 'required int'),
     }
     def post(self, request, params):
-        data = asset_obj_ctl.delete_service_asset_obj(**params)
-        return data
+        asset_obj_ctl.delete_service_asset_obj(**params)
 
 
 class ListServiceDatabaseApi(BaseApi):

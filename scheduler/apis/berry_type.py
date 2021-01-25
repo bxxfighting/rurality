@@ -10,8 +10,7 @@ class CreateBerryTypeApi(BaseApi):
         'parent_id': ('父ID', 'optional int'),
     }
     def post(self, request, params):
-        data = berry_type_ctl.create_berry_type(**params)
-        return data
+        berry_type_ctl.create_berry_type(**params)
 
 
 class UpdateBerryTypeApi(BaseApi):
@@ -23,8 +22,7 @@ class UpdateBerryTypeApi(BaseApi):
         'parent_id': ('父ID', 'optional int'),
     }
     def post(self, request, params):
-        data = berry_type_ctl.update_berry_type(**params)
-        return data
+        berry_type_ctl.update_berry_type(**params)
 
 
 class DeleteBerryTypeApi(BaseApi):
@@ -33,8 +31,7 @@ class DeleteBerryTypeApi(BaseApi):
         'obj_id': ('任务类型ID', 'required int'),
     }
     def post(self, request, params):
-        data = berry_type_ctl.delete_berry_type(**params)
-        return data
+        berry_type_ctl.delete_berry_type(**params)
 
 
 class ListBerryTypeApi(BaseApi):

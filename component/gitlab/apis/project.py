@@ -21,5 +21,4 @@ class SyncGitlabProjectApi(BaseApi):
     need_params = {
     }
     def post(self, request, params):
-        data = project_ctl.sync_gitlab_projects(**params)
-        return data
+        project_ctl.sync_gitlab_projects(**params)

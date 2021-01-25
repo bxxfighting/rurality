@@ -11,8 +11,7 @@ class CreateServiceMongoApi(BaseApi):
         'asset_obj_id': ('Mongo ID', 'required int'),
     }
     def post(self, request, params):
-        data = asset_obj_ctl.create_service_asset_obj(**params)
-        return data
+        asset_obj_ctl.create_service_asset_obj(**params)
 
 
 class DeleteServiceMongoApi(BaseApi):
@@ -24,8 +23,7 @@ class DeleteServiceMongoApi(BaseApi):
         'asset_obj_id': ('Mongo ID', 'required int'),
     }
     def post(self, request, params):
-        data = asset_obj_ctl.delete_service_asset_obj(**params)
-        return data
+        asset_obj_ctl.delete_service_asset_obj(**params)
 
 
 class ListServiceMongoApi(BaseApi):

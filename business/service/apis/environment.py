@@ -11,8 +11,7 @@ class CreateEnvironmentApi(BaseApi):
         'remark': ('备注', 'optional str 1024'),
     }
     def post(self, request, params):
-        data = environment_ctl.create_environment(**params)
-        return data
+        environment_ctl.create_environment(**params)
 
 
 class UpdateEnvironmentApi(BaseApi):
@@ -25,8 +24,7 @@ class UpdateEnvironmentApi(BaseApi):
         'remark': ('备注', 'optional str 1024'),
     }
     def post(self, request, params):
-        data = environment_ctl.update_environment(**params)
-        return data
+        environment_ctl.update_environment(**params)
 
 
 class DeleteEnvironmentApi(BaseApi):
@@ -35,8 +33,7 @@ class DeleteEnvironmentApi(BaseApi):
         'obj_id': ('环境ID', 'required int'),
     }
     def post(self, request, params):
-        data = environment_ctl.delete_environment(**params)
-        return data
+        environment_ctl.delete_environment(**params)
 
 
 class ListEnvironmentApi(BaseApi):

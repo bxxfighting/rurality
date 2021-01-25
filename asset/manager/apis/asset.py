@@ -11,8 +11,7 @@ class CreateAssetApi(BaseApi):
         'remark': ('备注', 'optional str'),
     }
     def post(self, request, params):
-        data = asset_ctl.create_asset(**params)
-        return data
+        asset_ctl.create_asset(**params)
 
 
 class UpdateAssetApi(BaseApi):
@@ -25,8 +24,7 @@ class UpdateAssetApi(BaseApi):
         'remark': ('备注', 'optional str'),
     }
     def post(self, request, params):
-        data = asset_ctl.update_asset(**params)
-        return data
+        asset_ctl.update_asset(**params)
 
 
 class DeleteAssetApi(BaseApi):
@@ -35,8 +33,7 @@ class DeleteAssetApi(BaseApi):
         'obj_id': ('资产模块ID', 'required int'),
     }
     def post(self, request, params):
-        data = asset_ctl.delete_asset(**params)
-        return data
+        asset_ctl.delete_asset(**params)
 
 
 class AssetApi(BaseApi):

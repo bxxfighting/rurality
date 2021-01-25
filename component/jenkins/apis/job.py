@@ -22,5 +22,4 @@ class SyncJenkinsJobApi(BaseApi):
     need_params = {
     }
     def post(self, request, params):
-        data = job_ctl.sync_jenkins_jobs(**params)
-        return data
+        job_ctl.sync_jenkins_jobs(**params)

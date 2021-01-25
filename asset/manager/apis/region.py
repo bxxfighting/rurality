@@ -33,8 +33,7 @@ class SetRegionStatusApi(BaseApi):
         'status': ('状态', 'required int'),
     }
     def post(self, request, params):
-        data = region_ctl.set_region_status(**params)
-        return data
+        region_ctl.set_region_status(**params)
 
 
 class ZoneApi(BaseApi):

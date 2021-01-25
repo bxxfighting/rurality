@@ -31,5 +31,4 @@ class SyncSlbApi(BaseApi):
     need_params = {
     }
     def post(self, request, params):
-        data = slb_ctl.sync_slbs(**params)
-        return data
+        slb_ctl.sync_slbs(**params)

@@ -9,8 +9,7 @@ class CreateLanguageApi(BaseApi):
         'sign': ('标识', 'required str 128'),
     }
     def post(self, request, params):
-        data = language_ctl.create_language(**params)
-        return data
+        language_ctl.create_language(**params)
 
 
 class UpdateLanguageApi(BaseApi):
@@ -21,8 +20,7 @@ class UpdateLanguageApi(BaseApi):
         'sign': ('标识', 'required str 128'),
     }
     def post(self, request, params):
-        data = language_ctl.update_language(**params)
-        return data
+        language_ctl.update_language(**params)
 
 
 class DeleteLanguageApi(BaseApi):
@@ -31,8 +29,7 @@ class DeleteLanguageApi(BaseApi):
         'obj_id': ('编程语言ID', 'required int'),
     }
     def post(self, request, params):
-        data = language_ctl.delete_language(**params)
-        return data
+        language_ctl.delete_language(**params)
 
 
 class ListLanguageApi(BaseApi):

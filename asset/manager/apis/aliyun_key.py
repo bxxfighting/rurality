@@ -9,8 +9,7 @@ class CreateAliyunKeyApi(BaseApi):
         'secret': ('阿里云密钥', 'required str 128'),
     }
     def post(self, request, params):
-        data = aliyun_key_ctl.create_aliyun_key(**params)
-        return data
+        aliyun_key_ctl.create_aliyun_key(**params)
 
 
 class UpdateAliyunKeyApi(BaseApi):
@@ -21,8 +20,7 @@ class UpdateAliyunKeyApi(BaseApi):
         'secret': ('阿里云密钥', 'required str 128'),
     }
     def post(self, request, params):
-        data = aliyun_key_ctl.update_aliyun_key(**params)
-        return data
+        aliyun_key_ctl.update_aliyun_key(**params)
 
 
 class DeleteAliyunKeyApi(BaseApi):
@@ -31,8 +29,7 @@ class DeleteAliyunKeyApi(BaseApi):
         'obj_id': ('阿里云key ID', 'required int'),
     }
     def post(self, request, params):
-        data = aliyun_key_ctl.delete_aliyun_key(**params)
-        return data
+        aliyun_key_ctl.delete_aliyun_key(**params)
 
 
 class AliyunKeyApi(BaseApi):
@@ -65,5 +62,4 @@ class SetAliyunKeyStatusApi(BaseApi):
         'status': ('状态', 'required int'),
     }
     def post(self, request, params):
-        data = aliyun_key_ctl.set_aliyun_key_status(**params)
-        return data
+        aliyun_key_ctl.set_aliyun_key_status(**params)

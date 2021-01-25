@@ -11,8 +11,7 @@ class CreateServiceEcsApi(BaseApi):
         'asset_obj_id': ('ECS ID', 'required int'),
     }
     def post(self, request, params):
-        data = asset_obj_ctl.create_service_asset_obj(**params)
-        return data
+        asset_obj_ctl.create_service_asset_obj(**params)
 
 
 class DeleteServiceEcsApi(BaseApi):
@@ -24,8 +23,7 @@ class DeleteServiceEcsApi(BaseApi):
         'asset_obj_id': ('ECS ID', 'required int'),
     }
     def post(self, request, params):
-        data = asset_obj_ctl.delete_service_asset_obj(**params)
-        return data
+        asset_obj_ctl.delete_service_asset_obj(**params)
 
 
 class ListServiceEcsApi(BaseApi):

@@ -14,8 +14,7 @@ class CreateServiceApi(BaseApi):
         'remark': ('备注', 'optional str 1024'),
     }
     def post(self, request, params):
-        data = service_ctl.create_service(**params)
-        return data
+        service_ctl.create_service(**params)
 
 
 class UpdateServiceApi(BaseApi):
@@ -31,8 +30,7 @@ class UpdateServiceApi(BaseApi):
         'remark': ('备注', 'optional str 1024'),
     }
     def post(self, request, params):
-        data = service_ctl.update_service(**params)
-        return data
+        service_ctl.update_service(**params)
 
 
 class DeleteServiceApi(BaseApi):
@@ -41,8 +39,7 @@ class DeleteServiceApi(BaseApi):
         'obj_id': ('服务ID', 'required int'),
     }
     def post(self, request, params):
-        data = service_ctl.delete_service(**params)
-        return data
+        service_ctl.delete_service(**params)
 
 
 class ListServiceApi(BaseApi):
@@ -77,8 +74,7 @@ class CreateServiceDepartmentApi(BaseApi):
         'department_id': ('部门ID', 'required int'),
     }
     def post(self, request, params):
-        data = service_ctl.create_service_department(**params)
-        return data
+        service_ctl.create_service_department(**params)
 
 
 class DeleteServiceDepartmentApi(BaseApi):
@@ -88,8 +84,7 @@ class DeleteServiceDepartmentApi(BaseApi):
         'department_id': ('部门ID', 'required int'),
     }
     def post(self, request, params):
-        data = service_ctl.delete_service_department(**params)
-        return data
+        service_ctl.delete_service_department(**params)
 
 
 class ListServiceDepartmentApi(BaseApi):
@@ -113,8 +108,7 @@ class CreateServiceUserApi(BaseApi):
         'typ': ('类型', 'required int'),
     }
     def post(self, request, params):
-        data = service_ctl.create_service_user(**params)
-        return data
+        service_ctl.create_service_user(**params)
 
 
 class UpdateServiceUserApi(BaseApi):
@@ -125,8 +119,7 @@ class UpdateServiceUserApi(BaseApi):
         'typ': ('类型', 'required int'),
     }
     def post(self, request, params):
-        data = service_ctl.update_service_user(**params)
-        return data
+        service_ctl.update_service_user(**params)
 
 
 class DeleteServiceUserApi(BaseApi):
@@ -136,8 +129,7 @@ class DeleteServiceUserApi(BaseApi):
         'user_id': ('用户ID', 'required int'),
     }
     def post(self, request, params):
-        data = service_ctl.delete_service_user(**params)
-        return data
+        service_ctl.delete_service_user(**params)
 
 
 class ListServiceUserApi(BaseApi):
@@ -161,8 +153,7 @@ class CreateServiceEnvironmentApi(BaseApi):
         'environment_id': ('环境ID', 'required int'),
     }
     def post(self, request, params):
-        data = service_ctl.create_service_environment(**params)
-        return data
+        service_ctl.create_service_environment(**params)
 
 
 class DeleteServiceEnvironmentApi(BaseApi):
@@ -172,8 +163,7 @@ class DeleteServiceEnvironmentApi(BaseApi):
         'environment_id': ('环境ID', 'required int'),
     }
     def post(self, request, params):
-        data = service_ctl.delete_service_environment(**params)
-        return data
+        service_ctl.delete_service_environment(**params)
 
 
 class ListServiceEnvironmentApi(BaseApi):

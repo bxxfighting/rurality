@@ -12,8 +12,7 @@ class CreatePermissionApi(BaseApi):
         'rank': ('排序值', 'required int'),
     }
     def post(self, request, params):
-        data = permission_ctl.create_permission(**params)
-        return data
+        permission_ctl.create_permission(**params)
 
 
 class UpdatePermissionApi(BaseApi):
@@ -26,8 +25,7 @@ class UpdatePermissionApi(BaseApi):
         'rank': ('排序值', 'required int'),
     }
     def post(self, request, params):
-        data = permission_ctl.update_permission(**params)
-        return data
+        permission_ctl.update_permission(**params)
 
 
 class DeletePermissionApi(BaseApi):
@@ -36,8 +34,7 @@ class DeletePermissionApi(BaseApi):
         'obj_id': ('权限ID', 'required int'),
     }
     def post(self, request, params):
-        data = permission_ctl.delete_permission(**params)
-        return data
+        permission_ctl.delete_permission(**params)
 
 
 class ListPermissionApi(BaseApi):

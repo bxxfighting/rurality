@@ -9,8 +9,7 @@ class CreateDepartmentApi(BaseApi):
         'sign': ('标识', 'required str 32'),
     }
     def post(self, request, params):
-        data = department_ctl.create_department(**params)
-        return data
+        department_ctl.create_department(**params)
 
 
 class UpdateDepartmentApi(BaseApi):
@@ -21,8 +20,7 @@ class UpdateDepartmentApi(BaseApi):
         'sign': ('标识', 'required str 32'),
     }
     def post(self, request, params):
-        data = department_ctl.update_department(**params)
-        return data
+        department_ctl.update_department(**params)
 
 
 class DeleteDepartmentApi(BaseApi):
@@ -31,8 +29,7 @@ class DeleteDepartmentApi(BaseApi):
         'obj_id': ('部门ID', 'required int'),
     }
     def post(self, request, params):
-        data = department_ctl.delete_department(**params)
-        return data
+        department_ctl.delete_department(**params)
 
 
 class ListDepartmentApi(BaseApi):
@@ -68,8 +65,7 @@ class CreateDepartmentUserApi(BaseApi):
         'typ': ('类型', 'required int'),
     }
     def post(self, request, params):
-        data = department_ctl.create_department_user(**params)
-        return data
+        department_ctl.create_department_user(**params)
 
 
 class UpdateDepartmentUserApi(BaseApi):
@@ -80,8 +76,7 @@ class UpdateDepartmentUserApi(BaseApi):
         'typ': ('类型', 'required int'),
     }
     def post(self, request, params):
-        data = department_ctl.update_department_user(**params)
-        return data
+        department_ctl.update_department_user(**params)
 
 
 class DeleteDepartmentUserApi(BaseApi):
@@ -91,8 +86,7 @@ class DeleteDepartmentUserApi(BaseApi):
         'department_id': ('部门ID', 'required int'),
     }
     def post(self, request, params):
-        data = department_ctl.delete_department_user(**params)
-        return data
+        department_ctl.delete_department_user(**params)
 
 
 class ListDepartmentUserApi(BaseApi):

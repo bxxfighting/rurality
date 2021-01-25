@@ -34,8 +34,7 @@ class UpdateRdsAccountApi(BaseApi):
         'password': ('密码', 'required str'),
     }
     def post(self, request, params):
-        data = account_ctl.update_account(**params)
-        return data
+        account_ctl.update_account(**params)
 
 
 class ListRdsAccountDatabaseApi(BaseApi):

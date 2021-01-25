@@ -31,5 +31,4 @@ class SyncDomainApi(BaseApi):
     need_params = {
     }
     def post(self, request, params):
-        data = domain_ctl.sync_domains(**params)
-        return data
+        domain_ctl.sync_domains(**params)

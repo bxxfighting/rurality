@@ -10,8 +10,7 @@ class CreateFrameApi(BaseApi):
         'sign': ('标识', 'required str 128'),
     }
     def post(self, request, params):
-        data = frame_ctl.create_frame(**params)
-        return data
+        frame_ctl.create_frame(**params)
 
 
 class UpdateFrameApi(BaseApi):
@@ -23,8 +22,7 @@ class UpdateFrameApi(BaseApi):
         'sign': ('标识', 'required str 128'),
     }
     def post(self, request, params):
-        data = frame_ctl.update_frame(**params)
-        return data
+        frame_ctl.update_frame(**params)
 
 
 class DeleteFrameApi(BaseApi):
@@ -33,8 +31,7 @@ class DeleteFrameApi(BaseApi):
         'obj_id': ('框架ID', 'required int'),
     }
     def post(self, request, params):
-        data = frame_ctl.delete_frame(**params)
-        return data
+        frame_ctl.delete_frame(**params)
 
 
 class ListFrameApi(BaseApi):

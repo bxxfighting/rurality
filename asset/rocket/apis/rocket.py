@@ -31,5 +31,4 @@ class SyncRocketApi(BaseApi):
     need_params = {
     }
     def post(self, request, params):
-        data = rocket_ctl.sync_rockets(**params)
-        return data
+        rocket_ctl.sync_rockets(**params)
