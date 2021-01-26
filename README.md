@@ -34,10 +34,13 @@ darling: 达令
 [前端代码库](https://github.com/bxxfighting/enjoy)  
 [流水线代码库](https://github.com/bxxfighting/darling)  
 
-
 ### 使用教程
-待整理ing...  
+目前项目处于开发阶段，预计发布1.0.0版本时，会增加使用教程  
 
+### TODO
+* 增加阿里云资源的增删改操作(服务增加机器、增加域名等一系列相关操作)
+* 接入jumpserver
+* 服务配置管理(服务的业务配置/nginx配置等)
 
 ### 赞助支持
 哈哈，支付宝收款码在此，一分不嫌少，一元不嫌多，就是图一个乐子  
