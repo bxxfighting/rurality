@@ -11,7 +11,7 @@
  Target Server Version : 50643
  File Encoding         : 65001
 
- Date: 25/01/2021 11:38:00
+ Date: 26/01/2021 15:44:37
 */
 
 SET NAMES utf8mb4;
@@ -93,9 +93,12 @@ CREATE TABLE `berry` (
   `error_log` longtext,
   `parent_id` int(11) DEFAULT NULL,
   `run_mode` smallint(6) NOT NULL,
+  `user_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `berry_typ_id_bb6f0288_fk_berry_type_id` (`typ_id`),
-  CONSTRAINT `berry_typ_id_bb6f0288_fk_berry_type_id` FOREIGN KEY (`typ_id`) REFERENCES `berry_type` (`id`)
+  KEY `berry_user_id_30cc3dec_fk_user_id` (`user_id`),
+  CONSTRAINT `berry_typ_id_bb6f0288_fk_berry_type_id` FOREIGN KEY (`typ_id`) REFERENCES `berry_type` (`id`),
+  CONSTRAINT `berry_user_id_30cc3dec_fk_user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
@@ -238,7 +241,7 @@ CREATE TABLE `django_migrations` (
   `name` varchar(255) NOT NULL,
   `applied` datetime(6) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=61 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=62 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of django_migrations
@@ -303,6 +306,7 @@ INSERT INTO `django_migrations` VALUES (57, 'account', '0003_ldapconfigmodel', '
 INSERT INTO `django_migrations` VALUES (58, 'account', '0004_auto_20210123_1436', '2021-01-23 06:36:32.212230');
 INSERT INTO `django_migrations` VALUES (59, 'account', '0005_auto_20210123_1442', '2021-01-23 06:42:48.536227');
 INSERT INTO `django_migrations` VALUES (60, 'account', '0006_auto_20210125_1117', '2021-01-25 03:17:14.399108');
+INSERT INTO `django_migrations` VALUES (61, 'scheduler', '0010_berrymodel_user', '2021-01-26 07:44:20.434996');
 COMMIT;
 
 -- ----------------------------
