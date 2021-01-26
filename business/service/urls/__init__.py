@@ -11,6 +11,7 @@ from business.service.urls import redis
 from business.service.urls import mongo
 from business.service.urls import domain
 from business.service.urls import rocket_topic
+from business.service.urls import deploy
 
 
 urlpatterns = service.urlpatterns + \
@@ -25,4 +26,5 @@ urlpatterns = service.urlpatterns + \
               redis.urlpatterns + \
               mongo.urlpatterns + \
               domain.urlpatterns + \
-              rocket_topic.urlpatterns
+              rocket_topic.urlpatterns + \
+              deploy.urlpatterns
