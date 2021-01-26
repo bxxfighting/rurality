@@ -1,5 +1,11 @@
 ### 说在前面
-如果觉得有用，请点个Star (这就是俺的动力, 一个Star我能开心一天)  
+如果觉得有用，请先点个Star (这就是俺的动力, 一个Star我能开心一天)  
+
+### 项目渊源
+rurality: 田园生活  
+enjoy: 荫照椅  
+darling: 达令  
+> 寓意着从重复的工作中解脱出来，和自己的达令坐在荫照椅上，享受着田园生活  
 
 ### 目的
 设计一款更人性的运维平台  
@@ -26,6 +32,7 @@
 [开发教程](https://github.com/bxxfighting/rurality/blob/master/docs/develop/README.md)  
 [后端代码库](https://github.com/bxxfighting/rurality)  
 [前端代码库](https://github.com/bxxfighting/enjoy)  
+[流水线代码库](https://github.com/bxxfighting/darling)  
 
 
 ### 使用教程
