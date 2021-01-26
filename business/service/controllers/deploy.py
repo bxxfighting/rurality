@@ -4,12 +4,13 @@ from django.db.models import Q
 from business.service.models import ServiceModel
 from business.service.models import ServiceEnvironmentModel
 from business.service.models import EnvironmentModel
+from business.service.models import ServiceAssetObjModel
 from scheduler.controllers.service import create_service_berry
 from base import errors
 from base import controllers as base_ctl
 
 
-def publish_publish(service_id, environment_id, publish_typ, hosts,
+def publish_publish(service_id, environment_id, publish_typ, ecs_ids,
         version_typ, version, time_mode, dt_start, operator=None):
     '''
     服务发布
@@ -22,6 +23,23 @@ def publish_publish(service_id, environment_id, publish_typ, hosts,
 
     if publish_typ not in publish_typ_choices:
         raise errors.CommonError('发布类型不存在')
+    ecs_ids = list(set(ecs_ids))
+    if publish_typ == 'part' and not ecs_ids:
+        raise errors.CommonError('请选择发布机器')
+        # 获取服务对应环境所有机器ID
+        query = {
+            'service_id': service_id,
+            'environment_id': environment_id,
+            'typ': ServiceAssetObjModel.TYP_ECS,
+        }
+        existed_ids = ServiceAssetObjModel.objects.filter(**query)\
+                .values_list('asset_obj_id', flat=True).all()
+        existed_ids = list(set(existed_ids))
+        # 正常应该相减为set()空集
+        if set(ecs_ids) - set(existed_ids):
+            raise errors.CommonError('选择机器异常，请刷新后重新或进行校对')
+
+
     if version_typ not in version_typ_choices:
         raise errors.CommonError('版本类型不存在')
     # TODO: 调用gitlab接口, 验证version是否存在
@@ -39,6 +57,7 @@ def publish_publish(service_id, environment_id, publish_typ, hosts,
         'publish_typ': publish_typ,
         'version_typ': version_typ,
         'version': version,
+        'ecs_ids': ecs_ids,
     }
 
     name = f'{service_obj.name}-{environment_obj.name}-发布-{version}'
