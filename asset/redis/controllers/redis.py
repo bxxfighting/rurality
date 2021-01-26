@@ -63,6 +63,7 @@ def sync_redises(operator=None):
     data = {
         'name': '同步Redis',
         'typ': 'sync_redis',
-        'params': params,
+        'input_params': params,
+        'operator': operator,
     }
     berry_ctl.create_berry(**data)

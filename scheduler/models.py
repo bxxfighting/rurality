@@ -1,5 +1,6 @@
 from django.db import models
 from base.models import BaseModel
+from account.models import UserModel
 
 
 class BerryTypeModel(BaseModel):
@@ -75,6 +76,8 @@ class BerryModel(BaseModel):
     duration = models.IntegerField('执行用时(s)', null=True, default=None)
     # 如果失败则记录错误日志
     error_log = models.TextField('错误日志', null=True, default=None)
+    # 操作人(如果是系统触发，则没有操作人)
+    user = models.ForeignKey(UserModel, on_delete=models.CASCADE, null=True)
 
     class Meta:
         db_table = 'berry'

@@ -49,6 +49,7 @@ def sync_slbs(operator=None):
     data = {
         'name': '同步SLB',
         'typ': 'sync_slb',
-        'params': params,
+        'input_params': params,
+        'operator': operator,
     }
     berry_ctl.create_berry(**data)

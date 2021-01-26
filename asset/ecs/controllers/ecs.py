@@ -67,6 +67,7 @@ def sync_ecses(operator=None):
     data = {
         'name': '同步ECS',
         'typ': 'sync_ecs',
-        'params': params,
+        'input_params': params,
+        'operator': operator,
     }
     berry_ctl.create_berry(**data)

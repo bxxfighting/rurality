@@ -56,6 +56,7 @@ def sync_ldap_user(operator=None):
     data = {
         'name': '同步LDAP用户',
         'typ': 'sync_ldap_user',
-        'params': params,
+        'input_params': params,
+        'operator': operator,
     }
     berry_ctl.create_berry(**data)

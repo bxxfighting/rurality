@@ -63,6 +63,7 @@ def sync_mongos(operator=None):
     data = {
         'name': '同步Mongo',
         'typ': 'sync_mongo',
-        'params': params,
+        'input_params': params,
+        'operator': operator,
     }
     berry_ctl.create_berry(**data)

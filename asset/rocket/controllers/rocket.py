@@ -48,6 +48,7 @@ def sync_rockets(operator=None):
     data = {
         'name': '同步Rocket',
         'typ': 'sync_rocket',
-        'params': params,
+        'input_params': params,
+        'operator': operator,
     }
     berry_ctl.create_berry(**data)

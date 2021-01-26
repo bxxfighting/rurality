@@ -48,6 +48,7 @@ def sync_rdses(operator=None):
     data = {
         'name': '同步RDS',
         'typ': 'sync_rds',
-        'params': params,
+        'input_params': params,
+        'operator': operator,
     }
     berry_ctl.create_berry(**data)

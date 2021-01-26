@@ -1,3 +1,4 @@
+import ujson as json
 from django.db import transaction
 from django.db.models import Q
 
@@ -9,7 +10,7 @@ from base import errors
 from utils import time_utils
 
 
-def create_berry(name, typ, time_mode=BerryModel.TIME_MODE_NOW, dt_start=None, params={}, operator=None):
+def create_berry(name, typ, time_mode=BerryModel.TIME_MODE_NOW, dt_start=None, input_params={}, operator=None):
     '''
     创建任务
     params: dict
@@ -37,14 +38,19 @@ def create_berry(name, typ, time_mode=BerryModel.TIME_MODE_NOW, dt_start=None, p
     else:
         dt_start = time_utils.now()
 
+    user_id = None
+    if operator:
+        user_id = operator.id
     data = {
         'name': name,
         'typ_id': typ_obj.id,
         'time_mode': time_mode,
         'dt_start': dt_start,
-        'input_params': params,
+        'input_params': json.dumps(input_params),
+        'user_id': user_id,
     }
     berry_obj = base_ctl.create_obj(BerryModel, data)
+
     result = berry_tasks.apply_task.apply_async(countdown=countdown, args=[berry_obj.id])
     data = {
         'task_id': result.task_id,

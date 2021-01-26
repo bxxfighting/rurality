@@ -48,6 +48,7 @@ def sync_domains(operator=None):
     data = {
         'name': '同步域名',
         'typ': 'sync_domain',
-        'params': params,
+        'input_params': params,
+        'operator': operator,
     }
     berry_ctl.create_berry(**data)
