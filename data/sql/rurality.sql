@@ -11,7 +11,7 @@
  Target Server Version : 50643
  File Encoding         : 65001
 
- Date: 26/01/2021 15:44:37
+ Date: 26/01/2021 18:22:26
 */
 
 SET NAMES utf8mb4;
@@ -241,7 +241,7 @@ CREATE TABLE `django_migrations` (
   `name` varchar(255) NOT NULL,
   `applied` datetime(6) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=62 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=63 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of django_migrations
@@ -307,6 +307,7 @@ INSERT INTO `django_migrations` VALUES (58, 'account', '0004_auto_20210123_1436'
 INSERT INTO `django_migrations` VALUES (59, 'account', '0005_auto_20210123_1442', '2021-01-23 06:42:48.536227');
 INSERT INTO `django_migrations` VALUES (60, 'account', '0006_auto_20210125_1117', '2021-01-25 03:17:14.399108');
 INSERT INTO `django_migrations` VALUES (61, 'scheduler', '0010_berrymodel_user', '2021-01-26 07:44:20.434996');
+INSERT INTO `django_migrations` VALUES (62, 'scheduler', '0011_serviceberrymodel', '2021-01-26 10:22:11.689364');
 COMMIT;
 
 -- ----------------------------
@@ -1577,6 +1578,24 @@ INSERT INTO `service_asset_obj` VALUES (10, '2020-12-24 08:49:56.004229', '2020-
 INSERT INTO `service_asset_obj` VALUES (11, '2020-12-24 08:50:03.621611', '2020-12-24 08:55:48.593932', 0, 3, 2, 2, 'domain', 40);
 INSERT INTO `service_asset_obj` VALUES (12, '2020-12-26 04:34:30.777946', '2020-12-26 04:38:18.246573', 0, 2, 2, 2, 'rocket_topic', 40);
 COMMIT;
+
+-- ----------------------------
+-- Table structure for service_berry
+-- ----------------------------
+DROP TABLE IF EXISTS `service_berry`;
+CREATE TABLE `service_berry` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `dt_create` datetime(6) NOT NULL,
+  `dt_update` datetime(6) NOT NULL,
+  `is_deleted` tinyint(1) NOT NULL,
+  `environment_id` int(11) NOT NULL,
+  `service_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `service_berry_environment_id_26183b0c_fk_environment_id` (`environment_id`),
+  KEY `service_berry_service_id_e03e7f56_fk_service_id` (`service_id`),
+  CONSTRAINT `service_berry_environment_id_26183b0c_fk_environment_id` FOREIGN KEY (`environment_id`) REFERENCES `environment` (`id`),
+  CONSTRAINT `service_berry_service_id_e03e7f56_fk_service_id` FOREIGN KEY (`service_id`) REFERENCES `service` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Table structure for service_config

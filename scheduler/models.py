@@ -1,6 +1,8 @@
 from django.db import models
 from base.models import BaseModel
 from account.models import UserModel
+from business.service.models import ServiceModel
+from business.service.models import EnvironmentModel
 
 
 class BerryTypeModel(BaseModel):
@@ -81,3 +83,17 @@ class BerryModel(BaseModel):
 
     class Meta:
         db_table = 'berry'
+
+
+class ServiceBerryModel(BaseModel):
+    '''
+    服务相关任务
+    '''
+    model_name = '服务相关任务'
+    model_sign = 'service_berry'
+
+    service = models.ForeignKey(ServiceModel, on_delete=models.CASCADE)
+    environment = models.ForeignKey(EnvironmentModel, on_delete=models.CASCADE)
+
+    class Meta:
+        db_table = 'service_berry'
