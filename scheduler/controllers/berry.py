@@ -13,7 +13,6 @@ from utils import time_utils
 def create_berry(name, typ, time_mode=BerryModel.TIME_MODE_NOW, dt_start=None, input_params={}, operator=None):
     '''
     创建任务
-    params: dict
     '''
     query = {
         'sign': typ,
