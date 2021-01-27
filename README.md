@@ -47,7 +47,7 @@ darling: 达令
 
 ### 赞助支持
 哈哈，支付宝收款码在此，一分不嫌少，一元不嫌多，就是图一个乐子  
-<img src="https://github.com/bxxfighting/rurality/blob/master/data/sponsor/images/支付宝收款码.jpeg" width="300" hegiht="300" />
+<img src="https://i.loli.net/2021/01/27/LPSvRCFqfI46xEY.jpg" width="300" hegiht="300" />
 
 [赞助名单](https://github.com/bxxfighting/rurality/blob/master/data/sponsor/README.md)
 
