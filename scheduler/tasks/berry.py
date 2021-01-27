@@ -30,9 +30,12 @@ def apply_task(berry_id):
         sync_list = ['sync_ecs', 'sync_slb', 'sync_rds', 'sync_redis',
                      'sync_mongo', 'sync_rocket', 'sync_domain', 'sync_gitlab',
                      'sync_jenkins', 'sync_ldap_user']
+        service_tasks = ['service_publish', 'service_restart', 'service_rollback']
         # 如果是同步任务，则走此处理方式
         if berry_obj.typ.sign in sync_list:
             sync_task_route(berry_obj)
+        elif berry_obj.typ.sign in service_tasks:
+            service_task_route(berry_obj)
 
     except Exception as e:
         # 如果出现异常，则更改任务状态，并且记录错误日志
@@ -85,3 +88,12 @@ def sync_task_route(berry_obj):
         'duration': duration,
     }
     base_ctl.update_obj(BerryModel, berry_obj.id, data)
+
+
+def service_task_route(berry_obj):
+    if berry_obj.typ.sign == 'service_publish':
+        pass
+    elif berry_obj.typ.sign == 'service_restart':
+        pass
+    elif berry_obj.typ.sign == 'service_rollback':
+        pass
