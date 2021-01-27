@@ -3,11 +3,41 @@ from django.db.models import Q
 
 from business.service.models import ServiceModel
 from business.service.models import ServiceEnvironmentModel
+from business.service.models import ServiceConfigModel
 from business.service.models import EnvironmentModel
 from business.service.models import ServiceAssetObjModel
 from scheduler.controllers.service import create_service_berry
 from base import errors
 from base import controllers as base_ctl
+
+
+def get_service_deploy_config(service_sign, environment_sign):
+    '''
+    获取服务部署配置
+    '''
+    service_obj = ServiceModel.objects.filter(sign=service_sign).first()
+    if not service_obj:
+        raise errors.CommonError('不存在此服务')
+    env_obj = EnvironmentModel.objects.filter(sign=environment_sign).first()
+    if not env_obj:
+        raise errors.CommonError('不存在此环境')
+    data = {
+        'language': obj.language.sign,
+        'frame': obj.frame.sign,
+        'gitlab_ssh_url': obj.gitlab.ssh_url,
+    }
+    query = {
+        'service_id': service_obj.id,
+        'environment_id': env_obj.id,
+    }
+    config = ServiceConfigModel.objects.filter(**query).first()
+    if not config:
+        raise errors.CommonError('此服务不存在对应环境配置')
+    data['port'] = config.port
+    data['dns_typ'] = config.dns_typ
+    data['artifact_typ'] = config.artifact_typ
+    data['deploy_typ'] = config.artifact_typ
+    return data
 
 
 def publish_publish(service_id, environment_id, publish_typ, ecs_ids,
