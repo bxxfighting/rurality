@@ -89,6 +89,8 @@ def update_user(obj_id, name=None, password=None, phone=None, email=None, operat
         raise errors.CommonError('用户不存在')
     if is_admin(obj):
         raise errors.CommonError('超级管理员用户不允许编辑')
+    if obj.typ != UserModel.TYP_NORMAL:
+        raise errors.CommonError('非标准用户不允许编辑')
     data = {
         'name': name,
         'phone': phone,
@@ -110,6 +112,8 @@ def delete_user(obj_id, operator=None):
     obj = base_ctl.get_obj(UserModel, obj_id)
     if is_admin(obj):
         raise errors.CommonError('超级管理员用户不允许删除')
+    if obj.typ != UserModel.TYP_NORMAL:
+        raise errors.CommonError('非标准用户不允许删除')
 
     with transaction.atomic():
         base_ctl.delete_obj(UserModel, obj_id, operator)
