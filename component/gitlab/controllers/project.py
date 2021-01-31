@@ -38,6 +38,6 @@ def sync_gitlab_projects(operator=None):
     data = {
         'name': '同步代码库',
         'typ': 'sync_gitlab',
-        'params': params,
+        'input_params': params,
     }
     berry_ctl.create_berry(**data)

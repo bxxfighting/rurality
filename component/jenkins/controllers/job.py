@@ -38,6 +38,6 @@ def sync_jenkins_jobs(operator=None):
     data = {
         'name': '同步Jenkins Job',
         'typ': 'sync_jenkins',
-        'params': params,
+        'input_params': params,
     }
     berry_ctl.create_berry(**data)
