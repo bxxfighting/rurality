@@ -45,3 +45,13 @@ class RollbackServiceApi(BaseApi):
     }
     def post(self, request, params):
         deploy_ctl.rollback_service(**params)
+
+
+class ServiceDeployConfigApi(BaseApi):
+
+    need_params = {
+        'service_sign': ('服务标识', 'required str'),
+        'environment_sign': ('环境标识', 'required str'),
+    }
+    def post(self, request, params):
+        deploy_ctl.get_service_deploy_config(**params)
