@@ -1,4 +1,5 @@
 import os
+import traceback
 from pathlib import Path
 from corsheaders.defaults import default_headers
 
@@ -229,3 +230,13 @@ LOGGING = {
         }
     },
 }
+
+try:
+    from .local_settings import *
+except ModuleNotFoundError as e:
+    # 文件不存在时，跳过
+    pass
+except Exception as e:
+    # 其它异常，直接退出
+    traceback.print_exc()
+    sys.exit(1)
