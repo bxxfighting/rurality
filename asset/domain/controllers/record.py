@@ -1,6 +1,7 @@
 from django.db import transaction
 from django.db.models import Q
 
+from asset.domain.models import DomainModel
 from asset.domain.models import DomainRecordModel
 from asset.domain.models import DomainRecordAssetModel
 from asset.ecs.models import EcsModel
@@ -79,3 +80,17 @@ def get_domain_record_services(obj_id, page_num=None, page_size=None, operator=N
         'page_size': page_size,
     }
     return asset_obj_ctl.get_asset_obj_services(**query)
+
+
+def create_domain_record(domain_id, rr, typ, value, operator=None):
+    '''
+    添加解析记录
+    '''
+    domain_obj = base_ctl.get_obj(DomainModel, domain_id)
+
+
+def delete_domain_record(obj_id, operator=None):
+    '''
+    删除解析记录
+    '''
+    obj = base_ctl.get_obj(DomainRecordModel, obj_id)

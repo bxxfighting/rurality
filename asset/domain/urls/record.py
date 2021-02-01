@@ -7,4 +7,6 @@ urlpatterns = [
     path('domain/record/', record_api.DomainRecordApi.as_view()),
     path('domain/record/list/', record_api.ListDomainRecordApi.as_view()),
     path('domain/record/service/list/', record_api.ListDomainRecordServiceApi.as_view()),
+    path('domain/record/create/', record_api.CreateDomainRecordApi.as_view()),
+    path('domain/record/delete/', record_api.DeleteDomainRecordApi.as_view()),
 ]
