@@ -2,7 +2,7 @@ from django.db import transaction
 from django.db.models import Q
 
 from account.models import UserModel
-from account.models import LdapConfigModel
+from component.ldap.models import LdapConfigModel
 from base import controllers as base_ctl
 from base import errors
 from utils.ldap_cli import LdapCli

@@ -11,7 +11,7 @@
  Target Server Version : 50643
  File Encoding         : 65001
 
- Date: 26/01/2021 18:22:26
+ Date: 01/02/2021 11:43:10
 */
 
 SET NAMES utf8mb4;
@@ -241,7 +241,7 @@ CREATE TABLE `django_migrations` (
   `name` varchar(255) NOT NULL,
   `applied` datetime(6) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=63 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=65 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of django_migrations
@@ -308,6 +308,8 @@ INSERT INTO `django_migrations` VALUES (59, 'account', '0005_auto_20210123_1442'
 INSERT INTO `django_migrations` VALUES (60, 'account', '0006_auto_20210125_1117', '2021-01-25 03:17:14.399108');
 INSERT INTO `django_migrations` VALUES (61, 'scheduler', '0010_berrymodel_user', '2021-01-26 07:44:20.434996');
 INSERT INTO `django_migrations` VALUES (62, 'scheduler', '0011_serviceberrymodel', '2021-01-26 10:22:11.689364');
+INSERT INTO `django_migrations` VALUES (63, 'account', '0007_delete_ldapconfigmodel', '2021-02-01 03:42:07.767943');
+INSERT INTO `django_migrations` VALUES (64, 'ldap', '0001_initial', '2021-02-01 03:42:07.827670');
 COMMIT;
 
 -- ----------------------------
@@ -635,14 +637,7 @@ CREATE TABLE `ldap_config` (
   `admin_password` varchar(128) NOT NULL,
   `member_base_dn` varchar(128) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
-
--- ----------------------------
--- Records of ldap_config
--- ----------------------------
-BEGIN;
-INSERT INTO `ldap_config` VALUES (1, '2020-11-25 10:40:28.479968', '2021-01-23 09:48:05.910417', 0, 'ldap://ldap.oldb.top:389', 'cn=admin,dc=oldb,dc=top', 'ldap123', 'cn=member,dc=oldb,dc=top');
-COMMIT;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Table structure for mod

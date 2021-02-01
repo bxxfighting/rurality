@@ -1,5 +1,5 @@
 from base.api import BaseApi
-from account.controllers import ldap as ldap_ctl
+from component.ldap.controllers import ldap as ldap_ctl
 
 
 class LdapConfigApi(BaseApi):

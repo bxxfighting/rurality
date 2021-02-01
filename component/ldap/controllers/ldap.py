@@ -3,7 +3,7 @@ from django.db.models import Q
 
 from base import errors
 from base import controllers as base_ctl
-from account.models import LdapConfigModel
+from component.ldap.models import LdapConfigModel
 from scheduler.controllers import berry as berry_ctl
 from account.controllers import user as user_ctl
 from utils.onlyone import onlyone

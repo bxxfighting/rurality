@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'scheduler',
     'component.gitlab',
     'component.jenkins',
+    'component.ldap',
 ]
 
 MIDDLEWARE = [

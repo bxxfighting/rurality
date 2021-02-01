@@ -1,6 +1,6 @@
 from django.urls import path
 
-from account.apis import ldap as ldap_api
+from component.ldap.apis import ldap as ldap_api
 
 
 urlpatterns = [

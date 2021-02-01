@@ -6,7 +6,7 @@ from base import controllers as base_ctl
 from account.models import UserModel
 from account.models import RoleUserModel
 from account.models import DepartmentUserModel
-from account.models import LdapConfigModel
+from component.ldap.models import LdapConfigModel
 from account.controllers import role as role_ctl
 from utils.onlyone import onlyone
 from utils.ldap_cli import LdapCli
