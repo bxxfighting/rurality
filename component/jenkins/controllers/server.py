@@ -8,90 +8,38 @@ from utils.onlyone import onlyone
 from utils.jenkins_cli import JenkinsCli
 
 
-@onlyone.lock(JenkinsServerModel.model_sign, 'name:host', 'host', 30)
-@onlyone.lock(JenkinsServerModel.model_sign, 'name', 'name', 30)
-def create_jenkins_server(name, host, username, password, token, operator=None):
-    '''
-    创建Jenkins服务
-    '''
-    if JenkinsServerModel.objects.filter(name=name).exists():
-        raise errors.CommonError('Jenkins已经存在')
-    if JenkinsServerModel.objects.filter(host=host).exists():
-        raise errors.CommonError('Jenkins已经存在')
-    data = {
-        'name': name,
-        'host': host,
-        'username': username,
-        'password': password,
-        'token': token,
-    }
-    obj = base_ctl.create_obj(JenkinsServerModel, data, operator)
-    data = obj.to_dict()
-    return data
-
-
-@onlyone.lock(JenkinsServerModel.model_sign, 'obj_id:name:host', 'host', 30)
-@onlyone.lock(JenkinsServerModel.model_sign, 'obj_id:name', 'name', 30)
-@onlyone.lock(JenkinsServerModel.model_sign, 'obj_id', 'obj_id', 30)
-def update_jenkins_server(obj_id, name, host, username, password, token, operator=None):
-    '''
-    编辑Jenkins服务
-    '''
-    if JenkinsServerModel.objects.filter(name=name).exclude(id=obj_id).exists():
-        raise errors.CommonError('Jenkins已经存在')
-    if JenkinsServerModel.objects.filter(host=host).exclude(id=obj_id).exists():
-        raise errors.CommonError('Jenkins已经存在')
-    data = {
-        'name': name,
-        'host': host,
-        'username': username,
-        'password': password,
-        'token': token,
-    }
-    obj = base_ctl.update_obj(JenkinsServerModel, obj_id, data, operator)
-    data = obj.to_dict()
-    return data
-
-
-@onlyone.lock(JenkinsServerModel.model_sign, 'obj_id', 'obj_id', 30)
-def delete_jenkins_server(obj_id, operator=None):
-    '''
-    删除Jenkins服务
-    '''
-    base_ctl.delete_obj(JenkinsServerModel, obj_id, operator)
-
-
-def get_jenkins_servers(page_num=None, page_size=None, operator=None):
-    '''
-    获取Jenkins服务列表
-    '''
-    base_query = JenkinsServerModel.objects
-    total = base_query.count()
-    objs = base_ctl.query_objs_by_page(base_query, page_num, page_size)
-    has_password = False
-    if operator and user_ctl.has_permission(operator.id, JenkinsServerModel.PASSWORD_PERMISSION):
-        has_password = True
-    data_list = []
-    for obj in objs:
-        data = obj.to_dict(has_password=has_password)
-        data_list.append(data)
-    data = {
-        'total': total,
-        'data_list': data_list,
-    }
-    return data
-
-
-def get_jenkins_server(obj_id, operator=None):
+def get_jenkins_server(operator=None):
     '''
     获取Jenkins服务
     '''
-    obj = base_ctl.get_obj(JenkinsServerModel, obj_id)
+    obj = JenkinsServerModel.objects.first()
     has_password = False
     if operator and user_ctl.has_permission(operator.id, JenkinsServerModel.PASSWORD_PERMISSION):
         has_password = True
-    data = obj.to_dict(has_password=has_password)
+    if obj:
+        data = obj.to_dict(has_password=has_password)
+    else:
+        data = JenkinsServerModel.none_to_dict()
     return data
+
+
+@onlyone.lock(JenkinsServerModel.model_sign, '', '', 30)
+def update_jenkins_server(name, host, username, password, token, operator=None):
+    '''
+    编辑Jenkins服务配置
+    '''
+    obj = JenkinsServerModel.objects.first()
+    data = {
+        'name': name,
+        'host': host,
+        'username': username,
+        'password': password,
+        'token': token,
+    }
+    if obj:
+        obj = base_ctl.update_obj(JenkinsServerModel, obj.id, data, operator)
+    else:
+        obj = base_ctl.create_obj(JenkinsServerModel, data, operator)
 
 
 def get_jenkins_cli():
