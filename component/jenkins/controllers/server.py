@@ -24,13 +24,12 @@ def get_jenkins_server(operator=None):
 
 
 @onlyone.lock(JenkinsServerModel.model_sign, '', '', 30)
-def update_jenkins_server(name, host, username, password, token, operator=None):
+def update_jenkins_server(host, username, password, token, operator=None):
     '''
     编辑Jenkins服务配置
     '''
     obj = JenkinsServerModel.objects.first()
     data = {
-        'name': name,
         'host': host,
         'username': username,
         'password': password,

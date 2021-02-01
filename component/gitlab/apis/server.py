@@ -5,7 +5,6 @@ from component.gitlab.controllers import server as server_ctl
 class UpdateGitlabServerApi(BaseApi):
 
     need_params = {
-        'name': ('名称', 'required str 128'),
         'host': ('Host', 'required str 128'),
         'username': ('用户名', 'required str 128'),
         'password': ('密码', 'required str 128'),

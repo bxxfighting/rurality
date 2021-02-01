@@ -11,7 +11,7 @@
  Target Server Version : 50643
  File Encoding         : 65001
 
- Date: 01/02/2021 14:25:01
+ Date: 01/02/2021 18:22:58
 */
 
 SET NAMES utf8mb4;
@@ -241,7 +241,7 @@ CREATE TABLE `django_migrations` (
   `name` varchar(255) NOT NULL,
   `applied` datetime(6) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=65 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=67 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of django_migrations
@@ -310,6 +310,8 @@ INSERT INTO `django_migrations` VALUES (61, 'account', '0007_delete_ldapconfigmo
 INSERT INTO `django_migrations` VALUES (62, 'ldap', '0001_initial', '2021-02-01 06:21:03.869954');
 INSERT INTO `django_migrations` VALUES (63, 'scheduler', '0010_berrymodel_user', '2021-02-01 06:21:03.963005');
 INSERT INTO `django_migrations` VALUES (64, 'scheduler', '0011_serviceberrymodel', '2021-02-01 06:21:04.066803');
+INSERT INTO `django_migrations` VALUES (65, 'gitlab', '0002_remove_gitlabservermodel_name', '2021-02-01 10:22:45.459329');
+INSERT INTO `django_migrations` VALUES (66, 'jenkins', '0005_remove_jenkinsservermodel_name', '2021-02-01 10:22:45.527306');
 COMMIT;
 
 -- ----------------------------
@@ -525,7 +527,6 @@ CREATE TABLE `gitlab_server` (
   `dt_create` datetime(6) NOT NULL,
   `dt_update` datetime(6) NOT NULL,
   `is_deleted` tinyint(1) NOT NULL,
-  `name` varchar(128) NOT NULL,
   `host` varchar(128) NOT NULL,
   `username` varchar(128) NOT NULL,
   `password` varchar(128) NOT NULL,
@@ -537,7 +538,7 @@ CREATE TABLE `gitlab_server` (
 -- Records of gitlab_server
 -- ----------------------------
 BEGIN;
-INSERT INTO `gitlab_server` VALUES (1, '2021-01-13 11:40:46.435628', '2021-01-13 11:41:01.015610', 0, '代码库', 'http://gitlab.buxingxing.com', 'devops', 'devops', 'dfkdfdfkdsfdsf');
+INSERT INTO `gitlab_server` VALUES (1, '2021-01-13 11:40:46.435628', '2021-01-13 11:41:01.015610', 0, 'http://gitlab.buxingxing.com', 'devops', 'devops', 'dfkdfdfkdsfdsf');
 COMMIT;
 
 -- ----------------------------
@@ -589,7 +590,6 @@ CREATE TABLE `jenkins_server` (
   `dt_create` datetime(6) NOT NULL,
   `dt_update` datetime(6) NOT NULL,
   `is_deleted` tinyint(1) NOT NULL,
-  `name` varchar(128) NOT NULL,
   `host` varchar(256) NOT NULL,
   `username` varchar(128) NOT NULL,
   `password` varchar(128) NOT NULL,

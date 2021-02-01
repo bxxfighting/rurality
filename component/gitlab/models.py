@@ -15,7 +15,6 @@ class GitlabServerModel(BaseModel):
     # 如果拥有编辑权限，则必须给查看密码权限
     PASSWORD_PERMISSION = 'gitlab-account-password'
 
-    name = models.CharField('名称', max_length=128)
     host = models.CharField('地址', max_length=128)
     username = models.CharField('用户名', max_length=128)
     password = models.CharField('密码', max_length=128)
@@ -39,7 +38,6 @@ class GitlabServerModel(BaseModel):
         不存在时，返回内容
         '''
         data = {
-            'name': '',
             'host': '',
             'username': '',
             'password': '',

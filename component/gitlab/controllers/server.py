@@ -23,13 +23,12 @@ def get_gitlab_server(operator=None):
 
 
 @onlyone.lock(GitlabServerModel.model_sign, '', '', 30)
-def update_gitlab_server(name, host, username, password, token, operator=None):
+def update_gitlab_server(host, username, password, token, operator=None):
     '''
     编辑Gitlab服务配置
     '''
     obj = GitlabServerModel.objects.first()
     data = {
-        'name': name,
         'host': host,
         'username': username,
         'password': password,
