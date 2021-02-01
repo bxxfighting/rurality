@@ -11,7 +11,7 @@
  Target Server Version : 50643
  File Encoding         : 65001
 
- Date: 01/02/2021 11:43:10
+ Date: 01/02/2021 14:25:01
 */
 
 SET NAMES utf8mb4;
@@ -105,15 +105,15 @@ CREATE TABLE `berry` (
 -- Records of berry
 -- ----------------------------
 BEGIN;
-INSERT INTO `berry` VALUES (1, '2020-12-30 10:52:20.220398', '2020-12-30 10:52:20.220467', 0, '同步ECS', '', 10, 10, '{}', NULL, 2, NULL, NULL, NULL, NULL, NULL, 0);
-INSERT INTO `berry` VALUES (2, '2021-01-12 03:52:19.579078', '2021-01-12 03:53:21.594369', 0, '同步ECS', 'b88c2875-2698-4b9c-b3f9-3f5b7314b8af', 30, 10, '{}', NULL, 2, NULL, '2021-01-12 03:52:19.573438', NULL, NULL, NULL, 10);
-INSERT INTO `berry` VALUES (3, '2021-01-12 05:44:21.535746', '2021-01-12 05:44:23.043060', 0, '同步ECS', 'b4cf0696-d5c9-47d3-aeb9-b8400e9a6ee2', 30, 10, '{}', NULL, 2, NULL, '2021-01-12 05:44:21.533234', NULL, NULL, NULL, 10);
-INSERT INTO `berry` VALUES (4, '2021-01-12 05:45:29.449114', '2021-01-12 05:45:30.283181', 0, '同步ECS', 'ce7b1d8e-deb0-4759-a1b3-40ff122023af', 30, 10, '{}', NULL, 2, '2021-01-12 05:45:30.278805', '2021-01-12 05:45:29.446215', 0, NULL, NULL, 10);
-INSERT INTO `berry` VALUES (5, '2021-01-12 05:48:20.340560', '2021-01-12 05:48:31.630000', 0, '同步ECS', 'f8018dee-423f-44fd-9b97-d08eab444b96', 30, 10, '{}', NULL, 2, '2021-01-12 05:48:31.624803', '2021-01-12 05:48:20.334096', 11, NULL, NULL, 10);
-INSERT INTO `berry` VALUES (8, '2021-01-13 12:09:45.221599', '2021-01-13 12:09:45.639656', 0, '同步代码库', '55b4f547-0197-4dd1-886e-467258bdf760', 20, 10, '{}', NULL, 8, NULL, '2021-01-13 12:09:45.216224', NULL, NULL, NULL, 10);
-INSERT INTO `berry` VALUES (9, '2021-01-13 12:10:09.053872', '2021-01-13 12:10:36.669966', 0, '同步代码库', '4f28b9fc-cc15-44b0-8b92-3226c0fe530b', 40, 10, '{}', NULL, 8, '2021-01-13 12:10:36.665844', '2021-01-13 12:10:09.046452', 27, 'Traceback (most recent call last):\n  File \"/Users/xx/workspace/rurality/scheduler/tasks/berry.py\", line 32, in apply_task\n    sync_task_route(berry_obj)\n  File \"/Users/xx/workspace/rurality/scheduler/tasks/berry.py\", line 80, in sync_task_route\n    base_ctl.update_obj(BerryModel, berry_id, data)\nNameError: name \'berry_id\' is not defined\n', NULL, 10);
-INSERT INTO `berry` VALUES (10, '2021-01-13 12:13:46.011653', '2021-01-13 12:14:11.676643', 0, '同步代码库', '01945945-4aa3-40ec-a380-960cc4fcbb77', 30, 10, '{}', NULL, 8, '2021-01-13 12:14:11.672140', '2021-01-13 12:13:46.009596', 25, NULL, NULL, 10);
-INSERT INTO `berry` VALUES (11, '2021-01-14 12:41:31.588840', '2021-01-14 12:41:49.697836', 0, '同步代码库', 'a2e7a9e6-35e7-4737-9dd6-c17737e1e6d1', 30, 10, '{}', NULL, 8, '2021-01-14 12:41:49.693042', '2021-01-14 12:41:31.586086', 18, NULL, NULL, 10);
+INSERT INTO `berry` VALUES (1, '2020-12-30 10:52:20.220398', '2020-12-30 10:52:20.220467', 0, '同步ECS', '', 10, 10, '{}', NULL, 2, NULL, NULL, NULL, NULL, NULL, 0, NULL);
+INSERT INTO `berry` VALUES (2, '2021-01-12 03:52:19.579078', '2021-01-12 03:53:21.594369', 0, '同步ECS', 'b88c2875-2698-4b9c-b3f9-3f5b7314b8af', 30, 10, '{}', NULL, 2, NULL, '2021-01-12 03:52:19.573438', NULL, NULL, NULL, 10, NULL);
+INSERT INTO `berry` VALUES (3, '2021-01-12 05:44:21.535746', '2021-01-12 05:44:23.043060', 0, '同步ECS', 'b4cf0696-d5c9-47d3-aeb9-b8400e9a6ee2', 30, 10, '{}', NULL, 2, NULL, '2021-01-12 05:44:21.533234', NULL, NULL, NULL, 10, NULL);
+INSERT INTO `berry` VALUES (4, '2021-01-12 05:45:29.449114', '2021-01-12 05:45:30.283181', 0, '同步ECS', 'ce7b1d8e-deb0-4759-a1b3-40ff122023af', 30, 10, '{}', NULL, 2, '2021-01-12 05:45:30.278805', '2021-01-12 05:45:29.446215', 0, NULL, NULL, 10, NULL);
+INSERT INTO `berry` VALUES (5, '2021-01-12 05:48:20.340560', '2021-01-12 05:48:31.630000', 0, '同步ECS', 'f8018dee-423f-44fd-9b97-d08eab444b96', 30, 10, '{}', NULL, 2, '2021-01-12 05:48:31.624803', '2021-01-12 05:48:20.334096', 11, NULL, NULL, 10, NULL);
+INSERT INTO `berry` VALUES (8, '2021-01-13 12:09:45.221599', '2021-01-13 12:09:45.639656', 0, '同步代码库', '55b4f547-0197-4dd1-886e-467258bdf760', 20, 10, '{}', NULL, 8, NULL, '2021-01-13 12:09:45.216224', NULL, NULL, NULL, 10, NULL);
+INSERT INTO `berry` VALUES (9, '2021-01-13 12:10:09.053872', '2021-01-13 12:10:36.669966', 0, '同步代码库', '4f28b9fc-cc15-44b0-8b92-3226c0fe530b', 40, 10, '{}', NULL, 8, '2021-01-13 12:10:36.665844', '2021-01-13 12:10:09.046452', 27, 'Traceback (most recent call last):\n  File \"/Users/xx/workspace/rurality/scheduler/tasks/berry.py\", line 32, in apply_task\n    sync_task_route(berry_obj)\n  File \"/Users/xx/workspace/rurality/scheduler/tasks/berry.py\", line 80, in sync_task_route\n    base_ctl.update_obj(BerryModel, berry_id, data)\nNameError: name \'berry_id\' is not defined\n', NULL, 10, NULL);
+INSERT INTO `berry` VALUES (10, '2021-01-13 12:13:46.011653', '2021-01-13 12:14:11.676643', 0, '同步代码库', '01945945-4aa3-40ec-a380-960cc4fcbb77', 30, 10, '{}', NULL, 8, '2021-01-13 12:14:11.672140', '2021-01-13 12:13:46.009596', 25, NULL, NULL, 10, NULL);
+INSERT INTO `berry` VALUES (11, '2021-01-14 12:41:31.588840', '2021-01-14 12:41:49.697836', 0, '同步代码库', 'a2e7a9e6-35e7-4737-9dd6-c17737e1e6d1', 30, 10, '{}', NULL, 8, '2021-01-14 12:41:49.693042', '2021-01-14 12:41:31.586086', 18, NULL, NULL, 10, NULL);
 COMMIT;
 
 -- ----------------------------
@@ -306,10 +306,10 @@ INSERT INTO `django_migrations` VALUES (57, 'account', '0003_ldapconfigmodel', '
 INSERT INTO `django_migrations` VALUES (58, 'account', '0004_auto_20210123_1436', '2021-01-23 06:36:32.212230');
 INSERT INTO `django_migrations` VALUES (59, 'account', '0005_auto_20210123_1442', '2021-01-23 06:42:48.536227');
 INSERT INTO `django_migrations` VALUES (60, 'account', '0006_auto_20210125_1117', '2021-01-25 03:17:14.399108');
-INSERT INTO `django_migrations` VALUES (61, 'scheduler', '0010_berrymodel_user', '2021-01-26 07:44:20.434996');
-INSERT INTO `django_migrations` VALUES (62, 'scheduler', '0011_serviceberrymodel', '2021-01-26 10:22:11.689364');
-INSERT INTO `django_migrations` VALUES (63, 'account', '0007_delete_ldapconfigmodel', '2021-02-01 03:42:07.767943');
-INSERT INTO `django_migrations` VALUES (64, 'ldap', '0001_initial', '2021-02-01 03:42:07.827670');
+INSERT INTO `django_migrations` VALUES (61, 'account', '0007_delete_ldapconfigmodel', '2021-02-01 06:21:03.812109');
+INSERT INTO `django_migrations` VALUES (62, 'ldap', '0001_initial', '2021-02-01 06:21:03.869954');
+INSERT INTO `django_migrations` VALUES (63, 'scheduler', '0010_berrymodel_user', '2021-02-01 06:21:03.963005');
+INSERT INTO `django_migrations` VALUES (64, 'scheduler', '0011_serviceberrymodel', '2021-02-01 06:21:04.066803');
 COMMIT;
 
 -- ----------------------------
