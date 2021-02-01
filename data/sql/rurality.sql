@@ -538,7 +538,7 @@ CREATE TABLE `gitlab_server` (
 -- Records of gitlab_server
 -- ----------------------------
 BEGIN;
-INSERT INTO `gitlab_server` VALUES (1, '2021-01-13 11:40:46.435628', '2021-01-13 11:41:01.015610', 0, 'http://gitlab.buxingxing.com', 'devops', 'devops', 'dfkdfdfkdsfdsf');
+INSERT INTO `gitlab_server` VALUES (1, '2021-01-13 11:40:46.435628', '2021-02-01 10:25:11.592777', 0, 'http://gitlab.oldb.top', 'root', '12345678', 'YnmbnspTFHV99qJ_iwSD');
 COMMIT;
 
 -- ----------------------------
@@ -595,7 +595,14 @@ CREATE TABLE `jenkins_server` (
   `password` varchar(128) NOT NULL,
   `token` varchar(128) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+
+-- ----------------------------
+-- Records of jenkins_server
+-- ----------------------------
+BEGIN;
+INSERT INTO `jenkins_server` VALUES (1, '2021-02-01 09:49:03.968606', '2021-02-01 10:28:12.859729', 0, 'http://jenkins.oldb.top', 'devops', '123456', '11e6c6c7dc81cef7d0f9b4367bf224bc6d');
+COMMIT;
 
 -- ----------------------------
 -- Table structure for language
@@ -637,7 +644,14 @@ CREATE TABLE `ldap_config` (
   `admin_password` varchar(128) NOT NULL,
   `member_base_dn` varchar(128) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+
+-- ----------------------------
+-- Records of ldap_config
+-- ----------------------------
+BEGIN;
+INSERT INTO `ldap_config` VALUES (1, '2021-02-01 09:50:15.849599', '2021-02-01 09:50:15.849628', 0, 'ldap://ldap.oldb.top:389', 'cn=admin,dc=oldb,dc=top', 'ldap123', 'cn=member,dc=oldb,dc=top');
+COMMIT;
 
 -- ----------------------------
 -- Table structure for mod
