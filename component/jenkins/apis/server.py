@@ -18,7 +18,6 @@ class JenkinsServerApi(BaseApi):
     NEED_PERMISSION = False
 
     need_params = {
-        'obj_id': ('Jenkins服务ID', 'required int'),
     }
     def get(self, request, params):
         data = server_ctl.get_jenkins_server(**params)
