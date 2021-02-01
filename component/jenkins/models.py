@@ -5,13 +5,6 @@ from base.models import BaseModel
 class JenkinsServerModel(BaseModel):
     '''
     Jenkins服务实例
-    不同公司jenkins的使用情况不同
-    有的可能线上环境和测试环境使用不同的jenkins，有的可能使用同一个jenkins
-    有的可能部署一台机器上，有的可能部署在k8s上
-    不论是哪一种，我都统一采用相同的管理方式
-    有几个jenkins就录入几个，然后服务不同环境可以关联不同的jenkins job
-    当然了，如果公司就是使用同一个或者非常明确不同环境使用的jenkins
-    可以对服务关联job的方式进行改造，使其更容易管理
     '''
     model_name = 'Jenkins服务'
     model_sign = 'jenkins_server'
@@ -34,7 +27,21 @@ class JenkinsServerModel(BaseModel):
         data = super().to_dict()
         if not has_password:
             data['password'] = '******'
-            data['to_dict'] = '******'
+            data['token'] = '******'
+        return data
+
+    @classmethod
+    def none_to_dict(cls):
+        '''
+        不存在时，返回内容
+        '''
+        data = {
+            'name': '',
+            'host': '',
+            'username': '',
+            'password': '',
+            'token': '',
+        }
         return data
 
 

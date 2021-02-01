@@ -5,10 +5,7 @@ from base.models import BaseModel
 class GitlabServerModel(BaseModel):
     '''
     Gitlab服务
-    这里虽然单独弄一个model来记录gitlab服务，但是也绝对不建议弄多个代码库
-    因为你根本没有办法管理
     原本我是可以把这些信息直接写到配置中的，但是写到配置中，可能以后有修改还得重启服务
-    什么修改？
     比如换域名了，换账号了，换token了
     '''
     model_name = 'Gitlab服务'
@@ -33,7 +30,21 @@ class GitlabServerModel(BaseModel):
         data = super().to_dict()
         if not has_password:
             data['password'] = '******'
-            data['to_dict'] = '******'
+            data['token'] = '******'
+        return data
+
+    @classmethod
+    def none_to_dict(cls):
+        '''
+        不存在时，返回内容
+        '''
+        data = {
+            'name': '',
+            'host': '',
+            'username': '',
+            'password': '',
+            'token': '',
+        }
         return data
 
 
