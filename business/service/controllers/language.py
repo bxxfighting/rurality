@@ -4,6 +4,8 @@ from django.db.models import Q
 from base import errors
 from base import controllers as base_ctl
 from business.service.models import LanguageModel
+from business.service.models import FrameModel
+from business.service.controllers import frame as frame_ctl
 from utils.onlyone import onlyone
 
 
@@ -65,6 +67,7 @@ def get_languages(page_num=None, page_size=None, operator=None):
     data_list = []
     for obj in objs:
         data = obj.to_dict()
+        data['frames'] = frame_ctl.get_frames(language_id=obj.id)['data_list']
         data_list.append(data)
     data = {
         'total': total,
