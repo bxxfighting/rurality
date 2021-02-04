@@ -132,6 +132,10 @@ darling: 达令
 [前端代码库](https://github.com/bxxfighting/enjoy)  
 [流水线代码库](https://github.com/bxxfighting/darling)  
 
+### 大话Jenkins
+[教程文档](https://my.oschina.net/bxxfighting/blog/4944757)  
+[代码库](https://github.com/bxxfighting/big-talk-jenkins)  
+
 ### 使用教程
 目前项目处于开发阶段，预计发布1.0.0版本时，会增加使用教程  
 
