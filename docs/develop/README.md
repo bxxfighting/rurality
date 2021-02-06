@@ -1,6 +1,9 @@
 ### 基础知识
 [一些有关使用Django的教程](https://github.com/bxxfighting/big-talk-django)  
 
+### 代码审核
+[代码审核说明](https://github.com/bxxfighting/rurality/blob/master/docs/develop/code_review.md)  
+
 ### 开发教程
 <details>
 <summary>第一章 美好生活的开启</summary>
