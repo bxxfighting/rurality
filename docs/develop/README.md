@@ -4,6 +4,9 @@
 ### 代码审核
 [代码审核说明](https://github.com/bxxfighting/rurality/blob/master/docs/develop/code_review.md)  
 
+### 代码片段样章
+[代码片段样章](https://github.com/bxxfighting/rurality/blob/master/docs/develop/examples.md)  
+
 ### 开发教程
 <details>
 <summary>第一章 美好生活的开启</summary>
