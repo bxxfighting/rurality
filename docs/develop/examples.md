@@ -6,7 +6,7 @@
 names = ['lisi', 'wanger', 'buxingxing', 'zhangsan', 'buxingxing']
 for name in names:
     if name == 'buxingxing':
-        print("卜星星可以吃饭")
+        print(f"{name}可以吃饭")
         # TODO
 ```
 
@@ -16,7 +16,7 @@ names = ['lisi', 'wanger', 'buxingxing', 'zhangsan', 'buxingxing']
 for name in names:
     if name != 'buxingxing':
         continue
-    print("卜星星可以吃饭")
+    print(f"{name}可以吃饭")
     # TODO
 ```
 > 如果是我，就会写成第二种，因为我认为这样写逻辑会更清晰，并且代码结构要更好看  
