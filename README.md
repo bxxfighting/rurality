@@ -9,6 +9,9 @@ Fork
 ##### 相关博客
 [博客地址](https://my.oschina.net/bxxfighting/blog/4939188)  
 
+### 代码审核
+[代码审核说明](https://github.com/bxxfighting/rurality/blob/master/docs/develop/code_review.md)  
+
 ### 先上教程
 <details>
 <summary>第一章 美好生活的开启</summary>
