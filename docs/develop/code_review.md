@@ -7,28 +7,28 @@
 # 如何解决
 
 ## 统一入口base/api.py  
-> 在这里统一增加接口认证，参数校验等操作  
-> 写接口只需要继承BaseApi即可  
+在这里统一增加接口认证，参数校验等操作  
+写接口只需要继承BaseApi即可  
 
 * 输入参数审核
 > 统一通过need_params来控制可接收的参数，并且指定各种限制，无需额外处理  
 > 在审核时，只需要查看need_params内容，即可一目了然  
 
 ## 统一基础模型base/models.py
-> 所有model统一继承BaseModel，所有表自动增加is_deleted字段  
-> 并且通过BaseManager自动过滤is_deleted=True(已经删除内容)  
-> 无需在业务逻辑中额外增加此操作，避免一些错误查询出现  
-> 在获取model内容，统一使用to_dict  
+所有model统一继承BaseModel，所有表自动增加is_deleted字段  
+并且通过BaseManager自动过滤is_deleted=True(已经删除内容)  
+无需在业务逻辑中额外增加此操作，避免一些错误查询出现  
+在获取model内容，统一使用to_dict  
 
 * 定义model审核 
 > 是否继承了BaseModel，一目了然  
 > 是否使用正确方法获取model内容  
 
 ## 统一基础方法base/controllers.py
-> 所有model的改动操作都统一使用base/controllers.py中的方法  
-> 包括create_obj/update_obj/delete_obj等  
-> 比如update_obj中统一处理dt_update的值变更  
-> 如果需要记录日志，可以在这里增加日志逻辑  
+所有model的改动操作都统一使用base/controllers.py中的方法  
+包括create_obj/update_obj/delete_obj等  
+比如update_obj中统一处理dt_update的值变更  
+如果需要记录日志，可以在这里增加日志逻辑  
 
 * 方法审核
 > 是否改动操作均使用了基础方法  
