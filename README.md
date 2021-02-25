@@ -148,10 +148,6 @@ darling: 达令
 * 服务配置管理(服务的业务配置/nginx配置等)
 * 工单审批(工单审批完成自动触发各种功能任务)
 
-### 赞助支持
-哈哈，支付宝收款码在此，一分不嫌少，一元不嫌多，就是图一个乐子  
-<img src="https://i.loli.net/2021/01/27/LPSvRCFqfI46xEY.jpg" width="300" hegiht="300" />
-
 [赞助名单](https://github.com/bxxfighting/rurality/blob/master/data/sponsor/README.md)
 
 ### 免责声明
