@@ -25,7 +25,7 @@
 * 克隆后端代码```git clone git@github.com:bxxfighting/rurality.git```
 * 安装python依赖库```pip install -r requirements.txt```
 * 导入sql文件```data/sql/rurality.sql```
-* python manager.py runserver 18000
+* python manage.py runserver 18000
 
 ##### 4. 运行前端服务
 
