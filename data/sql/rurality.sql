@@ -102,21 +102,6 @@ CREATE TABLE `berry` (
 ) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
--- Records of berry
--- ----------------------------
-BEGIN;
-INSERT INTO `berry` VALUES (1, '2020-12-30 10:52:20.220398', '2020-12-30 10:52:20.220467', 0, '同步ECS', '', 10, 10, '{}', NULL, 2, NULL, NULL, NULL, NULL, NULL, 0);
-INSERT INTO `berry` VALUES (2, '2021-01-12 03:52:19.579078', '2021-01-12 03:53:21.594369', 0, '同步ECS', 'b88c2875-2698-4b9c-b3f9-3f5b7314b8af', 30, 10, '{}', NULL, 2, NULL, '2021-01-12 03:52:19.573438', NULL, NULL, NULL, 10);
-INSERT INTO `berry` VALUES (3, '2021-01-12 05:44:21.535746', '2021-01-12 05:44:23.043060', 0, '同步ECS', 'b4cf0696-d5c9-47d3-aeb9-b8400e9a6ee2', 30, 10, '{}', NULL, 2, NULL, '2021-01-12 05:44:21.533234', NULL, NULL, NULL, 10);
-INSERT INTO `berry` VALUES (4, '2021-01-12 05:45:29.449114', '2021-01-12 05:45:30.283181', 0, '同步ECS', 'ce7b1d8e-deb0-4759-a1b3-40ff122023af', 30, 10, '{}', NULL, 2, '2021-01-12 05:45:30.278805', '2021-01-12 05:45:29.446215', 0, NULL, NULL, 10);
-INSERT INTO `berry` VALUES (5, '2021-01-12 05:48:20.340560', '2021-01-12 05:48:31.630000', 0, '同步ECS', 'f8018dee-423f-44fd-9b97-d08eab444b96', 30, 10, '{}', NULL, 2, '2021-01-12 05:48:31.624803', '2021-01-12 05:48:20.334096', 11, NULL, NULL, 10);
-INSERT INTO `berry` VALUES (8, '2021-01-13 12:09:45.221599', '2021-01-13 12:09:45.639656', 0, '同步代码库', '55b4f547-0197-4dd1-886e-467258bdf760', 20, 10, '{}', NULL, 8, NULL, '2021-01-13 12:09:45.216224', NULL, NULL, NULL, 10);
-INSERT INTO `berry` VALUES (9, '2021-01-13 12:10:09.053872', '2021-01-13 12:10:36.669966', 0, '同步代码库', '4f28b9fc-cc15-44b0-8b92-3226c0fe530b', 40, 10, '{}', NULL, 8, '2021-01-13 12:10:36.665844', '2021-01-13 12:10:09.046452', 27, 'Traceback (most recent call last):\n  File \"/Users/xx/workspace/rurality/scheduler/tasks/berry.py\", line 32, in apply_task\n    sync_task_route(berry_obj)\n  File \"/Users/xx/workspace/rurality/scheduler/tasks/berry.py\", line 80, in sync_task_route\n    base_ctl.update_obj(BerryModel, berry_id, data)\nNameError: name \'berry_id\' is not defined\n', NULL, 10);
-INSERT INTO `berry` VALUES (10, '2021-01-13 12:13:46.011653', '2021-01-13 12:14:11.676643', 0, '同步代码库', '01945945-4aa3-40ec-a380-960cc4fcbb77', 30, 10, '{}', NULL, 8, '2021-01-13 12:14:11.672140', '2021-01-13 12:13:46.009596', 25, NULL, NULL, 10);
-INSERT INTO `berry` VALUES (11, '2021-01-14 12:41:31.588840', '2021-01-14 12:41:49.697836', 0, '同步代码库', 'a2e7a9e6-35e7-4737-9dd6-c17737e1e6d1', 30, 10, '{}', NULL, 8, '2021-01-14 12:41:49.693042', '2021-01-14 12:41:31.586086', 18, NULL, NULL, 10);
-COMMIT;
-
--- ----------------------------
 -- Table structure for berry_type
 -- ----------------------------
 DROP TABLE IF EXISTS `berry_type`;
