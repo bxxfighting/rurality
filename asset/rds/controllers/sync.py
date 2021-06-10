@@ -24,6 +24,7 @@ def format_rds_data(data):
     net_typ = data.get('InstanceNetworkType')
     db_typ = data.get('DBInstanceType')
     typ = data.get('Engine')
+    connection = data.get('ConnectionString')
     version = data.get('EngineVersion')
     zone_id = data.get('ZoneId')
     region_id = data.get('RegionId')
@@ -37,6 +38,7 @@ def format_rds_data(data):
         'db_typ': db_typ,
         'typ': typ,
         'version': version,
+        'connection': connection,
         'zone_id': zone_id,
         'region_id': region_id,
     }
@@ -63,7 +65,7 @@ def sync_rdses():
             region_id = region.get('instance_id')
             ali_cli.reset_region(region_id)
             page_num = 1
-            page_size = 50
+            page_size = 100
             while True:
                 query = {
                     'page_num': page_num,
@@ -75,9 +77,6 @@ def sync_rdses():
                 for data in data_list:
                     data = format_rds_data(data)
                     instance_id = data.get('instance_id')
-                    attribute = ali_cli.get_rds_attribute(instance_id)
-                    if attribute:
-                        data['connection'] = attribute.get('ConnectionString')
                     obj = RdsModel.objects.filter(instance_id=instance_id).first()
                     if obj:
                         base_ctl.update_obj(RdsModel, obj.id, data)
@@ -108,7 +107,7 @@ def sync_rds_accounts():
         for rds_obj in rds_objs:
             ali_cli.reset_region(rds_obj.region_id)
             page_num = 1
-            page_size = 50
+            page_size = 100
             while True:
                 query = {
                     'page_num': page_num,
@@ -154,7 +153,7 @@ def sync_rds_databases():
         for rds_obj in rds_objs:
             ali_cli.reset_region(rds_obj.region_id)
             page_num = 1
-            page_size = 50
+            page_size = 100
             while True:
                 query = {
                     'page_num': page_num,

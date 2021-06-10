@@ -59,7 +59,7 @@ def sync_slbs():
             region_id = region.get('instance_id')
             ali_cli.reset_region(region_id)
             page_num = 1
-            page_size = 50
+            page_size = 100
             while True:
                 query = {
                     'page_num': page_num,
@@ -118,6 +118,9 @@ def sync_slb_backend_servers():
             for ecs in ecses:
                 ecs_instance_id = ecs.get('ServerId')
                 ecs_obj = EcsModel.objects.filter(instance_id=ecs_instance_id).first()
+                if not ecs_obj:
+                    print("不存在：", ecs)
+                    continue
                 weight = ecs.get('Weight')
                 obj = SlbServerGroupEcsModel.objects.filter(slb_id=slb_obj.id)\
                         .filter(server_group_id=group_obj.id, ecs_id=ecs_obj.id).first()
@@ -208,6 +211,9 @@ def sync_slb_vserver_group_backend_servers():
                 ecs_instance_id = ecs.get('ServerId')
                 weight = ecs.get('Weight')
                 ecs_obj = EcsModel.objects.filter(instance_id=ecs_instance_id).first()
+                if not ecs_obj:
+                    print("不存在：", ecs)
+                    continue
                 query = {
                     'slb_id': group_obj.slb_id,
                     'server_group_id': group_obj.id,

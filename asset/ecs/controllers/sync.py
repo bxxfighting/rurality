@@ -76,7 +76,7 @@ def sync_ecses():
         region_id = region.get('instance_id')
         ali_cli.reset_region(region_id)
         page_num = 1
-        page_size = 50
+        page_size = 100
         while True:
             query = {
                 'page_num': page_num,
