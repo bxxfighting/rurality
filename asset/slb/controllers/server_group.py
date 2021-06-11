@@ -30,6 +30,7 @@ def get_server_groups(slb_id=None, slb_instance_id=None, keyword=None, page_num=
     data_list = []
     for obj in objs:
         data = obj.to_dict()
+        data['ecs_count'] = SlbServerGroupEcsModel.objects.filter(server_group_id=obj.id).count()
         data['slb'] = obj.slb.to_dict()
         data_list.append(data)
     data = {
