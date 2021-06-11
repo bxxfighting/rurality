@@ -12,6 +12,7 @@ class AliyunVPC(AliyunCli):
     def get_vpcs(self, page_num=1, page_size=20):
         '''
         获取VPC列表
+        page_size: 最大值50
         '''
         request = DescribeVpcsRequest()
         request.set_accept_format('json')
@@ -32,6 +33,7 @@ class AliyunVPC(AliyunCli):
     def get_vswitches(self, vpc_instance_id, page_num=1, page_size=20):
         '''
         获取交换机列表
+        page_size: 最大值50
         '''
         request = DescribeVSwitchesRequest()
         request.set_accept_format('json')
