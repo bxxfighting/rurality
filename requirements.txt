@@ -20,7 +20,7 @@ click-didyoumean==0.0.3
 click-repl==0.1.6
 cryptography==3.2.1
 decorator==4.4.2
-Django==3.1.2
+Django==3.1.12
 django-cors-headers==3.5.0
 gevent==20.9.0
 greenlet==0.4.17
